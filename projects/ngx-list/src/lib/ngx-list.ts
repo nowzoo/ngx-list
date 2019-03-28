@@ -18,13 +18,13 @@ export class NgxList {
   private _records$: Observable<NgxListRecord[]>;
   private _params$: BehaviorSubject<NgxListParams>;
   private _sortFn: NgxListSortFn;
-  private _filterFns:  NgxListFilterFn[];
+  private _filterFns: NgxListFilterFn[];
 
   constructor(
     records$: Observable<NgxListRecord[]>,
     initialParams: NgxListParams = ngxListDefaultParams,
     sortFn: NgxListSortFn = ngxListSortFn,
-    filterFns:  NgxListFilterFn[] = []
+    filterFns: NgxListFilterFn[] = []
   ) {
     this._result$ = new BehaviorSubject({
       records: [],
@@ -36,7 +36,7 @@ export class NgxList {
       sortReversed: initialParams.sortReversed,
       recordsPerPage: initialParams.recordsPerPage,
       filterParams: initialParams.filterParams
-    })
+    });
     this._records$ = records$;
     this._params$ = new BehaviorSubject(initialParams);
     this._sortFn = sortFn;
@@ -50,7 +50,7 @@ export class NgxList {
     this._filterFns.forEach(filterFn => {
       results = results.filter(rec => {
         return filterFn(rec, params.filterParams);
-      })
+      });
     });
     results.sort((a: NgxListRecord, b: NgxListRecord) => {
       return this._sortFn(a, b, params.sortKey);
@@ -63,7 +63,7 @@ export class NgxList {
     const pagedRecords: NgxListRecord[][] = recordsPerPage > 0 ? chunk(results, recordsPerPage) : [results.slice(0)];
     const pageCount = pagedRecords.length;
     const page = Math.max(Math.min(toSafeInteger(params.page), pageCount - 1), 0);
-    const records: NgxListRecord[] = recordCount > 0 ? pagedRecords[page] : []
+    const records: NgxListRecord[] = recordCount > 0 ? pagedRecords[page] : [];
     const result: NgxListResult = {
       records, page, pageCount, recordCount, recordsPerPage,
       totalRecordCount: allRecords.length,

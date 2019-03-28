@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { NgxListComponent } from './ngx-list.component';
 
 @NgModule({
-  declarations: [NgxListComponent],
+  declarations: [],
   imports: [
   ],
-  exports: [NgxListComponent]
+  exports: []
 })
 export class NgxListModule { }
