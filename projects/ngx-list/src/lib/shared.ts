@@ -1,108 +1,178 @@
 import { Observable } from 'rxjs';
-export interface NgxListFilterParams {[filterKey: string]: any; }
-export interface NgxListRecord {[key: string]: any; }
 
-export type NgxListSortFn = (
-  a: NgxListRecord,
-  b: NgxListRecord,
-  sortColumn: string,
-  sortReversed: boolean,
-  columns: NgxListColumnDefinition[]
-) => number;
 
-export type NgxListFilterFn = (
-  rec: NgxListRecord,
-  params: NgxListFilterParams,
-  columns: NgxListColumnDefinition[]
-) => boolean;
-
-export type NgxListValueFn = (r: NgxListRecord) => any;
-export type NgListStringValueFn = (r: NgxListRecord) => string;
-
-export interface NgxListColumnDefinition {
-  columnKey: string;
-  valueFn?: NgxListValueFn;
-  stringValueFn?: NgListStringValueFn;
+export enum Compare {
+  /**
+   * Compare with ===
+   */
+  equals,
+  /**
+   * Compare with >=
+   */
+  gte,
+  /**
+   * Compare with >
+   */
+  gt,
+  /**
+   * Compare with <
+   */
+  lt,
+  /**
+   * Compare with <=
+   */
+  lte
 }
 
-export interface FilterDef {
+export interface Record {[key: string]: any; }
+
+export type FilterFn = (records: Record[], filterParams: {[filterKey: string]: any}) => Record[];
+
+export type SortFn = (records: Record[], sortColumn: string) => Record[];
+
+/**
+ * A function that, given a record and a column key,
+ * returns the value of the key for purposes of comparison,
+ * i.e. for sorting and filtering records.
+ *
+ * The function may return `undefined` for any column key.
+ * In that case we fall back to:
+ *  - for any value that is not a string, the raw value
+ *  - the strings, the lowercased value
+ */
+export type ColumnValueFn = (record: Record) => any;
+
+
+export interface SortFunctionOptions {
+
+  /**
+   * Optional. The column to use to sort records
+   * that are equal by the the current sortKey.
+   */
+  fallbackSortKey?: string;
+
+  /**
+   * Optional. Default true.
+   * If true, and if both record values are strings, the sort will happen case-insensitively
+   */
+  caseInsensitive?: boolean;
+
+  /**
+   * Optional.
+   * A map from column keys to functions that return the value to be sorted.
+   * All values are compared as strings.
+   */
+  valueFns?: {[key: string]: ColumnValueFn};
+
+}
+
+
+
+export interface SearchFilterOptions {
+  /**
+   * The key in filterParams. Set this with List.setFilterParam(filterKey: string, value: any)
+   */
   filterKey: string;
-  filterFn: NgxListFilterFn;
+  /**
+   * Optional. Default true.
+   *
+   */
+  caseInsensitive?: boolean;
+  /**
+   * Keys to ignore when searching
+   */
+  ignoreKeys?: string[];
+  /**
+   * Optional.
+   * A map from column keys to functions that return a value to be searched.
+   * All values are compared as strings.
+   */
+  valueFns?: {[key: string]: ColumnValueFn};
 }
 
 
-export interface NgxListParams {
+export interface FilterOptions {
+  /**
+   * The key in filterParams. Set this with List.setFilterParam(filterKey: string, value: any)
+   */
+  filterKey: string;
+  /**
+   * The column to compare
+   */
+  columnKey: string;
+  /**
+   * Optional. Default: null.
+   * The filter will not be run when filterParams[filterKey] is this value.
+   * By default, this will happen when you set filterParams[filterKey] to null.
+   */
+  ignoreWhenFilterIs?: any;
+  /**
+   * Optional. Comparison operator.
+   * Default: Compare.equals
+   */
+  compare?: Compare;
+  /**
+   * Optional. Function that returns the value to compare.
+   */
+  valueFn?: ColumnValueFn;
+  /**
+   * Optional. Default false.
+   * If set to true, all values are compared as case-insensitive strings
+   */
+  caseInsensitive?: boolean;
+}
+
+
+export interface ListParams {
   page: number;
   recordsPerPage: number;
   sortColumn: string;
   sortReversed: boolean;
-  filterParams: NgxListFilterParams;
+  filterParams: {[filterKey: string]: any};
 }
 
-
-export interface NgxListInit {
-  records$: Observable<NgxListRecord[]>;
-  columns: NgxListColumnDefinition[];
-  filters?: {[filterKey: string]: NgxListFilterFn};
-  initialParams?: NgxListParams;
+export interface ListInit {
+  src$: Observable<Record[]>;
+  filters?: FilterFn[];
+  sortFn?: SortFn;
+  initialParams?: {
+    page?: number;
+    recordsPerPage?: number;
+    sortColumn?: string;
+    sortReversed?: boolean;
+    filterParams?: {[filterKey: string]: any};
+  };
+  initiallyPaused?: boolean;
 }
 
+export interface ListResult {
+  records: Record[];
+  page: number;
+  pageCount: number;
+  recordsPerPage: number;
+  sortColumn: string;
+  sortReversed: boolean;
+  unfilteredRecordCount: number;
+  filterParams: {[filterKey: string]: any};
+}
 
-export interface NgxListResult {
-  readonly records: NgxListRecord[];
+export interface ListInterface {
+  readonly results$: Observable<ListResult>;
+  readonly currentResult: ListResult;
+  readonly records: Record[];
   readonly page: number;
   readonly pageCount: number;
-  readonly recordCount: number;
-  readonly totalRecordCount: number;
+  readonly recordsPerPage: number;
+  readonly unfilteredRecordCount: number;
+  readonly filterParams: {[filterKey: string]: any};
   readonly sortColumn: string;
   readonly sortReversed: boolean;
-  readonly recordsPerPage: number;
-  readonly filterParams: NgxListFilterParams;
-}
-
-export const ngxListSortFn: NgxListSortFn = (
-  a: NgxListRecord, b: NgxListRecord, sortColumn: string
-): number => {
-  const av = a[sortColumn] || null;
-  const bv = b[sortColumn] || null;
-  // return 0 if both are null or undefined
-  if (av === null && bv === null) {
-    return 0;
-  }
-  // b is before a if a is null or undefined
-  if (av === null) {
-    return 1;
-  }
-  // a is before b if b is null or undefined
-  if (bv === null) {
-    return -1;
-  }
-  // both exist, proceed as normal...
-  if (av === bv) {
-    return 0;
-  }
-  return av > bv ? 1 : -1;
-};
-
-
-
-
-
-export interface INgxList {
-  readonly result$: Observable<NgxListResult>;
-  readonly result: NgxListResult;
-  readonly page: number;
-  readonly recordsPerPage: number;
-  readonly sortColumn: string;
-  readonly sortReversed: boolean;
-  readonly filterParams: NgxListFilterParams;
-  readonly columns: NgxListColumnDefinition[];
-  readonly filters: {[filterKey: string]: NgxListFilterFn};
-  readonly records$: Observable<NgxListRecord[]>;
-  readonly initialParams: NgxListParams;
-  destroy(): void;
+  readonly paused: boolean;
+  start(): void;
+  stop(): void;
   setPage(page: number): void;
   setRecordsPerPage(recordsPerPage: number): void;
-  setSort(columnKey: string, reversed: boolean): void;
+  setSort(sortColumn: string, sortReversed: boolean): void;
+  setFilterParams(params: {[filterKey: string]: any} | null): void;
   setFilterParam(filterKey: string, value: any): void;
 }

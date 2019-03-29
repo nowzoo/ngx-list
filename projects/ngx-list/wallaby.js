@@ -5,7 +5,6 @@ var compilerOptions = Object.assign(
   require('./tsconfig.wallaby.spec.json').compilerOptions);
 
 compilerOptions.module = 'CommonJs';
-
 module.exports = function (wallaby) {
 
   var webpackPostprocessor = wallabyWebpack({
