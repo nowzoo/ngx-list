@@ -87,5 +87,13 @@ describe('Helpers', () => {
     });
   });
 
+  describe('chunk', () => {
+    it('should work as expected', () => {
+      expect(Helpers.chunk([], 10)).toEqual([]);
+      expect(Helpers.chunk(['a'], 10)).toEqual([['a']]);
+      expect(Helpers.chunk(['a', 'b', 'c'], 2)).toEqual([['a', 'b'], ['c']]);
+    });
+  });
+
 
 });

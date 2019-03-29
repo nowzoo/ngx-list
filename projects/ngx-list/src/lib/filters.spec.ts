@@ -6,7 +6,7 @@ import {
   SearchFilterOptions,
   FilterOptions,
   Compare
-} from './shared';
+} from './api';
 
 
 describe('searchFilter', () => {

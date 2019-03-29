@@ -9,7 +9,7 @@ import {
   ListInit,
   ListResult,
   ListInterface
-} from './shared';
+} from './api';
 
 export class List implements ListInterface {
 
@@ -69,6 +69,14 @@ export class List implements ListInterface {
     return this._paused$.value;
   }
 
+  get sortFn(): SortFn {
+    return this._sortFn;
+  }
+
+  get filters(): FilterFn[] {
+    return this._filters;
+  }
+
 
 
   start() {
@@ -109,7 +117,7 @@ export class List implements ListInterface {
 
   setFilterParam(filterKey: string, value: any) {
     const params = Object.assign({}, this._listParams$.value.filterParams);
-    if (value) {
+    if (undefined !== value) {
       params[filterKey] = value;
     } else {
       delete params[filterKey];

@@ -18,7 +18,7 @@ describe('Sort', () => {
     expect(result[1].name).toBe('Monkey');
     expect(result[2].name).toBe('Zebra');
   });
-  it('should obey fallbackSortKey if defined', () => {
+  it('should obey fallbackSortColumn if defined', () => {
     records = [
       {name: 'Zebra', id: 206},
       {name: 'zebra', id: 2},
@@ -26,7 +26,7 @@ describe('Sort', () => {
       {name: 'Aardvark', id: 8},
       {name: 'Monkey',  id: 9},
     ];
-    fn = Sort.sortFn({fallbackSortKey: 'id'});
+    fn = Sort.sortFn({fallbackSortColumn: 'id'});
     const result = fn(records, 'name');
     expect(result[0].name).toBe('Aardvark');
     expect(result[2].name).toBe('zebra');
@@ -42,7 +42,7 @@ describe('Sort', () => {
       {name: 'Aardvark', id: 8},
       {name: 'Monkey',  id: 9},
     ];
-    fn = Sort.sortFn({fallbackSortKey: 'id', valueFns: {name: () => 'a'}});
+    fn = Sort.sortFn({fallbackSortColumn: 'id', valueFns: {name: () => 'a'}});
     const result = fn(records, 'name');
     expect(result[0].name).toBe('zebra');
     expect(result[result.length - 1].name).toBe('Zebra');
@@ -56,12 +56,12 @@ describe('Sort', () => {
       {name: 'Aardvark', id: 8},
       {name: 'Monkey',  id: 9},
     ];
-    fn = Sort.sortFn({fallbackSortKey: 'id'});
+    fn = Sort.sortFn({fallbackSortColumn: 'id'});
     const result = fn(records, 'id');
     expect(result[0].name).toBe('zebra');
     expect(result[result.length - 1].name).toBe('Zebra');
   });
-  it('should work if no fallbackSortKey is provided', () => {
+  it('should work if no fallbackSortColumn is provided', () => {
     records = [
       {name: 'Zebra', id: 206},
       {name: 'zebra', id: 2},
@@ -73,7 +73,7 @@ describe('Sort', () => {
     const result = fn(records, 'name');
     expect(result[0].name).toBe('Aardvark');
   });
-  it('should work if the fallbackSortKey is the same as sortColumn', () => {
+  it('should work if the fallbackSortColumn is the same as sortColumn', () => {
     records = [
       {name: 'Zebra', id: 206},
       {name: 'zebra', id: 206},
@@ -81,11 +81,11 @@ describe('Sort', () => {
       {name: 'Aardvark', id: 8},
       {name: 'Monkey',  id: 9},
     ];
-    fn = Sort.sortFn({fallbackSortKey: 'id'});
+    fn = Sort.sortFn({fallbackSortColumn: 'id'});
     const result = fn(records, 'id');
     expect(result[0].name).toBe('zebrA');
   });
-  it('should work if the fallbackSortKey has a valueFn', () => {
+  it('should work if the fallbackSortColumn has a valueFn', () => {
     records = [
       {name: 'Zebra', id: 206},
       {name: 'zebra', id: 206},
@@ -93,7 +93,7 @@ describe('Sort', () => {
       {name: 'Aardvark', id: 8},
       {name: 'Monkey',  id: 9},
     ];
-    fn = Sort.sortFn({fallbackSortKey: 'id', valueFns: {id: (r) => r.id * 2}});
+    fn = Sort.sortFn({fallbackSortColumn: 'id', valueFns: {id: (r) => r.id * 2}});
     const result = fn(records, 'id');
     expect(result[0].name).toBe('zebrA');
   });
@@ -117,11 +117,22 @@ describe('Sort', () => {
       {name: 'Aardvark', id: 8},
       ,
     ];
-    fn = Sort.sortFn({caseInsensitive: true, fallbackSortKey: 'id'});
+    fn = Sort.sortFn({caseInsensitive: true, fallbackSortColumn: 'id'});
     const result = fn(records, 'name');
     expect(result[0].name).toBe('Aardvark');
     expect(result[1].name).toBe('aardvark');
     expect(result[2].name).toBe('Zebra');
+  });
+
+  it('should work if sortColumn is empty', () => {
+    records = [
+      {name: 'Zebra', id: 1},
+      {name: 'Aardvark',  id: 3},
+      {name: 'Monkey',  id: 5},
+    ];
+    fn = Sort.sortFn();
+    const result = fn(records);
+    expect(result[0].name).toBe('Zebra');
   });
 });
 
@@ -150,6 +161,5 @@ describe('compareValues(a: any, b: any, caseInsensitive: boolean)', () => {
     expect(Sort.compareValues(undefined, null, true)).toBe(0);
     expect(Sort.compareValues(undefined, 1, true)).toBe(1);
     expect(Sort.compareValues(1, undefined, true)).toBe(-1);
-
   });
 });

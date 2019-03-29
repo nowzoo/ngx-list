@@ -4,7 +4,7 @@ import {
   SearchFilterOptions,
   FilterOptions,
   Compare
-} from './shared';
+} from './api';
 import {
   Helpers
 } from './helpers';
@@ -33,7 +33,6 @@ export class Filters {
             Helpers.safeToString(options.valueFns[k](record)) :
             Helpers.safeToString(Helpers.get(record, k));
           const cased: string = options.caseInsensitive ? value.toLowerCase() : value;
-          console.log(cased, search);
           if (cased.indexOf(search) > -1) {
             matched = true;
           }

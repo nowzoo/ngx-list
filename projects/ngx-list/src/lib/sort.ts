@@ -2,7 +2,7 @@ import {
   Record,
   SortFn,
   SortFunctionOptions
-} from './shared';
+} from './api';
 import { Helpers } from './helpers';
 
 export class Sort {
@@ -19,11 +19,9 @@ export class Sort {
     if (bVal === null) {
       return -1;
     }
-    console.log(caseInsensitive, aVal, bVal);
     if (caseInsensitive && ('string' === typeof aVal) && ('string' === typeof bVal)) {
       const aStr = aVal.toLowerCase();
       const bStr = bVal.toLowerCase();
-      console.log('g');
       if (aStr === bStr) {
         return 0;
       }
@@ -41,18 +39,19 @@ export class Sort {
       valueFns: {}
     }, opts);
 
-    console.log(options.caseInsensitive);
-    console.log(opts.caseInsensitive);
-
     const fn: SortFn = (records: Record[], sortColumn: string): Record[] => {
       const sorted = records.slice();
+      if (! sortColumn) {
+        return sorted;
+      }
       const valueFn = options.valueFns[sortColumn] && 'function' === typeof options.valueFns[sortColumn] ?
         options.valueFns[sortColumn] : (record: Record) => Helpers.get(record, sortColumn, null);
 
-      const defaultValueFn = options.fallbackSortKey ?
-         options.valueFns[options.fallbackSortKey] && 'function' === typeof options.valueFns[options.fallbackSortKey] ?
-          options.valueFns[options.fallbackSortKey] : (record: Record) => Helpers.get(record, options.fallbackSortKey, null)
+      const defaultValueFn = options.fallbackSortColumn ?
+         options.valueFns[options.fallbackSortColumn] && 'function' === typeof options.valueFns[options.fallbackSortColumn] ?
+          options.valueFns[options.fallbackSortColumn] : (record: Record) => Helpers.get(record, options.fallbackSortColumn, null)
           : null;
+
 
       sorted.sort((a: Record, b: Record) => {
         const aVal = Helpers.orNull(valueFn(a));
@@ -64,7 +63,7 @@ export class Sort {
         if (! defaultValueFn) {
           return bySortKey;
         }
-        if (options.fallbackSortKey === sortColumn) {
+        if (options.fallbackSortColumn === sortColumn) {
           return bySortKey;
         }
         const aFallback = Helpers.orNull(defaultValueFn(a));

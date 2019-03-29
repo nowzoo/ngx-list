@@ -49,7 +49,7 @@ export interface SortFunctionOptions {
    * Optional. The column to use to sort records
    * that are equal by the the current sortKey.
    */
-  fallbackSortKey?: string;
+  fallbackSortColumn?: string;
 
   /**
    * Optional. Default true.
@@ -168,6 +168,8 @@ export interface ListInterface {
   readonly sortColumn: string;
   readonly sortReversed: boolean;
   readonly paused: boolean;
+  readonly sortFn: SortFn;
+  readonly filters: FilterFn[];
   start(): void;
   stop(): void;
   setPage(page: number): void;
