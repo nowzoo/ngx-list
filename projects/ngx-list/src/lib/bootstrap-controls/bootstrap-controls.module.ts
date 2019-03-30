@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxBootstrapListSortLinkComponent } from './sort-link/sort-link.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxListBootstrapSortLinkComponent } from './sort-link/sort-link.component';
+import { NgxListBootstrapSearchControlComponent } from './search-control/search-control.component';
 
 @NgModule({
   declarations: [
-    NgxBootstrapListSortLinkComponent
+    NgxListBootstrapSortLinkComponent,
+    NgxListBootstrapSearchControlComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
-    NgxBootstrapListSortLinkComponent
+    NgxListBootstrapSortLinkComponent,
+    NgxListBootstrapSearchControlComponent
   ]
 })
 export class BootstrapControlsModule { }
