@@ -1,15 +1,15 @@
 import {
-  Record,
-  SortFn,
-  SortFunctionOptions
+  NgxListRecord,
+  NgxListSortFn,
+  NgxListSortFunctionOptions
 } from './api';
-import { Helpers } from './helpers';
+import { NgxListHelpers } from './helpers';
 
-export class Sort {
+export class NgxListSort {
 
   static compareValues(a: any, b: any, caseInsensitive: boolean): number {
-    const aVal = Helpers.orNull(a);
-    const bVal = Helpers.orNull(b);
+    const aVal = NgxListHelpers.orNull(a);
+    const bVal = NgxListHelpers.orNull(b);
     if (aVal === null && bVal === null) {
       return 0;
     }
@@ -32,31 +32,32 @@ export class Sort {
     }
     return aVal > bVal ? 1 : -1;
   }
-  static sortFn(opts?: SortFunctionOptions): SortFn {
+  static sortFn(opts?: NgxListSortFunctionOptions): NgxListSortFn {
     opts = opts || {};
     const options = Object.assign({
       caseInsensitive: opts.caseInsensitive !== false,
       valueFns: {}
     }, opts);
 
-    const fn: SortFn = (records: Record[], sortColumn: string): Record[] => {
+    const fn: NgxListSortFn = (records: NgxListRecord[], sortColumn: string): NgxListRecord[] => {
       const sorted = records.slice();
       if (! sortColumn) {
         return sorted;
       }
       const valueFn = options.valueFns[sortColumn] && 'function' === typeof options.valueFns[sortColumn] ?
-        options.valueFns[sortColumn] : (record: Record) => Helpers.get(record, sortColumn, null);
+        options.valueFns[sortColumn] : (record: NgxListRecord) => NgxListHelpers.get(record, sortColumn, null);
 
       const defaultValueFn = options.fallbackSortColumn ?
          options.valueFns[options.fallbackSortColumn] && 'function' === typeof options.valueFns[options.fallbackSortColumn] ?
-          options.valueFns[options.fallbackSortColumn] : (record: Record) => Helpers.get(record, options.fallbackSortColumn, null)
+          options.valueFns[options.fallbackSortColumn] :
+            (record: NgxListRecord) => NgxListHelpers.get(record, options.fallbackSortColumn, null)
           : null;
 
 
-      sorted.sort((a: Record, b: Record) => {
-        const aVal = Helpers.orNull(valueFn(a));
-        const bVal = Helpers.orNull(valueFn(b));
-        const bySortKey = Sort.compareValues(aVal, bVal, options.caseInsensitive);
+      sorted.sort((a: NgxListRecord, b: NgxListRecord) => {
+        const aVal = NgxListHelpers.orNull(valueFn(a));
+        const bVal = NgxListHelpers.orNull(valueFn(b));
+        const bySortKey = NgxListSort.compareValues(aVal, bVal, options.caseInsensitive);
         if (bySortKey !== 0) {
           return bySortKey;
         }
@@ -66,9 +67,9 @@ export class Sort {
         if (options.fallbackSortColumn === sortColumn) {
           return bySortKey;
         }
-        const aFallback = Helpers.orNull(defaultValueFn(a));
-        const bFallback = Helpers.orNull(defaultValueFn(b));
-        return Sort.compareValues(aFallback, bFallback, options.caseInsensitive);
+        const aFallback = NgxListHelpers.orNull(defaultValueFn(a));
+        const bFallback = NgxListHelpers.orNull(defaultValueFn(b));
+        return NgxListSort.compareValues(aFallback, bFallback, options.caseInsensitive);
 
       });
       return sorted;

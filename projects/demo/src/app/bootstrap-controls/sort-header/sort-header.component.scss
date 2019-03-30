@@ -1,0 +1,27 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.sort-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: $gray-500;
+  &::after {
+    content: '';
+    width: 12px;
+    text-align: right;
+  }
+  &.active, &:hover, &:active {
+    color: $primary;
+  }
+  &.active.desc {
+    &::after {
+      content: '\25B4';
+    }
+  }
+  &.active.asc {
+    &::after {
+      content: '\25BE';
+    }
+  }
+}

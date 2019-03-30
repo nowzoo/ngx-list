@@ -1,34 +1,34 @@
 import { Observable } from 'rxjs';
 
 
-export enum Compare {
+export enum NgxListCompare {
   /**
-   * Compare with ===
+   * NgxListCompare with ===
    */
   equals,
   /**
-   * Compare with >=
+   * NgxListCompare with >=
    */
   gte,
   /**
-   * Compare with >
+   * NgxListCompare with >
    */
   gt,
   /**
-   * Compare with <
+   * NgxListCompare with <
    */
   lt,
   /**
-   * Compare with <=
+   * NgxListCompare with <=
    */
   lte
 }
 
-export interface Record {[key: string]: any; }
+export interface NgxListRecord {[key: string]: any; }
 
-export type FilterFn = (records: Record[], filterParams: {[filterKey: string]: any}) => Record[];
+export type NgxListFilterFn = (records: NgxListRecord[], filterParams: {[filterKey: string]: any}) => NgxListRecord[];
 
-export type SortFn = (records: Record[], sortColumn: string) => Record[];
+export type NgxListSortFn = (records: NgxListRecord[], sortColumn: string) => NgxListRecord[];
 
 /**
  * A function that, given a record and a column key,
@@ -40,10 +40,10 @@ export type SortFn = (records: Record[], sortColumn: string) => Record[];
  *  - for any value that is not a string, the raw value
  *  - the strings, the lowercased value
  */
-export type ColumnValueFn = (record: Record) => any;
+export type NgxListColumnValueFn = (record: NgxListRecord) => any;
 
 
-export interface SortFunctionOptions {
+export interface NgxListSortFunctionOptions {
 
   /**
    * Optional. The column to use to sort records
@@ -62,13 +62,13 @@ export interface SortFunctionOptions {
    * A map from column keys to functions that return the value to be sorted.
    * All values are compared as strings.
    */
-  valueFns?: {[key: string]: ColumnValueFn};
+  valueFns?: {[key: string]: NgxListColumnValueFn};
 
 }
 
 
 
-export interface SearchFilterOptions {
+export interface NgxListSearchFilterOptions {
   /**
    * The key in filterParams. Set this with List.setFilterParam(filterKey: string, value: any)
    */
@@ -87,11 +87,11 @@ export interface SearchFilterOptions {
    * A map from column keys to functions that return a value to be searched.
    * All values are compared as strings.
    */
-  valueFns?: {[key: string]: ColumnValueFn};
+  valueFns?: {[key: string]: NgxListColumnValueFn};
 }
 
 
-export interface FilterOptions {
+export interface NgxListFilterOptions {
   /**
    * The key in filterParams. Set this with List.setFilterParam(filterKey: string, value: any)
    */
@@ -108,13 +108,13 @@ export interface FilterOptions {
   ignoreWhenFilterIs?: any;
   /**
    * Optional. Comparison operator.
-   * Default: Compare.equals
+   * Default: NgxListCompare.equals
    */
-  compare?: Compare;
+  compare?: NgxListCompare;
   /**
    * Optional. Function that returns the value to compare.
    */
-  valueFn?: ColumnValueFn;
+  valueFn?: NgxListColumnValueFn;
   /**
    * Optional. Default false.
    * If set to true, all values are compared as case-insensitive strings
@@ -123,7 +123,7 @@ export interface FilterOptions {
 }
 
 
-export interface ListParams {
+export interface NgxListParams {
   page: number;
   recordsPerPage: number;
   sortColumn: string;
@@ -131,10 +131,10 @@ export interface ListParams {
   filterParams: {[filterKey: string]: any};
 }
 
-export interface ListInit {
-  src$: Observable<Record[]>;
-  filters?: FilterFn[];
-  sortFn?: SortFn;
+export interface NgxListInit {
+  src$: Observable<NgxListRecord[]>;
+  filters?: NgxListFilterFn[];
+  sortFn?: NgxListSortFn;
   initialParams?: {
     page?: number;
     recordsPerPage?: number;
@@ -145,8 +145,8 @@ export interface ListInit {
   initiallyPaused?: boolean;
 }
 
-export interface ListResult {
-  records: Record[];
+export interface NgxListResult {
+  records: NgxListRecord[];
   page: number;
   pageCount: number;
   recordsPerPage: number;
@@ -156,10 +156,10 @@ export interface ListResult {
   filterParams: {[filterKey: string]: any};
 }
 
-export interface ListInterface {
-  readonly results$: Observable<ListResult>;
-  readonly currentResult: ListResult;
-  readonly records: Record[];
+export interface NgxListInterface {
+  readonly results$: Observable<NgxListResult>;
+  readonly currentResult: NgxListResult;
+  readonly records: NgxListRecord[];
   readonly page: number;
   readonly pageCount: number;
   readonly recordsPerPage: number;
@@ -168,8 +168,8 @@ export interface ListInterface {
   readonly sortColumn: string;
   readonly sortReversed: boolean;
   readonly paused: boolean;
-  readonly sortFn: SortFn;
-  readonly filters: FilterFn[];
+  readonly sortFn: NgxListSortFn;
+  readonly filters: NgxListFilterFn[];
   start(): void;
   stop(): void;
   setPage(page: number): void;

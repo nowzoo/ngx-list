@@ -1,22 +1,21 @@
 import {
-  FilterFn,
-  Record,
-  SearchFilterOptions,
-  FilterOptions,
-  Compare
+  NgxListFilterFn,
+  NgxListRecord,
+  NgxListSearchFilterOptions,
+  NgxListFilterOptions,
+  NgxListCompare
 } from './api';
 import {
-  Helpers
+  NgxListHelpers
 } from './helpers';
 
-
-export class Filters {
-  static searchFilter(opts: SearchFilterOptions): FilterFn {
-    const options: SearchFilterOptions = Object.assign({
+export class NgxListFilters {
+  static searchFilter(opts: NgxListSearchFilterOptions): NgxListFilterFn {
+    const options: NgxListSearchFilterOptions = Object.assign({
       caseInsensitive: true, ignoreKeys: [], valueFns: {}
     }, opts);
-    const fn = (records: Record[], filterParams: {[filterKey: string]: any}): Record[] => {
-      let search: string = Helpers.ensureTrimmedString(filterParams[options.filterKey]);
+    const fn = (records: NgxListRecord[], filterParams: {[filterKey: string]: any}): NgxListRecord[] => {
+      let search: string = NgxListHelpers.ensureTrimmedString(filterParams[options.filterKey]);
       if (options.caseInsensitive) {
         search = search.toLowerCase();
       }
@@ -24,14 +23,14 @@ export class Filters {
         return records.slice();
       }
 
-      return records.filter((record: Record) => {
+      return records.filter((record: NgxListRecord) => {
         const keys = Object.keys(record).filter(k => options.ignoreKeys.indexOf(k) === -1);
         let matched = false;
         while (! matched && keys.length > 0) {
           const k = keys.shift();
           const value: string = options.valueFns[k] && 'function' === typeof options.valueFns[k] ?
-            Helpers.safeToString(options.valueFns[k](record)) :
-            Helpers.safeToString(Helpers.get(record, k));
+            NgxListHelpers.safeToString(options.valueFns[k](record)) :
+            NgxListHelpers.safeToString(NgxListHelpers.get(record, k));
           const cased: string = options.caseInsensitive ? value.toLowerCase() : value;
           if (cased.indexOf(search) > -1) {
             matched = true;
@@ -43,30 +42,30 @@ export class Filters {
     return fn;
   }
 
-  static comparisonFilter(opts: FilterOptions): FilterFn  {
-    const options: FilterOptions = Object.assign({
+  static comparisonFilter(opts: NgxListFilterOptions): NgxListFilterFn  {
+    const options: NgxListFilterOptions = Object.assign({
       ignoreWhenFilterIs: Object.keys(opts).indexOf('ignoreWhenFilterIs') > -1 ? opts.ignoreWhenFilterIs : null,
-      compare: Compare.equals,
-      valueFn: opts.valueFn && typeof opts.valueFn === 'function' ? opts.valueFn : (r: Record) => r[opts.columnKey],
+      compare: NgxListCompare.equals,
+      valueFn: opts.valueFn && typeof opts.valueFn === 'function' ? opts.valueFn : (r: NgxListRecord) => r[opts.columnKey],
       caseInsensitive: opts.caseInsensitive === true
     }, opts);
-    const fn: FilterFn = (records: Record[], filterParams: {[filterKey: string]: any}): Record[] => {
+    const fn: NgxListFilterFn = (records: NgxListRecord[], filterParams: {[filterKey: string]: any}): NgxListRecord[] => {
       const rawFilterValue = filterParams[options.filterKey];
       if (rawFilterValue === options.ignoreWhenFilterIs) {
         return records.slice(0);
       }
       const filterValue = options.caseInsensitive ?
-        Helpers.ensureTrimmedString(rawFilterValue).toLowerCase() : rawFilterValue;
-      return records.filter((record: Record) => {
+        NgxListHelpers.ensureTrimmedString(rawFilterValue).toLowerCase() : rawFilterValue;
+      return records.filter((record: NgxListRecord) => {
         const rawRecordValue = options.valueFn(record);
         const recordValue = options.caseInsensitive ?
-          Helpers.ensureTrimmedString(rawRecordValue).toLowerCase() : rawRecordValue;
+          NgxListHelpers.ensureTrimmedString(rawRecordValue).toLowerCase() : rawRecordValue;
         switch (options.compare) {
-          case Compare.equals: return recordValue === filterValue;
-          case Compare.gt: return recordValue > filterValue;
-          case Compare.gte: return recordValue >= filterValue;
-          case Compare.lt: return recordValue < filterValue;
-          case Compare.lte: return recordValue <= filterValue;
+          case NgxListCompare.equals: return recordValue === filterValue;
+          case NgxListCompare.gt: return recordValue > filterValue;
+          case NgxListCompare.gte: return recordValue >= filterValue;
+          case NgxListCompare.lt: return recordValue < filterValue;
+          case NgxListCompare.lte: return recordValue <= filterValue;
         }
         return false;
       });

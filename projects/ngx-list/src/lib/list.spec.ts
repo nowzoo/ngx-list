@@ -1,23 +1,23 @@
 import { BehaviorSubject } from 'rxjs';
 import {
-  Record,
-  ListInit
+  NgxListRecord,
+  NgxListInit
 } from './api';
-import { List } from './list';
+import { NgxList } from './list';
 
 
 
 
-describe('List', () => {
-  let recordSubject$: BehaviorSubject<Record[]>;
-  let init: ListInit;
-  let list: List;
+describe('NgxList', () => {
+  let recordSubject$: BehaviorSubject<NgxListRecord[]>;
+  let init: NgxListInit;
+  let list: NgxList;
   beforeEach(() => {
     recordSubject$ = new BehaviorSubject([]);
     init = {
       src$: recordSubject$.asObservable()
     };
-    list = new List(init);
+    list = new NgxList(init);
   });
   it('should create an instance', () => {
     expect(list).toBeTruthy();
@@ -58,19 +58,19 @@ describe('List', () => {
     it('should have paused', () => {
       expect(list.paused).toBe(false);
       init.initiallyPaused = true;
-      list = new List(init);
+      list = new NgxList(init);
       expect(list.paused).toBe(true);
     });
     it('should have sortFn', () => {
       expect(list.sortFn).toEqual(jasmine.any(Function));
       init.sortFn = (records) => records;
-      list = new List(init);
+      list = new NgxList(init);
       expect(list.sortFn).toBe(init.sortFn);
     });
     it('should have filters', () => {
       expect(list.filters).toEqual([]);
       init.filters = [(records) => records];
-      list = new List(init);
+      list = new NgxList(init);
       expect(list.filters).toBe(init.filters);
     });
   });

@@ -1,39 +1,39 @@
 import { Observable, BehaviorSubject, Subscription, combineLatest } from 'rxjs';
-import { Helpers } from './helpers';
-import { Sort } from './sort';
+import { NgxListHelpers } from './helpers';
+import { NgxListSort } from './sort';
 import {
-  FilterFn,
-  SortFn,
-  Record,
-  ListParams,
-  ListInit,
-  ListResult,
-  ListInterface
+  NgxListFilterFn,
+  NgxListSortFn,
+  NgxListRecord,
+  NgxListParams,
+  NgxListInit,
+  NgxListResult,
+  NgxListInterface
 } from './api';
 
-export class List implements ListInterface {
+export class NgxList implements NgxListInterface {
 
   private _subscription: Subscription = null;
-  private _listParams$: BehaviorSubject<ListParams>;
+  private _listParams$: BehaviorSubject<NgxListParams>;
   private _paused$: BehaviorSubject<boolean>;
-  private _result$: BehaviorSubject<ListResult>;
-  private _filters: FilterFn[];
-  private _sortFn: SortFn;
+  private _result$: BehaviorSubject<NgxListResult>;
+  private _filters: NgxListFilterFn[];
+  private _sortFn: NgxListSortFn;
 
 
-  constructor(init: ListInit) {
+  constructor(init: NgxListInit) {
     this._init(init);
   }
 
-  get results$(): Observable<ListResult> {
+  get results$(): Observable<NgxListResult> {
     return this._result$.asObservable();
   }
 
-  get currentResult(): ListResult {
+  get currentResult(): NgxListResult {
     return this._result$.value;
   }
 
-  get records(): Record[] {
+  get records(): NgxListRecord[] {
     return this.currentResult.records;
   }
 
@@ -69,11 +69,11 @@ export class List implements ListInterface {
     return this._paused$.value;
   }
 
-  get sortFn(): SortFn {
+  get sortFn(): NgxListSortFn {
     return this._sortFn;
   }
 
-  get filters(): FilterFn[] {
+  get filters(): NgxListFilterFn[] {
     return this._filters;
   }
 
@@ -126,11 +126,11 @@ export class List implements ListInterface {
   }
 
 
-  private _init(init: ListInit) {
+  private _init(init: NgxListInit) {
     this._filters = init.filters || [];
-    this._sortFn = init.sortFn || Sort.sortFn();
+    this._sortFn = init.sortFn || NgxListSort.sortFn();
     const params = init.initialParams || {};
-    const listParams: ListParams = {
+    const listParams: NgxListParams = {
       page: params.page || 0,
       recordsPerPage: params.recordsPerPage || 10,
       sortColumn: params.sortColumn || null,
@@ -139,7 +139,7 @@ export class List implements ListInterface {
     };
     this._listParams$ = new BehaviorSubject(listParams);
     this._paused$ = new BehaviorSubject(true === init.initiallyPaused);
-    const initialResult: ListResult = {
+    const initialResult: NgxListResult = {
       records: [], page: 0, pageCount: 0, unfilteredRecordCount: 0,
       recordsPerPage: listParams.recordsPerPage,
       sortColumn: listParams.sortColumn,
@@ -148,12 +148,12 @@ export class List implements ListInterface {
     };
     this._result$ = new BehaviorSubject(initialResult);
     this._subscription = combineLatest(init.src$, this._listParams$.asObservable(), this._paused$.asObservable())
-      .subscribe((results: [Record[], ListParams, boolean]) => {
+      .subscribe((results: [NgxListRecord[], NgxListParams, boolean]) => {
         this._update(...results);
       });
   }
 
-  private _update(srcRecords: Record[], listParams: ListParams, paused: boolean) {
+  private _update(srcRecords: NgxListRecord[], listParams: NgxListParams, paused: boolean) {
     if (paused) {
       return;
     }
@@ -161,20 +161,19 @@ export class List implements ListInterface {
     const {filterParams, sortColumn, sortReversed} = listParams;
 
     let results = srcRecords.slice(0);
-    this._filters.forEach((fn: FilterFn) => {
+    this._filters.forEach((fn: NgxListFilterFn) => {
       results = fn(results, filterParams);
     });
     results = this._sortFn(results, sortColumn);
     if (sortReversed) {
       results.reverse();
     }
-
     const recordsPerPage = Math.max(0, listParams.recordsPerPage);
-    const pages = recordsPerPage > 0 ? Helpers.chunk(results, recordsPerPage) : [results];
+    const pages = recordsPerPage > 0 ? NgxListHelpers.chunk(results, recordsPerPage) : [results];
     const pageCount = pages.length;
     const page = Math.min(pageCount - 1, Math.max(0, listParams.page));
     const records = pageCount > 0 ? pages[page] : [];
-    const result: ListResult = {
+    const result: NgxListResult = {
       records, page, pageCount, recordsPerPage, unfilteredRecordCount,
       filterParams, sortColumn, sortReversed
     };

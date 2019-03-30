@@ -1,0 +1,65 @@
+<ng-container *ngIf="result">
+
+  <div class="table-responsive" *ngIf="result.records.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            <app-sort-header [list]="list" columnKey="id">ID</app-sort-header>
+          </th>
+          <th>
+            <app-sort-header [list]="list" columnKey="firstName">First Name</app-sort-header>
+
+          </th>
+          <th>
+            <app-sort-header [list]="list" columnKey="lastName">Last Name</app-sort-header>
+          </th>
+          <th>
+            <app-sort-header [list]="list" columnKey="color">Color</app-sort-header>
+          </th>
+          <th>
+            <app-sort-header [list]="list" columnKey="age">Age</app-sort-header>
+
+          </th>
+          <th>
+            <app-sort-header [list]="list" columnKey="value" defaultReversed="true">Assessed Value</app-sort-header>
+
+          </th>
+          <th>
+            <app-sort-header [list]="list" columnKey="missing">Missing</app-sort-header>
+
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of result.records">
+          <td>
+            {{record.id}}
+          </td>
+          <td>
+            {{record.firstName}}
+          </td>
+          <td>
+            {{record.lastName}}
+          </td>
+          <td>
+            {{record.color}}
+          </td>
+          <td>
+            {{record.age}} months
+          </td>
+          <td>
+            ${{record.value | number:'1.2-2'}}
+          </td>
+          <td>
+            {{record.missing ? record.missing : 'none'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p *ngIf="result.records.length === 0" class="text-muted">No results found.</p>
+
+
+</ng-container>

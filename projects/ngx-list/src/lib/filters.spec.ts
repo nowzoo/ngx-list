@@ -1,11 +1,11 @@
-import { Filters } from './filters';
+import { NgxListFilters } from './filters';
 
 import {
-  FilterFn,
-  Record,
-  SearchFilterOptions,
-  FilterOptions,
-  Compare
+  NgxListFilterFn,
+  NgxListRecord,
+  NgxListSearchFilterOptions,
+  NgxListFilterOptions,
+  NgxListCompare
 } from './api';
 
 
@@ -19,16 +19,16 @@ describe('searchFilter', () => {
     ];
   });
   it('should return a function', () => {
-    expect(Filters.searchFilter({filterKey: 'search'})).toEqual(jasmine.any(Function));
+    expect(NgxListFilters.searchFilter({filterKey: 'search'})).toEqual(jasmine.any(Function));
   });
   describe('default options', () => {
     let searchFn: any;
     let filterParams: any;
-    let options: SearchFilterOptions;
+    let options: NgxListSearchFilterOptions;
     beforeEach(() => {
       options = {filterKey: 'search'};
       filterParams = {};
-      searchFn = Filters.searchFilter(options);
+      searchFn = NgxListFilters.searchFilter(options);
     });
     it('should return all the records if the search key is not set', () => {
       const results = searchFn(records, filterParams);
@@ -67,12 +67,12 @@ describe('searchFilter', () => {
   describe('passing caseInsensitive = false', () => {
     let searchFn: any;
     let filterParams: any;
-    let options: SearchFilterOptions;
+    let options: NgxListSearchFilterOptions;
     beforeEach(() => {
       options = {filterKey: 'search'};
       filterParams = {};
       options.caseInsensitive = false;
-      searchFn = Filters.searchFilter(options);
+      searchFn = NgxListFilters.searchFilter(options);
       records = [
         {name: 'Zebra', age: 4, bio: 'foo bar'},
         {name: 'Aardvark', age: 8, bio: 'baz bag'},
@@ -101,7 +101,7 @@ describe('searchFilter', () => {
     beforeEach(() => {
       filterParams = {};
       ageValueFn = (r: any) => (r.age * 2);
-      searchFn = Filters.searchFilter({filterKey: 'search', valueFns: {age: ageValueFn}});
+      searchFn = NgxListFilters.searchFilter({filterKey: 'search', valueFns: {age: ageValueFn}});
       records = [
         {name: 'Zebra', age: 4, bio: 'foo bar'},
         {name: 'Aardvark', age: 8, bio: 'baz bag'},
@@ -120,7 +120,7 @@ describe('searchFilter', () => {
     let filterParams: any;
     beforeEach(() => {
       filterParams = {};
-      searchFn = Filters.searchFilter({filterKey: 'search', ignoreKeys: ['bio']});
+      searchFn = NgxListFilters.searchFilter({filterKey: 'search', ignoreKeys: ['bio']});
       records = [
         {name: 'Zebra', age: 4, bio: 'foo bar'},
         {name: 'Aardvark', age: 8, bio: 'baz bag'},
@@ -137,9 +137,9 @@ describe('searchFilter', () => {
 });
 
 describe('searchFilter()', () => {
-  let options: FilterOptions;
-  let records: Record[];
-  let filterFn: FilterFn;
+  let options: NgxListFilterOptions;
+  let records: NgxListRecord[];
+  let filterFn: NgxListFilterFn;
   let filterParams: any;
   describe('filtering by a numeric column', () => {
     beforeEach(() => {
@@ -157,27 +157,27 @@ describe('searchFilter()', () => {
     });
     it('should return 1 rec for 8', () => {
       filterParams = {age: 8};
-      filterFn = Filters.comparisonFilter(options);
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, filterParams);
       expect(results.length).toBe(1);
     });
     it('should return 3 records for null', () => {
       filterParams = {age: null};
-      filterFn = Filters.comparisonFilter(options);
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, filterParams);
       expect(results.length).toBe(3);
     });
     it('should return 3 records for undefined if that is passed in ignoreWhenFilterIs', () => {
       filterParams = {};
       options.ignoreWhenFilterIs = undefined;
-      filterFn = Filters.comparisonFilter(options);
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, filterParams);
       expect(results.length).toBe(3);
     });
     it('should handle being passed a valueFn', () => {
       filterParams = {age: 16};
-      options.valueFn = (r: Record) => r.age * 2;
-      filterFn = Filters.comparisonFilter(options);
+      options.valueFn = (r: NgxListRecord) => r.age * 2;
+      filterFn = NgxListFilters.comparisonFilter(options);
       let results = filterFn(records, filterParams);
       expect(results.length).toBe(1);
       expect(results[0].name).toBe('Aardvark');
@@ -187,8 +187,8 @@ describe('searchFilter()', () => {
     });
     it('should handle lte', () => {
       filterParams = {age: 4};
-      options.compare = Compare.lte;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.lte;
+      filterFn = NgxListFilters.comparisonFilter(options);
       let results = filterFn(records, filterParams);
       expect(results.length).toBe(2);
       filterParams = {age: 8};
@@ -203,8 +203,8 @@ describe('searchFilter()', () => {
     });
     it('should handle lt', () => {
       filterParams = {age: 4};
-      options.compare = Compare.lt;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.lt;
+      filterFn = NgxListFilters.comparisonFilter(options);
       let results = filterFn(records, filterParams);
       expect(results.length).toBe(1);
       filterParams = {age: 8};
@@ -220,8 +220,8 @@ describe('searchFilter()', () => {
 
     it('should handle gte', () => {
       filterParams = {age: 4};
-      options.compare = Compare.gte;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.gte;
+      filterFn = NgxListFilters.comparisonFilter(options);
       let results = filterFn(records, filterParams);
       expect(results.length).toBe(2);
       filterParams = {age: 8};
@@ -237,8 +237,8 @@ describe('searchFilter()', () => {
 
     it('should handle gt', () => {
       filterParams = {age: 4};
-      options.compare = Compare.gt;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.gt;
+      filterFn = NgxListFilters.comparisonFilter(options);
       let results = filterFn(records, filterParams);
       expect(results.length).toBe(1);
       filterParams = {age: 8};
@@ -253,8 +253,8 @@ describe('searchFilter()', () => {
     });
     it('should handle some unknown compare', () => {
       filterParams = {age: 4};
-      options.compare = Compare.gt + 566;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.gt + 566;
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, filterParams);
       expect(results.length).toBe(0);
     });
@@ -274,37 +274,37 @@ describe('searchFilter()', () => {
 
     });
     it('should return only records which exactly match', () => {
-      filterFn = Filters.comparisonFilter(options);
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, {name: 'Zebra'});
       expect(results.length).toBe(1);
     });
     it('should compare insensitively if caseInsensitive is true', () => {
       options.caseInsensitive = true;
-      filterFn = Filters.comparisonFilter(options);
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, {name: 'zebra'});
       expect(results.length).toBe(1);
     });
     it('should handle lte', () => {
-      options.compare = Compare.lte;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.lte;
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, {name: 'Zebra'});
       expect(results.length).toBe(3);
     });
     it('should handle lt', () => {
-      options.compare = Compare.lt;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.lt;
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, {name: 'Zebra'});
       expect(results.length).toBe(2);
     });
     it('should handle gte', () => {
-      options.compare = Compare.gte;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.gte;
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, {name: 'Zebra'});
       expect(results.length).toBe(1);
     });
     it('should handle gt', () => {
-      options.compare = Compare.gt;
-      filterFn = Filters.comparisonFilter(options);
+      options.compare = NgxListCompare.gt;
+      filterFn = NgxListFilters.comparisonFilter(options);
       const results = filterFn(records, {name: 'Zebra'});
       expect(results.length).toBe(0);
     });

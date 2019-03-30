@@ -1,9 +1,9 @@
-export class Helpers {
+export class NgxListHelpers {
   static isNullOrUndefined(value: any): boolean {
     return typeof value === 'undefined' || null === value;
   }
   static orNull(value: any): any {
-    return Helpers.isNullOrUndefined(value) ? null : value;
+    return NgxListHelpers.isNullOrUndefined(value) ? null : value;
   }
 
   static ensureTrimmedString(val: any): string {
