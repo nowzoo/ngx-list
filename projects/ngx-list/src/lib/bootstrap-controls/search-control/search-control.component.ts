@@ -8,5 +8,7 @@ import { NgxListAbstractSearchControl } from '../../abstract-controls/search-con
 })
 export class NgxListBootstrapSearchControlComponent extends NgxListAbstractSearchControl {
   @Input() placeholder = 'Search...';
+  @Input() clearLabel = 'Clear';
   @Input() inputId = 'ngx-search-control';
+  @Input() bootstrapSize: 'sm' | 'lg' = null;
 }

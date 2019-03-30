@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import * as NgxList from '@nowzoo/ngx-list';
+import { NgxList, NgxListSort, NgxListFilters, NgxListInit, NgxListResult } from '@nowzoo/ngx-list';
 import { DataService, SockPair } from '../data.service';
 
 @Component({
@@ -9,26 +9,26 @@ import { DataService, SockPair } from '../data.service';
   styles: []
 })
 export class DemoComponent implements OnInit {
-
-  list: NgxList.List;
-  result: NgxList.ListResult = null;
+  id = 'demo-component-';
+  list: NgxList;
+  result: NgxListResult = null;
 
   constructor(
     private dataService: DataService
   ) { }
 
   ngOnInit() {
-    const listInit: NgxList.ListInit = {
+    const listInit: NgxListInit = {
       src$: this.dataService.data$,
       initialParams: {
         sortColumn: 'id'
       },
-      sortFn: NgxList.Sort.sortFn({caseInsensitive: true, fallbackSortColumn: 'id'}),
+      sortFn: NgxListSort.sortFn({caseInsensitive: true, fallbackSortColumn: 'id'}),
       filters: [
-
+        NgxListFilters.searchFilter({filterKey: 'search'})
       ]
     };
-    this.list = new NgxList.List(listInit);
+    this.list = new NgxList(listInit);
     this.list.results$.subscribe(result => this.result = result);
   }
 

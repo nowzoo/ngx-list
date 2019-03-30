@@ -1,32 +1,48 @@
 <ng-container *ngIf="result">
+  <div class="row">
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label [attr.for]="id + 'search-1'" class="sr-only">Search</label>
+        <ngx-list-bootstrap-search-control
+          [list]="list"
+          filterKey="search"
+          [inputId]="id + 'search-1'"
+          placeholder="Search socks..."
+          bootstrapSize="sm"></ngx-list-bootstrap-search-control>
+      </div>
+    </div>
+  </div>
 
   <div class="table-responsive" *ngIf="result.records.length > 0">
     <table class="table">
       <thead>
         <tr>
           <th>
-            <app-sort-header [list]="list" columnKey="id">ID</app-sort-header>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="id">ID</ngx-list-bootstrap-sort-link>
           </th>
           <th>
-            <app-sort-header [list]="list" columnKey="firstName">First Name</app-sort-header>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="firstName">First Name</ngx-list-bootstrap-sort-link>
 
           </th>
           <th>
-            <app-sort-header [list]="list" columnKey="lastName">Last Name</app-sort-header>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="lastName">Last Name</ngx-list-bootstrap-sort-link>
           </th>
           <th>
-            <app-sort-header [list]="list" columnKey="color">Color</app-sort-header>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="color">Color</ngx-list-bootstrap-sort-link>
           </th>
           <th>
-            <app-sort-header [list]="list" columnKey="age">Age</app-sort-header>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="age">Age</ngx-list-bootstrap-sort-link>
 
           </th>
           <th>
-            <app-sort-header [list]="list" columnKey="value" defaultReversed="true">Assessed Value</app-sort-header>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="value" defaultReversed="true">Assessed Value</ngx-list-bootstrap-sort-link>
 
           </th>
           <th>
-            <app-sort-header [list]="list" columnKey="missing">Missing</app-sort-header>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="missing">Missing</ngx-list-bootstrap-sort-link>
 
           </th>
         </tr>

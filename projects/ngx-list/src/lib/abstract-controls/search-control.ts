@@ -15,7 +15,9 @@ export class NgxListAbstractSearchControl extends NgxListAbstractControl impleme
     this._control = new FormControl('');
     this.list.results$
       .pipe(take(1))
-      .subscribe(this.onFirstResult);
+      .subscribe(result => {
+        this.onFirstResult(result);
+      });
   }
 
   onFirstResult(result: NgxListResult) {
@@ -25,7 +27,9 @@ export class NgxListAbstractSearchControl extends NgxListAbstractControl impleme
     this.control.valueChanges
       .pipe(debounceTime(this.debounce))
       .pipe(takeUntil(this._ngUnsubscribe))
-      .subscribe(this.onControlValueChange);
+      .subscribe((value) => {
+        this.onControlValueChange(value);
+      });
   }
 
   onControlValueChange(value: string) {

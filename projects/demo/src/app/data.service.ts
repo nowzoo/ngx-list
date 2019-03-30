@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+
 export interface SockPair {
   id: number;
   firstName: string;
@@ -41,16 +44,27 @@ export class DataService {
   }
 
 
-  constructor() {
-    for (let id = 1; id < 1234; id++ ) {
-      const firstName = DataService.randEl(DataService.firstNames);
-      const lastName = DataService.randEl(DataService.lastNames);
-      const missing = DataService.randEl(DataService.missing);
-      const color = DataService.randEl(DataService.colors);
-      const value = DataService.randNum(.01, 100.01);
-      const age = DataService.randInt(0, 100);
-      this.add({firstName, lastName, missing, value, age, color, id});
-    }
+  constructor(
+    private client: HttpClient
+  ) {
+
+    this.client.get('/assets/data.json')
+      .toPromise()
+      .then(r => {
+        this._data = r as SockPair[];
+        this._data$.next(this._data);
+      });
+
+    // for (let id = 1; id < 1234; id++ ) {
+    //   const firstName = DataService.randEl(DataService.firstNames);
+    //   const lastName = DataService.randEl(DataService.lastNames);
+    //   const missing = DataService.randEl(DataService.missing);
+    //   const color = DataService.randEl(DataService.colors);
+    //   const value = DataService.randNum(.01, 100.01);
+    //   const age = DataService.randInt(0, 100);
+    //   this.add({firstName, lastName, missing, value, age, color, id});
+    // }
+    // console.log(JSON.stringify(this._data));
   }
 
   get data$(): Observable<SockPair[]> {

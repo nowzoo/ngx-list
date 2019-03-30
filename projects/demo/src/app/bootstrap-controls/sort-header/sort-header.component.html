@@ -1,7 +1,0 @@
-<a href="#" *ngIf="result"
-  class="sort-link"
-  [class.active]="result.sortColumn === columnKey"
-  [class.asc]="result.sortColumn === columnKey && (!result.sortReversed)"
-  [class.desc]="result.sortColumn === columnKey && (result.sortReversed)">
-  <span><ng-content></ng-content></span>
-</a>

@@ -18,4 +18,4 @@ import { NgxListBootstrapSearchControlComponent } from './search-control/search-
     NgxListBootstrapSearchControlComponent
   ]
 })
-export class BootstrapControlsModule { }
+export class NgxListBootstrapControlsModule { }
