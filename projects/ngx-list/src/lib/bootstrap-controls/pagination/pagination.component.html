@@ -1,0 +1,69 @@
+<ul class="pagination"
+  [class.pagination-sm]="'sm' === bootstrapSize"
+  [class.pagination-lg]="'lg' === bootstrapSize">
+  <ng-container *ngIf="firstLast">
+    <li class="page-item" [class.disabled]="result.page <= 0">
+      <a
+        class="page-link"
+        href="#"
+        [attr.aria-label]="normalizedLabels.firstTitle"
+        [attr.title]="normalizedLabels.firstTitle"
+        (click)="setPage(0, $event)"
+        [innerHTML]="normalizedLabels.firstHTML"></a>
+    </li>
+  </ng-container>
+  <ng-container *ngIf="prevNext">
+    <li class="page-item" [class.disabled]="result.page <= 0">
+      <a
+        class="page-link"
+        href="#"
+        [attr.aria-label]="normalizedLabels.prevTitle"
+        [attr.title]="normalizedLabels.prevTitle"
+        (click)="setPage(result.page - 1, $event)"
+        [innerHTML]="normalizedLabels.prevHTML"></a>
+    </li>
+  </ng-container>
+  <ng-container *ngFor="let p of btns">
+    <ng-container *ngIf="p === result.page">
+      <li class="page-item active" aria-current="page">
+        <span
+          class="page-link"
+          [attr.aria-label]="normalizedLabels.currentTitle"
+          [attr.title]="normalizedLabels.currentTitle">
+          {{p + 1}}
+          <span class="sr-only">{{normalizedLabels.currentTitle}}</span>
+        </span>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="p !== result.page">
+      <li class="page-item">
+        <a
+          class="page-link" href="#"
+          role="button"
+          (click)="setPage(p, $event)">{{p + 1}}</a>
+      </li>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="prevNext">
+    <li class="page-item" [class.disabled]="result.page >= result.pageCount - 1">
+      <a
+        class="page-link"
+        href="#"
+        [attr.aria-label]="normalizedLabels.nextTitle"
+        [attr.title]="normalizedLabels.nextTitle"
+        (click)="setPage(result.page + 1, $event)"
+        [innerHTML]="normalizedLabels.nextHTML"></a>
+    </li>
+  </ng-container>
+  <ng-container *ngIf="firstLast">
+    <li class="page-item" [class.disabled]="result.page >= result.pageCount - 1">
+      <a
+        class="page-link"
+        href="#"
+        [attr.aria-label]="normalizedLabels.lastTitle"
+        [attr.title]="normalizedLabels.lastTitle"
+        (click)="setPage(result.pageCount - 1, $event)"
+        [innerHTML]="normalizedLabels.lastHTML"></a>
+    </li>
+  </ng-container>
+</ul>

@@ -11,6 +11,8 @@ export * from './lib/abstract-controls/control';
 export * from './lib/abstract-controls/search-control';
 export * from './lib/abstract-controls/sort-link';
 
+export * from './lib/bootstrap-controls/pagination-slider/pagination-slider.component';
+export * from './lib/bootstrap-controls/pagination/pagination.component';
 export * from './lib/bootstrap-controls/sort-link/sort-link.component';
 export * from './lib/bootstrap-controls/search-control/search-control.component';
 export * from './lib/bootstrap-controls/bootstrap-controls.module';

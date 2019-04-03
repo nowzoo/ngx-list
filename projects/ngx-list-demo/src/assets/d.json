@@ -1,0 +1,1146 @@
+[
+	{
+		"firstName": "Kipper",
+		"lastName": "Gormless",
+		"purchased": {
+			"date": 1259194694046,
+			"price": 86.61896212299582
+		},
+		"color": "gray",
+		"missing": null,
+		"lastWorn": 1383152116813,
+		"currentValue": 48.650498393462314,
+		"id": 232
+	},
+	{
+		"firstName": "Milo",
+		"lastName": "Milk",
+		"purchased": {
+			"date": 1514258225622,
+			"price": 61.12017802640508
+		},
+		"color": "blue",
+		"missing": null,
+		"lastWorn": 1521236420761,
+		"currentValue": 3.7495213997249754,
+		"id": 233
+	},
+	{
+		"firstName": "Eve",
+		"lastName": "Chipperson",
+		"purchased": {
+			"date": 1390154239458,
+			"price": 64.48304245355492
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1458304415690,
+		"currentValue": 0.6658727344953874,
+		"id": 234
+	},
+	{
+		"firstName": "Catty",
+		"lastName": "Roswell",
+		"purchased": {
+			"date": 1421913283275,
+			"price": 83.76434529463452
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1534515514849,
+		"currentValue": 15.541240433506843,
+		"id": 235
+	},
+	{
+		"firstName": "Zippy",
+		"lastName": "Norbart",
+		"purchased": {
+			"date": 1335138529121,
+			"price": 3.875286311426139
+		},
+		"color": "blue",
+		"missing": null,
+		"lastWorn": 1405982455483,
+		"currentValue": 66.92423855555676,
+		"id": 236
+	},
+	{
+		"firstName": "Ratty",
+		"lastName": "Babbit",
+		"purchased": {
+			"date": 1440011706813,
+			"price": 23.49609215178907
+		},
+		"color": "blue",
+		"missing": null,
+		"lastWorn": 1539705080564,
+		"currentValue": 20.39900688779972,
+		"id": 237
+	},
+	{
+		"firstName": "Gerard",
+		"lastName": "Polka-Dot",
+		"purchased": {
+			"date": 1455165715399,
+			"price": 63.79327627114439
+		},
+		"color": "black",
+		"missing": null,
+		"lastWorn": 1524745674107,
+		"currentValue": 80.73364230603819,
+		"id": 238
+	},
+	{
+		"firstName": "Ursula",
+		"lastName": "Oglethorpe",
+		"purchased": {
+			"date": 1452834854905,
+			"price": 35.99270101588373
+		},
+		"color": "brown",
+		"missing": null,
+		"lastWorn": 1552519609120,
+		"currentValue": 48.67768365353739,
+		"id": 239
+	},
+	{
+		"firstName": "Alfreðsína",
+		"lastName": "Jewel",
+		"purchased": {
+			"date": 1405464266815,
+			"price": 82.04855114180097
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1528740662065,
+		"currentValue": 41.57548248603391,
+		"id": 240
+	},
+	{
+		"firstName": "Pappy",
+		"lastName": "Jewel",
+		"purchased": {
+			"date": 1435818682967,
+			"price": 81.14333453202288
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1459985400784,
+		"currentValue": 46.69564085452171,
+		"id": 241
+	},
+	{
+		"firstName": "Foo",
+		"lastName": "Bull",
+		"purchased": {
+			"date": 1240366914743,
+			"price": 20.785784857435512
+		},
+		"color": "gray",
+		"missing": null,
+		"lastWorn": 1258321445852,
+		"currentValue": 33.419470741440136,
+		"id": 242
+	},
+	{
+		"firstName": "Charles",
+		"lastName": "Maxwell",
+		"purchased": {
+			"date": 1473538099749,
+			"price": 64.48948081056871
+		},
+		"color": "orange",
+		"missing": null,
+		"lastWorn": 1530721888073,
+		"currentValue": 99.97351993887492,
+		"id": 243
+	},
+	{
+		"firstName": "Catty",
+		"lastName": "Vogel",
+		"purchased": {
+			"date": 1413104093688,
+			"price": 11.95939816498118
+		},
+		"color": "brown",
+		"missing": null,
+		"lastWorn": 1506332753320,
+		"currentValue": 88.20964286777398,
+		"id": 244
+	},
+	{
+		"firstName": "Kipper",
+		"lastName": "Maxwell",
+		"purchased": {
+			"date": 1260128290792,
+			"price": 19.37397889232829
+		},
+		"color": "turquoise",
+		"missing": null,
+		"lastWorn": 1519933184960,
+		"currentValue": 51.01162535697461,
+		"id": 245
+	},
+	{
+		"firstName": "Prudence",
+		"lastName": "Bull",
+		"purchased": {
+			"date": 1315530654648,
+			"price": 60.00156861282943
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1319523563942,
+		"currentValue": 11.495591277803063,
+		"id": 246
+	},
+	{
+		"firstName": "Hera",
+		"lastName": "Soxy",
+		"purchased": {
+			"date": 1475902056420,
+			"price": 79.6943239715866
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1502927503176,
+		"currentValue": 61.34939795193966,
+		"id": 247
+	},
+	{
+		"firstName": "Alfreðsína",
+		"lastName": "Cotton",
+		"purchased": {
+			"date": 1378355437625,
+			"price": 65.7321490788882
+		},
+		"color": "brown",
+		"missing": null,
+		"lastWorn": 1386200695249,
+		"currentValue": 19.076474152860534,
+		"id": 248
+	},
+	{
+		"firstName": "Agða",
+		"lastName": "Zebra",
+		"purchased": {
+			"date": 1332593593263,
+			"price": 66.03236166944772
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1463957906213,
+		"currentValue": 9.643195190310362,
+		"id": 249
+	},
+	{
+		"firstName": "Anna",
+		"lastName": "Hound",
+		"purchased": {
+			"date": 1422956214479,
+			"price": 20.15871969715927
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1467306294095,
+		"currentValue": 96.38566043888972,
+		"id": 250
+	},
+	{
+		"firstName": "Adam",
+		"lastName": "Jamon",
+		"purchased": {
+			"date": 1504664893793,
+			"price": 24.72470252629626
+		},
+		"color": "orange",
+		"missing": null,
+		"lastWorn": 1548367729236,
+		"currentValue": 66.30105933954282,
+		"id": 251
+	},
+	{
+		"firstName": "Indra",
+		"lastName": "Babbit",
+		"purchased": {
+			"date": 1366721351068,
+			"price": 31.52297119063921
+		},
+		"color": "green",
+		"missing": null,
+		"lastWorn": 1531551125687,
+		"currentValue": 67.129361206748,
+		"id": 252
+	},
+	{
+		"firstName": "Howard",
+		"lastName": "Arugala",
+		"purchased": {
+			"date": 1322632489481,
+			"price": 67.7933319309521
+		},
+		"color": "brown",
+		"missing": "left",
+		"lastWorn": 1456643064878,
+		"currentValue": 53.99606757788866,
+		"id": 253
+	},
+	{
+		"firstName": "Ross",
+		"lastName": "Fender-Bender",
+		"purchased": {
+			"date": 1425495554035,
+			"price": 18.006289013780318
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1519939129811,
+		"currentValue": 39.39515038452601,
+		"id": 254
+	},
+	{
+		"firstName": "Pappy",
+		"lastName": "Wren",
+		"purchased": {
+			"date": 1294377915606,
+			"price": 39.26165852451077
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1337323712850,
+		"currentValue": 32.27094183679235,
+		"id": 255
+	},
+	{
+		"firstName": "Zippy",
+		"lastName": "Glube",
+		"purchased": {
+			"date": 1292330253013,
+			"price": 87.48423886144882
+		},
+		"color": "black",
+		"missing": null,
+		"lastWorn": 1535362853585,
+		"currentValue": 12.269534546025863,
+		"id": 256
+	},
+	{
+		"firstName": "Adela",
+		"lastName": "Wellington",
+		"purchased": {
+			"date": 1379957376071,
+			"price": 44.173545369763026
+		},
+		"color": "black",
+		"missing": null,
+		"lastWorn": 1439141210796,
+		"currentValue": 60.02569273124121,
+		"id": 257
+	},
+	{
+		"firstName": "Tatty",
+		"lastName": "Hound",
+		"purchased": {
+			"date": 1372919005723,
+			"price": 95.27137357515194
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1402044892028,
+		"currentValue": 16.06772878882299,
+		"id": 258
+	},
+	{
+		"firstName": "Eve",
+		"lastName": "Lambswool",
+		"purchased": {
+			"date": 1544915941225,
+			"price": 43.928013109551564
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1554095392829,
+		"currentValue": 56.971479549966794,
+		"id": 259
+	},
+	{
+		"firstName": "Indra",
+		"lastName": "Pokey",
+		"purchased": {
+			"date": 1403303191089,
+			"price": 88.51696882857186
+		},
+		"color": "brown",
+		"missing": "left",
+		"lastWorn": 1468556009901,
+		"currentValue": 62.821059342352804,
+		"id": 260
+	},
+	{
+		"firstName": "Zippy",
+		"lastName": "Oglethorpe",
+		"purchased": {
+			"date": 1315846639846,
+			"price": 37.32236158836321
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1484506202293,
+		"currentValue": 8.131287727993652,
+		"id": 261
+	},
+	{
+		"firstName": "Agða",
+		"lastName": "Andrews",
+		"purchased": {
+			"date": 1394767619268,
+			"price": 22.11821224197105
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1482125142661,
+		"currentValue": 52.95855050656637,
+		"id": 262
+	},
+	{
+		"firstName": "Osgard",
+		"lastName": "Keats",
+		"purchased": {
+			"date": 1514755968174,
+			"price": 90.63929241940511
+		},
+		"color": "black",
+		"missing": null,
+		"lastWorn": 1527064679230,
+		"currentValue": 17.167532237970985,
+		"id": 263
+	},
+	{
+		"firstName": "Ross",
+		"lastName": "Maxwell",
+		"purchased": {
+			"date": 1453561007985,
+			"price": 27.57022437569125
+		},
+		"color": "white",
+		"missing": "left",
+		"lastWorn": 1500136319270,
+		"currentValue": 40.371807665411794,
+		"id": 264
+	},
+	{
+		"firstName": "Siggy",
+		"lastName": "Parsnip",
+		"purchased": {
+			"date": 1370424819891,
+			"price": 14.197410976066509
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1497577230000,
+		"currentValue": 39.020939926135576,
+		"id": 265
+	},
+	{
+		"firstName": "Yorkie",
+		"lastName": "Fassbinder",
+		"purchased": {
+			"date": 1438477463805,
+			"price": 76.455721092971
+		},
+		"color": "gray",
+		"missing": null,
+		"lastWorn": 1547121286179,
+		"currentValue": 25.164090992104526,
+		"id": 266
+	},
+	{
+		"firstName": "Sandra",
+		"lastName": "Angle",
+		"purchased": {
+			"date": 1421915284830,
+			"price": 56.55261744975086
+		},
+		"color": "brown",
+		"missing": null,
+		"lastWorn": 1510757297305,
+		"currentValue": 43.92400702764381,
+		"id": 267
+	},
+	{
+		"firstName": "Vanity",
+		"lastName": "Milk",
+		"purchased": {
+			"date": 1323458956635,
+			"price": 2.5458804693654837
+		},
+		"color": "turquoise",
+		"missing": "left",
+		"lastWorn": 1341317085004,
+		"currentValue": 78.11377101683397,
+		"id": 268
+	},
+	{
+		"firstName": "Siggy",
+		"lastName": "Soxy",
+		"purchased": {
+			"date": 1252981612851,
+			"price": 54.046635007863514
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1430795295956,
+		"currentValue": 21.251468905973383,
+		"id": 269
+	},
+	{
+		"firstName": "Prudence",
+		"lastName": "Norbart",
+		"purchased": {
+			"date": 1293732961857,
+			"price": 80.14079790906885
+		},
+		"color": "turquoise",
+		"missing": null,
+		"lastWorn": 1525147232495,
+		"currentValue": 98.8300674462916,
+		"id": 270
+	},
+	{
+		"firstName": "Gerard",
+		"lastName": "Oglethorpe",
+		"purchased": {
+			"date": 1242356216916,
+			"price": 51.0105671877116
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1411990574082,
+		"currentValue": 46.08370879674146,
+		"id": 271
+	},
+	{
+		"firstName": "Kipper",
+		"lastName": "Parsnip",
+		"purchased": {
+			"date": 1364792502133,
+			"price": 68.12174419638328
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1474814182574,
+		"currentValue": 39.911051616310075,
+		"id": 272
+	},
+	{
+		"firstName": "Nipper",
+		"lastName": "Lambswool",
+		"purchased": {
+			"date": 1353224227824,
+			"price": 80.53143189535294
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1531037832685,
+		"currentValue": 93.4066174067374,
+		"id": 273
+	},
+	{
+		"firstName": "Tom",
+		"lastName": "Wombley",
+		"purchased": {
+			"date": 1266042952525,
+			"price": 55.48653619877384
+		},
+		"color": "green",
+		"missing": null,
+		"lastWorn": 1405091469413,
+		"currentValue": 6.7691251292725685,
+		"id": 274
+	},
+	{
+		"firstName": "Charles",
+		"lastName": "Milk",
+		"purchased": {
+			"date": 1258834892580,
+			"price": 85.2322808078545
+		},
+		"color": "brown",
+		"missing": null,
+		"lastWorn": 1404114952461,
+		"currentValue": 90.99411798965382,
+		"id": 275
+	},
+	{
+		"firstName": "Addý",
+		"lastName": "Lambswool",
+		"purchased": {
+			"date": 1522307817917,
+			"price": 44.68091793506201
+		},
+		"color": "orange",
+		"missing": null,
+		"lastWorn": 1537718641229,
+		"currentValue": 12.197686205226876,
+		"id": 276
+	},
+	{
+		"firstName": "Nipper",
+		"lastName": "Yeats",
+		"purchased": {
+			"date": 1260718961285,
+			"price": 44.51071238168581
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1268995962914,
+		"currentValue": 58.97666308437917,
+		"id": 277
+	},
+	{
+		"firstName": "Portia",
+		"lastName": "Chipperson",
+		"purchased": {
+			"date": 1525051811972,
+			"price": 11.030798287616108
+		},
+		"color": "gray",
+		"missing": null,
+		"lastWorn": 1539445228754,
+		"currentValue": 34.98836126156011,
+		"id": 278
+	},
+	{
+		"firstName": "George",
+		"lastName": "Wombley",
+		"purchased": {
+			"date": 1331661519366,
+			"price": 60.445593446919176
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1524399389382,
+		"currentValue": 28.308295023541064,
+		"id": 279
+	},
+	{
+		"firstName": "Addbjörg",
+		"lastName": "Jamon",
+		"purchased": {
+			"date": 1326221667923,
+			"price": 27.79978202141127
+		},
+		"color": "green",
+		"missing": null,
+		"lastWorn": 1395465743178,
+		"currentValue": 60.47335194315462,
+		"id": 280
+	},
+	{
+		"firstName": "Candide",
+		"lastName": "Finch",
+		"purchased": {
+			"date": 1276132010239,
+			"price": 57.78187493206698
+		},
+		"color": "orange",
+		"missing": "right",
+		"lastWorn": 1312215352841,
+		"currentValue": 2.800135371641943,
+		"id": 281
+	},
+	{
+		"firstName": "Hedda",
+		"lastName": "Nabob",
+		"purchased": {
+			"date": 1439454984097,
+			"price": 9.789552530157145
+		},
+		"color": "turquoise",
+		"missing": null,
+		"lastWorn": 1478047379189,
+		"currentValue": 70.28824848352211,
+		"id": 282
+	},
+	{
+		"firstName": "Ásmundur",
+		"lastName": "Finch",
+		"purchased": {
+			"date": 1423886490043,
+			"price": 83.23512228977808
+		},
+		"color": "pink",
+		"missing": "right",
+		"lastWorn": 1530000043909,
+		"currentValue": 57.084485637145434,
+		"id": 283
+	},
+	{
+		"firstName": "Kipper",
+		"lastName": "Fender-Bender",
+		"purchased": {
+			"date": 1515501564403,
+			"price": 84.67410029376343
+		},
+		"color": "orange",
+		"missing": null,
+		"lastWorn": 1546256767344,
+		"currentValue": 65.01248043220735,
+		"id": 284
+	},
+	{
+		"firstName": "Anna",
+		"lastName": "Lambswool",
+		"purchased": {
+			"date": 1508165005354,
+			"price": 48.803052232432755
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1511209074152,
+		"currentValue": 1.302421841126078,
+		"id": 285
+	},
+	{
+		"firstName": "Nate",
+		"lastName": "Harpy",
+		"purchased": {
+			"date": 1522261450937,
+			"price": 20.60345788311583
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1546587061077,
+		"currentValue": 92.89339173036507,
+		"id": 286
+	},
+	{
+		"firstName": "Yogi",
+		"lastName": "Turnip",
+		"purchased": {
+			"date": 1371931512400,
+			"price": 23.808914349909706
+		},
+		"color": "red",
+		"missing": "right",
+		"lastWorn": 1416267087842,
+		"currentValue": 41.60601137652353,
+		"id": 287
+	},
+	{
+		"firstName": "Eric",
+		"lastName": "Lambswool",
+		"purchased": {
+			"date": 1482748847585,
+			"price": 75.8236006731328
+		},
+		"color": "orange",
+		"missing": null,
+		"lastWorn": 1529025488232,
+		"currentValue": 78.30669445016633,
+		"id": 288
+	},
+	{
+		"firstName": "Foo",
+		"lastName": "Socko",
+		"purchased": {
+			"date": 1399516480505,
+			"price": 31.5583336049853
+		},
+		"color": "blue",
+		"missing": null,
+		"lastWorn": 1482673206340,
+		"currentValue": 4.015502728462117,
+		"id": 289
+	},
+	{
+		"firstName": "Peter",
+		"lastName": "Rabbit",
+		"purchased": {
+			"date": 1353414089228,
+			"price": 86.97665257053822
+		},
+		"color": "orange",
+		"missing": null,
+		"lastWorn": 1541927887743,
+		"currentValue": 16.312528227258415,
+		"id": 290
+	},
+	{
+		"firstName": "Kipper",
+		"lastName": "Cotton",
+		"purchased": {
+			"date": 1304779491599,
+			"price": 82.47684697287401
+		},
+		"color": "gray",
+		"missing": null,
+		"lastWorn": 1447136993298,
+		"currentValue": 75.32470497858303,
+		"id": 291
+	},
+	{
+		"firstName": "Addbjörg",
+		"lastName": "Lambswool",
+		"purchased": {
+			"date": 1394516524783,
+			"price": 20.975178561691852
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1427603357503,
+		"currentValue": 90.9718253492834,
+		"id": 292
+	},
+	{
+		"firstName": "Zippy",
+		"lastName": "Jamison",
+		"purchased": {
+			"date": 1553973726766,
+			"price": 60.998457034371526
+		},
+		"color": "red",
+		"missing": "left",
+		"lastWorn": 1554058515050,
+		"currentValue": 60.33451742416869,
+		"id": 293
+	},
+	{
+		"firstName": "Nipper",
+		"lastName": "Cotton",
+		"purchased": {
+			"date": 1251650121884,
+			"price": 15.178764174298452
+		},
+		"color": "blue",
+		"missing": "left",
+		"lastWorn": 1430605613746,
+		"currentValue": 40.16244202990891,
+		"id": 294
+	},
+	{
+		"firstName": "Addbjörg",
+		"lastName": "Lloyd",
+		"purchased": {
+			"date": 1327569413560,
+			"price": 7.234732466131101
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1358555073061,
+		"currentValue": 43.885010441519135,
+		"id": 295
+	},
+	{
+		"firstName": "Siggy",
+		"lastName": "Lambswool",
+		"purchased": {
+			"date": 1458328265470,
+			"price": 86.899951625206
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1541062437327,
+		"currentValue": 29.537625180332803,
+		"id": 296
+	},
+	{
+		"firstName": "Kimmy",
+		"lastName": "Stripey",
+		"purchased": {
+			"date": 1533346514751,
+			"price": 65.08059527488588
+		},
+		"color": "brown",
+		"missing": null,
+		"lastWorn": 1534947943457,
+		"currentValue": 76.47089036171681,
+		"id": 297
+	},
+	{
+		"firstName": "Solomon",
+		"lastName": "Plaid",
+		"purchased": {
+			"date": 1343657113236,
+			"price": 69.23856304104945
+		},
+		"color": "blue",
+		"missing": "right",
+		"lastWorn": 1426602124136,
+		"currentValue": 50.796775417999605,
+		"id": 298
+	},
+	{
+		"firstName": "Addú",
+		"lastName": "Yarny",
+		"purchased": {
+			"date": 1452860987094,
+			"price": 22.188625157880985
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1462472783079,
+		"currentValue": 4.069604845913455,
+		"id": 299
+	},
+	{
+		"firstName": "Tatiana",
+		"lastName": "Gormless",
+		"purchased": {
+			"date": 1239620257883,
+			"price": 72.34285948057699
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1412117280149,
+		"currentValue": 78.39859054833755,
+		"id": 300
+	},
+	{
+		"firstName": "Herod",
+		"lastName": "Soxy",
+		"purchased": {
+			"date": 1465308776031,
+			"price": 69.15011711936555
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1476201858874,
+		"currentValue": 3.030666584741115,
+		"id": 301
+	},
+	{
+		"firstName": "Herod",
+		"lastName": "Parterre",
+		"purchased": {
+			"date": 1418443011587,
+			"price": 75.74935485050226
+		},
+		"color": "turquoise",
+		"missing": null,
+		"lastWorn": 1523349291069,
+		"currentValue": 77.14683590375222,
+		"id": 302
+	},
+	{
+		"firstName": "Herod",
+		"lastName": "Pokey",
+		"purchased": {
+			"date": 1323794795357,
+			"price": 42.442257988441206
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1484308374935,
+		"currentValue": 17.03646422250509,
+		"id": 303
+	},
+	{
+		"firstName": "Foo",
+		"lastName": "Parterre",
+		"purchased": {
+			"date": 1473406930516,
+			"price": 17.476373866043772
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1553911009454,
+		"currentValue": 32.87281066305805,
+		"id": 304
+	},
+	{
+		"firstName": "Ásmundur",
+		"lastName": "Norbart",
+		"purchased": {
+			"date": 1389010607851,
+			"price": 52.26028226192298
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1518838030739,
+		"currentValue": 19.873013960942743,
+		"id": 305
+	},
+	{
+		"firstName": "Tatty",
+		"lastName": "Bull",
+		"purchased": {
+			"date": 1451599105311,
+			"price": 41.26759951412638
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1514726545229,
+		"currentValue": 98.73235601404168,
+		"id": 306
+	},
+	{
+		"firstName": "Knute",
+		"lastName": "Oglethorpe",
+		"purchased": {
+			"date": 1513811760618,
+			"price": 56.23986025970816
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1521906220679,
+		"currentValue": 38.69373733686863,
+		"id": 307
+	},
+	{
+		"firstName": "Charles",
+		"lastName": "Gormless",
+		"purchased": {
+			"date": 1333241936468,
+			"price": 62.61806098856683
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1356345658195,
+		"currentValue": 23.111909273289054,
+		"id": 308
+	},
+	{
+		"firstName": "Addý",
+		"lastName": "Polka-Dot",
+		"purchased": {
+			"date": 1461902999064,
+			"price": 13.339323849929356
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1508303641245,
+		"currentValue": 73.67173970746848,
+		"id": 309
+	},
+	{
+		"firstName": "Addý",
+		"lastName": "Wellington",
+		"purchased": {
+			"date": 1476244497702,
+			"price": 87.4914444387167
+		},
+		"color": "gray",
+		"missing": null,
+		"lastWorn": 1528510207126,
+		"currentValue": 17.12099099161639,
+		"id": 310
+	},
+	{
+		"firstName": "Tatiana",
+		"lastName": "Stripey",
+		"purchased": {
+			"date": 1413214702896,
+			"price": 47.1752042599605
+		},
+		"color": "red",
+		"missing": null,
+		"lastWorn": 1423123009031,
+		"currentValue": 94.70955360650662,
+		"id": 311
+	},
+	{
+		"firstName": "Zappy",
+		"lastName": "Jamison",
+		"purchased": {
+			"date": 1353409254003,
+			"price": 20.994778827435898
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1518693140008,
+		"currentValue": 92.12670556072267,
+		"id": 312
+	},
+	{
+		"firstName": "Charles",
+		"lastName": "Martin",
+		"purchased": {
+			"date": 1444949806705,
+			"price": 87.87361439280143
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1495757035445,
+		"currentValue": 36.797837129665886,
+		"id": 313
+	},
+	{
+		"firstName": "Eve",
+		"lastName": "Finch",
+		"purchased": {
+			"date": 1247737529299,
+			"price": 9.17385197575685
+		},
+		"color": "blue",
+		"missing": null,
+		"lastWorn": 1335638355703,
+		"currentValue": 55.212927427405646,
+		"id": 314
+	},
+	{
+		"firstName": "Foo",
+		"lastName": "Fender-Bender",
+		"purchased": {
+			"date": 1265865726085,
+			"price": 78.12455867002761
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1334831367522,
+		"currentValue": 15.497389149639563,
+		"id": 315
+	},
+	{
+		"firstName": "Betty",
+		"lastName": "Landers",
+		"purchased": {
+			"date": 1264566074611,
+			"price": 45.16354560768025
+		},
+		"color": "white",
+		"missing": null,
+		"lastWorn": 1545891700335,
+		"currentValue": 32.99513038094683,
+		"id": 316
+	},
+	{
+		"firstName": "Roger",
+		"lastName": "Turnip",
+		"purchased": {
+			"date": 1322008404812,
+			"price": 49.025154124991
+		},
+		"color": "green",
+		"missing": null,
+		"lastWorn": 1512362598555,
+		"currentValue": 46.85985261631276,
+		"id": 317
+	},
+	{
+		"firstName": "Sunny",
+		"lastName": "Cotton",
+		"purchased": {
+			"date": 1336852841924,
+			"price": 39.44402728061183
+		},
+		"color": "violet",
+		"missing": null,
+		"lastWorn": 1553438806614,
+		"currentValue": 12.700376084673536,
+		"id": 318
+	},
+	{
+		"firstName": "Lettuce",
+		"lastName": "Parsnip",
+		"purchased": {
+			"date": 1394382343080,
+			"price": 33.61597981475111
+		},
+		"color": "pink",
+		"missing": null,
+		"lastWorn": 1483195003211,
+		"currentValue": 96.85978169560138,
+		"id": 319
+	}
+]

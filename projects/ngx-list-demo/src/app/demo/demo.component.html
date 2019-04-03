@@ -1,7 +1,26 @@
 <ng-container *ngIf="result">
   <div class="row">
     <div class="col-md-6">
-      <app-pagination [list]="list" inputId="foo-bar-2"></app-pagination>
+      <div class="form-group">
+        <label for="showMissingFilter">Missing...</label>
+        <select class="form-control" [formControl]="missingSelect" id="showMissingFilter">
+          <option value="">All Socks (don't filter by missing)</option>
+          <option value="none">Missing none</option>
+          <option value="left">Missing left</option>
+          <option value="right">Missing right</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="purchasePriceSelect">Purchase Price...</label>
+        <select class="form-control" [formControl]="purchasePriceSelect" id="purchasePriceSelect">
+          <option value="">All Socks (don't filter by price)</option>
+          <option value="<10">Less than $10</option>
+          <option value=">=10">$10 - $24.99</option>
+          <option value=">=25">$25 - $49.99</option>
+          <option value=">=50">$50 - $99.99</option>
+          <option value=">=100">More than $100</option>
+        </select>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
@@ -16,31 +35,42 @@
     </div>
   </div>
   <label for="foo-bar">Page</label>
-  <app-pagination-slider [list]="list" inputId="foo-bar"></app-pagination-slider>
+  <ngx-list-bootstrap-pagination-slider [list]="list" inputId="foo-bar"></ngx-list-bootstrap-pagination-slider>
 
   <div class="table-responsive" *ngIf="result.records.length > 0">
-    <table class="table">
+    <table class="table table-striped table-sm">
       <thead>
         <tr>
           <th>
             <ngx-list-bootstrap-sort-link [list]="list" columnKey="id">ID</ngx-list-bootstrap-sort-link>
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="firstName">First Name</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="name">Sock Name</ngx-list-bootstrap-sort-link>
 
           </th>
-          <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="lastName">Last Name</ngx-list-bootstrap-sort-link>
-          </th>
+
           <th>
             <ngx-list-bootstrap-sort-link [list]="list" columnKey="color">Color</ngx-list-bootstrap-sort-link>
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="age">Age</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort-link [list]="list"
+            columnKey="lastWorn">Last Worn</ngx-list-bootstrap-sort-link>
 
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="value" defaultReversed="true">Assessed Value</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort-link [list]="list"
+              columnKey="purchased.date">Purchased</ngx-list-bootstrap-sort-link>
+
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list"
+              defaultReversed="true"
+              columnKey="purchased.price">Price</ngx-list-bootstrap-sort-link>
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link
+            [list]="list" columnKey="currentValue"
+            defaultReversed="true">Current Value</ngx-list-bootstrap-sort-link>
 
           </th>
           <th>
@@ -55,19 +85,22 @@
             {{record.id}}
           </td>
           <td>
-            {{record.firstName}}
-          </td>
-          <td>
-            {{record.lastName}}
+            {{record.firstName}} {{record.lastName}}
           </td>
           <td>
             {{record.color}}
           </td>
           <td>
-            {{record.age}} months
+            {{record.lastWorn | amDateFormat:'ll'}}
           </td>
           <td>
-            ${{record.value | number:'1.2-2'}}
+            {{record.purchased.date | amDateFormat:'ll'}}
+          </td>
+          <td>
+            ${{record.purchased.price | number:'1.2-2'}}
+          </td>
+          <td>
+            ${{record.currentValue | number:'1.2-2'}}
           </td>
           <td>
             {{record.missing ? record.missing : 'none'}}
@@ -79,5 +112,7 @@
 
   <p *ngIf="result.records.length === 0" class="text-muted">No results found.</p>
 
+  <ngx-list-bootstrap-pagination
+  [list]="list" bootstrapSize="sm" maxAdjacent="2"></ngx-list-bootstrap-pagination>
 
 </ng-container>

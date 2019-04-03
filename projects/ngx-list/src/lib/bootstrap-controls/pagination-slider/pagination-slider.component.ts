@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { NgxListAbstractControl } from '@nowzoo/ngx-list';
-@Component({
-  selector: 'app-pagination-slider',
-  templateUrl: './pagination-slider.component.html',
-  styleUrls: ['pagination-slider.component.scss'],
+import { NgxListAbstractControl } from '../../abstract-controls/control';
 
+@Component({
+  selector: 'ngx-list-bootstrap-pagination-slider',
+  templateUrl: './pagination-slider.component.html',
+  styleUrls: ['./pagination-slider.component.scss']
 })
 export class PaginationSliderComponent extends NgxListAbstractControl implements OnInit {
   @Input() inputId: string;
@@ -13,8 +13,6 @@ export class PaginationSliderComponent extends NgxListAbstractControl implements
   sliderPage  = -1;
   sliding = false;
   pageInputValue = 0;
-
-
 
   get pageInput(): HTMLInputElement {
     return this.pageInputElementRef.nativeElement;
@@ -32,14 +30,14 @@ export class PaginationSliderComponent extends NgxListAbstractControl implements
   }
 
 
-  onRangeChange(event: Event) {
-    this.list.setPage(parseInt((event as any).target.value, 10));
+  onRangeChange() {
+    this.list.setPage(parseInt(this.pageInput.value, 10));
     this.sliderPage = -1;
     this.sliding = false;
   }
 
-  onRangeInput(event: Event) {
-    this.sliderPage = parseInt((event as any).target.value, 10);
+  onRangeInput() {
+    this.sliderPage = parseInt(this.pageInput.value, 10);
     this.sliding = true;
   }
 

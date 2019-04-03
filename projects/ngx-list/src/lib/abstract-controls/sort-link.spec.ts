@@ -13,7 +13,8 @@ describe('NgxListAbstractSortLink', () => {
     beforeEach(() => {
       event = {preventDefault: jasmine.createSpy()};
       list = {setSort: jasmine.createSpy()};
-      result = {filterParams: {}, page: 0, pageCount: 1, records: [{foo: 8}], recordsPerPage: 10,
+      result = {filterParams: {}, page: 0, pageCount: 1,
+        recordCount: 1, records: [{foo: 8}], recordsPerPage: 10,
         sortColumn: 'id', sortReversed: false, unfilteredRecordCount: 1};
       sortLink = new NgxListAbstractSortLink();
       sortLink.columnKey = 'foo';

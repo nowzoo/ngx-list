@@ -199,7 +199,7 @@ export class NgxList  {
    */
   setRecordsPerPage(recordsPerPage: number): void {
     recordsPerPage = Math.max(0, recordsPerPage);
-    this._listParams$.next(Object.assign({}, this._listParams$.value, {recordsPerPage}));
+    this._listParams$.next(Object.assign({}, this._listParams$.value, {recordsPerPage, page: 0}));
   }
 
   /**
@@ -208,7 +208,7 @@ export class NgxList  {
    * @param sortReversed Pass `false` for 'ascending', `true` for 'descending'
    */
   setSort(sortColumn: string, sortReversed: boolean): void {
-    this._listParams$.next(Object.assign({}, this._listParams$.value, {sortColumn, sortReversed}));
+    this._listParams$.next(Object.assign({}, this._listParams$.value, {sortColumn, sortReversed, page: 0}));
   }
 
   /**
@@ -218,7 +218,7 @@ export class NgxList  {
    */
   setFilterParams(params: NgxListFilterParams | null) {
     const filterParams = params || {};
-    this._listParams$.next(Object.assign({}, this._listParams$.value, {filterParams}));
+    this._listParams$.next(Object.assign({}, this._listParams$.value, {filterParams, page: 0}));
   }
 
   /**
