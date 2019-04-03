@@ -1,7 +1,7 @@
 import { NgxListAbstractSearchControl } from './search-control';
 import { BehaviorSubject } from 'rxjs';
 import { NgxList } from '../list';
-import { NgxListResult } from '../api';
+import { NgxListResult } from '../shared';
 import { FormControl } from '@angular/forms';
 import { fakeAsync, tick } from '@angular/core/testing';
 

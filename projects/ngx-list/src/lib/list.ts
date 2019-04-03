@@ -1,17 +1,18 @@
 import { Observable, BehaviorSubject, Subscription, combineLatest } from 'rxjs';
-import { NgxListHelpers } from './helpers';
 import { NgxListSort } from './sort';
 import {
   NgxListFilterFn,
   NgxListSortFn,
   NgxListRecord,
-  NgxListParams,
   NgxListInit,
   NgxListResult,
-  NgxListInterface
-} from './api';
+  NgxListFilterParams,
+  NgxListParams
+} from './shared';
+import chunk from 'lodash/chunk';
 
-export class NgxList implements NgxListInterface {
+
+export class NgxList  {
 
   private _subscription: Subscription = null;
   private _listParams$: BehaviorSubject<NgxListParams>;
@@ -20,74 +21,161 @@ export class NgxList implements NgxListInterface {
   private _filters: NgxListFilterFn[];
   private _sortFn: NgxListSortFn;
 
-
+  /**
+   * Create an instance of NgxList with an {@link NgxListInit} object with the
+   * following (mostly optional) properties:
+   *
+   * - `src$: Observable<NgxListRecord[]` Required. The source of your list
+   * records, such as from a data API or just `of([{a: 1}, {b: 2}])`
+   * - `filters?: NgxListFilterFn[]` Optional. An array of filter functions.
+   * You can easily create search and comparison filters with the factory
+   * methods provided by {@link NgxListFilters}: [searchFilter]{@link NgxListFilters#searchFilter}
+   * and [comparisonFilter]{@link NgxListFilters#comparisonFilter}, or roll your own filters.
+   * - `sortFn?: NgxListSortFn` Optional. If omitted, a sorting function will be created for you
+   * using the {@link NgxListSort} [sortFn]{@link NgxListSort#sortFn} factory method
+   *
+   * Passing your own sort function:
+   *
+   *    const mySort = (records) => {
+   *       const sorted = records.slice(0);
+   *       sorted.reverse();
+   *       return sorted;
+   *    }
+   *    const list = new NgxList({src$: myApi.getRecords(), sortFn: mySort});
+   *
+   *
+   */
   constructor(init: NgxListInit) {
     this._init(init);
   }
 
+  /**
+   * An observable of {@link NgxListResult}.
+   */
   get results$(): Observable<NgxListResult> {
     return this._result$.asObservable();
   }
 
+  /**
+   * The latest {@link NgxListResult}.
+   */
   get currentResult(): NgxListResult {
     return this._result$.value;
   }
 
+  /**
+   * The records that belong to the current page.
+   */
   get records(): NgxListRecord[] {
     return this.currentResult.records;
   }
 
+  /**
+   * The current page number, zero-based. If there are records, this
+   * will be between `0` and `[pageCount]{@link NgxList#pageCount} - 1`.
+   * If there are no records, it will be `-1`.
+   */
   get page(): number {
     return this.currentResult.page;
   }
 
+  /**
+   * The current number of pages.
+   */
   get pageCount(): number {
     return this.currentResult.pageCount;
   }
 
+  /**
+   * The current recordsPerPage.
+   */
   get recordsPerPage(): number {
     return this.currentResult.recordsPerPage;
   }
 
+  /**
+   * The number of records after applying filters.
+   */
+  get recordCount(): number {
+    return this.currentResult.recordCount;
+  }
+
+  /**
+   * The number of records before applying filters.
+   */
   get unfilteredRecordCount(): number {
     return this.currentResult.unfilteredRecordCount;
   }
 
-  get filterParams(): {[filterKey: string]: any} {
+  /**
+   * The current filter params.
+   */
+  get filterParams(): NgxListFilterParams {
     return this.currentResult.filterParams;
   }
 
+  /**
+   * The current sort column.
+   */
   get sortColumn(): string {
     return this.currentResult.sortColumn;
   }
 
+  /**
+   * Whether or not the list is sorted in reverse ('desending')  order.
+   */
   get sortReversed(): boolean {
     return this.currentResult.sortReversed;
   }
 
+  /**
+   * Whether the list has been paused, ether because you
+   * set `initiallyPaused: true` in the  {@link NgxListInit} you passed
+   * to the [constructor]{@link NgxList#constructor},
+   * or because you have called [stop()]{@link NgxList#stop}.
+   */
   get paused(): boolean {
     return this._paused$.value;
   }
 
+  /**
+   * The sorting function that was passed to, or created by, the constructor.
+   */
   get sortFn(): NgxListSortFn {
     return this._sortFn;
   }
 
+  /**
+   * The filter functions.
+   */
   get filters(): NgxListFilterFn[] {
     return this._filters;
   }
 
 
-
-  start() {
+  /**
+   * Starts or restarts updating the list.
+   * You don't have to call this unless you have
+   * passed `initiallyPaused: true` in the  {@link NgxListInit} you passed
+   * to the [constructor]{@link NgxList#constructor},
+   * or have previously called [stop()]{@link NgxList#stop}.
+   */
+  start(): void {
     this._paused$.next(false);
   }
 
-  stop() {
+  /**
+   * Stop updating the list.
+   */
+  stop(): void {
     this._paused$.next(true);
   }
 
-  destroy() {
+  /**
+   * Unsubscribes from the list source and cleans up.
+   * Make sure to call this in your component's `ngOnDestroy` method.
+   */
+  destroy(): void {
     this._subscription.unsubscribe();
     this._paused$.complete();
     this._listParams$.complete();
@@ -96,25 +184,46 @@ export class NgxList implements NgxListInterface {
   }
 
 
-  setPage(page: number) {
-    page = Math.min(0, page);
+  /**
+   * Set the page to be displayed. Zero-based.
+   * @param page The page number.
+   */
+  setPage(page: number): void {
+    page = Math.max(0, page);
     this._listParams$.next(Object.assign({}, this._listParams$.value, {page}));
   }
 
-  setRecordsPerPage(recordsPerPage: number) {
-    recordsPerPage = Math.min(0, recordsPerPage);
+  /**
+   * Set the recordsPerPage. Pass `0` for unpaged (all records appear on the first page.)
+   * @param recordsPerPage The number of records per page.
+   */
+  setRecordsPerPage(recordsPerPage: number): void {
+    recordsPerPage = Math.max(0, recordsPerPage);
     this._listParams$.next(Object.assign({}, this._listParams$.value, {recordsPerPage}));
   }
 
-  setSort(sortColumn: string, sortReversed: boolean) {
+  /**
+   * Set the sort column key and whether the list should be reversed.
+   * @param sortColumn   The column key.
+   * @param sortReversed Pass `false` for 'ascending', `true` for 'descending'
+   */
+  setSort(sortColumn: string, sortReversed: boolean): void {
     this._listParams$.next(Object.assign({}, this._listParams$.value, {sortColumn, sortReversed}));
   }
 
-  setFilterParams(params: {[filterKey: string]: any} | null) {
+  /**
+   * Set the filter params all at once. If passed  `null`,
+   * all the filterParams will be cleared.
+   * @param  params  A map of `filterkey => filterValue`
+   */
+  setFilterParams(params: NgxListFilterParams | null) {
     const filterParams = params || {};
     this._listParams$.next(Object.assign({}, this._listParams$.value, {filterParams}));
   }
 
+  /**
+   * Seta a single filter param.
+   */
   setFilterParam(filterKey: string, value: any) {
     const params = Object.assign({}, this._listParams$.value.filterParams);
     if (undefined !== value) {
@@ -125,10 +234,12 @@ export class NgxList implements NgxListInterface {
     this.setFilterParams(params);
   }
 
-
+  /**
+   * Initialization of the List.
+   */
   private _init(init: NgxListInit) {
     this._filters = init.filters || [];
-    this._sortFn = init.sortFn || NgxListSort.sortFn();
+    this._sortFn = typeof init.sortFn === 'function' ? init.sortFn : NgxListSort.sortFn();
     const params = init.initialParams || {};
     const listParams: NgxListParams = {
       page: params.page || 0,
@@ -140,7 +251,7 @@ export class NgxList implements NgxListInterface {
     this._listParams$ = new BehaviorSubject(listParams);
     this._paused$ = new BehaviorSubject(true === init.initiallyPaused);
     const initialResult: NgxListResult = {
-      records: [], page: 0, pageCount: 0, unfilteredRecordCount: 0,
+      records: [], page: -1, recordCount: 0, pageCount: 0, unfilteredRecordCount: 0,
       recordsPerPage: listParams.recordsPerPage,
       sortColumn: listParams.sortColumn,
       sortReversed: listParams.sortReversed,
@@ -153,6 +264,14 @@ export class NgxList implements NgxListInterface {
       });
   }
 
+  /**
+   * Update the list when (1) the source records have changed,
+   * (2) the list params have changed, or
+   * (3) the list has been started or stopped.
+   * @param  srcRecords The latest source records.
+   * @param  listParams The new list params.
+   * @param  paused     The latest paused state.
+   */
   private _update(srcRecords: NgxListRecord[], listParams: NgxListParams, paused: boolean) {
     if (paused) {
       return;
@@ -169,12 +288,13 @@ export class NgxList implements NgxListInterface {
       results.reverse();
     }
     const recordsPerPage = Math.max(0, listParams.recordsPerPage);
-    const pages = recordsPerPage > 0 ? NgxListHelpers.chunk(results, recordsPerPage) : [results];
+    const recordCount = results.length;
+    const pages = recordsPerPage > 0 ? chunk(results, recordsPerPage) : [results];
     const pageCount = pages.length;
     const page = Math.min(pageCount - 1, Math.max(0, listParams.page));
     const records = pageCount > 0 ? pages[page] : [];
     const result: NgxListResult = {
-      records, page, pageCount, recordsPerPage, unfilteredRecordCount,
+      records, page, recordCount, pageCount, recordsPerPage, unfilteredRecordCount,
       filterParams, sortColumn, sortReversed
     };
     this._result$.next(result);

@@ -1,0 +1,357 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-list documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ngx-list documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>NgxListRecord</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-list/src/lib/shared.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>What this library expects a record to look like.</p>
+
+            </p>
+
+
+
+
+            <section>
+    <h3 id="inputs">Indexable</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <code>[key: string]:        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">projects/ngx-list/src/lib/shared.ts:6</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Observable } from &#x27;rxjs&#x27;;
+
+/**
+ * What this library expects a record to look like.
+ */
+export interface NgxListRecord {
+  [key: string]: any;
+}
+
+/**
+ * The list maintains a map of filter params that
+ * you can modify.
+ */
+export interface NgxListFilterParams {
+  /**
+   * The filterKey is something like &#x60;&#x27;search&#x27;&#x60; or &#x60;&#x27;color&#x27;&#x60;.
+   * The value can be anything you choose to set.
+   */
+  [filterKey: string]: any;
+}
+
+/**
+ * A function that, given a record and a column key,
+ * returns the value of the key for purposes of sorting,
+ * search or filtering.
+ */
+export type NgxListColumnValueFn &#x3D; (record: NgxListRecord) &#x3D;&gt; any;
+
+
+/**
+ * The signature of a filter functions. The function is passed a set of records
+ * and the current &#x60;{@link NgxListFilterParams}&#x60; object. It should
+ * return the records that match.
+ *
+ * Note that youy can use the &#x60;[comparisonFilter]{@link NgxListFilters#comparisonFilter}&#x60;
+ * and &#x60;[searchFilter]{@link NgxListFilters#searchFilter}&#x60; factories to create filters,
+ * or roll your own using this signature.
+ */
+export type NgxListFilterFn &#x3D; (records: NgxListRecord[], filterParams: NgxListFilterParams) &#x3D;&gt; NgxListRecord[];
+
+/**
+ * The signature of a sorting function.  You can use the [NgxListSort.sortFn]{@link NgxListSort#sortFn}
+ * factory to craete this function, or roll your own.
+ */
+export type NgxListSortFn &#x3D; (records: NgxListRecord[], sortColumn: string) &#x3D;&gt; NgxListRecord[];
+
+/**
+ * Filter comparison types. Used by {@link NgxListFilters}
+ */
+export enum NgxListCompare {
+  /**
+   * Equals. &#x60;&#x3D;&#x3D;&#x3D;&#x60;
+   */
+  eq &#x3D; 1,
+  /**
+   * Not equal to. &#x60;!&#x3D;&#x3D;&#x60;
+   */
+  neq,
+  /**
+   * Greater than or equal to.  &#x60;&gt;&#x3D;&#x60;
+   */
+  gte,
+  /**
+   * Greater than. &#x60;&gt;&#x60;
+   */
+  gt,
+  /**
+   * Less than. &#x60;&lt;&#x60;
+   */
+  lt,
+  /**
+   * Less than or equal to.  &#x60;&lt;&#x3D;&#x60;
+   */
+  lte
+}
+
+/**
+ * The interface for creating a search filter
+ * with the &#x60;[NgxListFilters.searchFilter]{@link NgxListFilters#searchFilter}&#x60;
+ * factory.
+ */
+export interface NgxListSearchFilterOptions {
+  /**
+   * The key of the filter. This should be unique among your filters.
+   */
+  filterKey: string;
+  /**
+   * Optional. By default this is &#x60;false&#x60;: searches
+   * will be performed case-insensitively.
+   */
+  caseSensitive?: boolean;
+  /**
+   * Optional. By default all of the top level
+   * keys in a record object will be converted to strings
+   * and searched. So a record like &#x60;{id: 123, profile: {}}&#x60;
+   * would be matched by the search &#x60;&#x27;object&#x27;&#x60; because &#x60;profile.toString() &#x3D;&#x3D;&#x3D; &#x27;[object Object]&#x27;&#x60;.
+   * To avoid this, pass [&#x27;profile&#x27;] for &#x60;ignoreKeys&#x60;.
+   */
+  ignoreKeys?: string[];
+  /**
+   * Optional. Use this to specify nested keys that you
+   * want to test agains the search. By default only the top
+   * level keys are inspected. So, if your record structure
+   * is something like &#x60;{id: 123, profile: {firstName: &#x27;Foo&#x27;, lastName: &#x27;Bar&#x27;}}&#x60;,
+   * you need to specify &#x60;inspectKeys: [&#x27;profile.firstName&#x27;, &#x27;profile.lastName&#x27;]&#x60; for
+   * in order for those keys to be searched.
+   */
+  inspectKeys?: string[];
+  /**
+   * A map of functions (&#x60;{[key: string]: NgxListColumnValueFn}&#x60;) that
+   * return values for specific keys. For example, for purposes of search, you may want to represent a
+   * date stored as an integer in more useful form. In that case you would pass something like
+   * &#x60;{&#x27;profile.birthday&#x27;: (record) &#x3D;&gt; moment.format(record.profile.birthday, &#x27;LL&#x27;)}&#x60;
+   */
+  valueFns?: {[key: string]: NgxListColumnValueFn};
+}
+
+export interface NgxListCompareFilterOptions {
+  filterKey: string;
+  columnKey: string;
+  compare?: NgxListCompare;
+  ignoreFilterWhen?: (filterValue: any) &#x3D;&gt; boolean;
+  valueFn?: NgxListColumnValueFn;
+}
+
+export interface NgxListParams {
+ page: number;
+ recordsPerPage: number;
+ sortColumn: string;
+ sortReversed: boolean;
+ filterParams: NgxListFilterParams;
+}
+
+
+export interface NgxListInit {
+  /**
+   * Required. An observable of all the records in the list, unsorted and unfiltered.
+   */
+  src$: Observable&lt;NgxListRecord[]&gt;;
+
+  /**
+   * A list of filters. You can use the factory methods provided by
+   * NgxListFilters or roll your own.
+   * @see NgxListFilters
+   * @see NgxListFilterFn
+   */
+  filters?: NgxListFilterFn[];
+  /**
+   * The sort function. By
+   */
+  sortFn?: NgxListSortFn;
+  initialParams?: {
+    page?: number;
+    recordsPerPage?: number;
+    sortColumn?: string;
+    sortReversed?: boolean;
+    filterParams?: NgxListFilterParams;
+  };
+  initiallyPaused?: boolean;
+}
+
+export interface NgxListResult {
+  /**
+   * The records that belong on the current page.
+   */
+  records: NgxListRecord[];
+  /**
+   * The current page number, zero-based.
+   */
+  page: number;
+  /**
+   * The number of pages.
+   */
+  pageCount: number;
+  /**
+   * The total number of records in the list, after the current filters are applied.
+   */
+  recordCount: number;
+  /**
+   * The number of records per page.
+   */
+  recordsPerPage: number;
+  /**
+   * the current sort column.
+   */
+  sortColumn: string;
+  /**
+   * Whether the list is currently sorted in reverse (&#x27;descending&#x27;) order.
+   */
+  sortReversed: boolean;
+  /**
+   * The total number of records in the list, befor applying filters.
+   */
+  unfilteredRecordCount: number;
+  /**
+   * The current filter params.
+   */
+  filterParams: NgxListFilterParams;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'NgxListRecord.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

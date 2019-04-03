@@ -1,6 +1,6 @@
 import { OnInit, OnDestroy, Input } from '@angular/core';
 import { NgxList } from '../list';
-import { NgxListResult } from '../api';
+import { NgxListResult } from '../shared';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

@@ -1,79 +1,56 @@
 import {
   NgxListRecord,
   NgxListSortFn,
-  NgxListSortFunctionOptions
-} from './api';
-import { NgxListHelpers } from './helpers';
+  NgxListColumnValueFn,
+  NGxListSortFunctionOptions
+} from './shared';
+import get from 'lodash/get';
+import sortBy from 'lodash/sortBy';
+import isFunction from 'lodash/isFunction';
+
 
 export class NgxListSort {
 
-  static compareValues(a: any, b: any, caseInsensitive: boolean): number {
-    const aVal = NgxListHelpers.orNull(a);
-    const bVal = NgxListHelpers.orNull(b);
-    if (aVal === null && bVal === null) {
-      return 0;
-    }
-    if (aVal === null) {
-      return 1;
-    }
-    if (bVal === null) {
-      return -1;
-    }
-    if (caseInsensitive && ('string' === typeof aVal) && ('string' === typeof bVal)) {
-      const aStr = aVal.toLowerCase();
-      const bStr = bVal.toLowerCase();
-      if (aStr === bStr) {
-        return 0;
-      }
-      return aStr > bStr ? 1 : -1;
-    }
-    if (aVal === bVal) {
-      return 0;
-    }
-    return aVal > bVal ? 1 : -1;
-  }
-  static sortFn(opts?: NgxListSortFunctionOptions): NgxListSortFn {
-    opts = opts || {};
-    const options = Object.assign({
-      caseInsensitive: opts.caseInsensitive !== false,
-      valueFns: {}
-    }, opts);
-
+  /**
+   * A factory that returns an instance of {@Link NgxListSortFn}.
+   */
+  static sortFn(options?: NGxListSortFunctionOptions): NgxListSortFn {
+    options = options || {};
+    const fallbackSortColumn: string = options.fallbackSortColumn || null;
+    const caseSensitive = options.caseSensitive === true;
+    const valueFns = options.valueFns || {};
     const fn: NgxListSortFn = (records: NgxListRecord[], sortColumn: string): NgxListRecord[] => {
-      const sorted = records.slice();
-      if (! sortColumn) {
-        return sorted;
+      const sortFns: NgxListColumnValueFn[] = [];
+      if (sortColumn) {
+        sortFns.push(NgxListSort.getColumnValueFn(sortColumn, valueFns, caseSensitive));
       }
-      const valueFn = options.valueFns[sortColumn] && 'function' === typeof options.valueFns[sortColumn] ?
-        options.valueFns[sortColumn] : (record: NgxListRecord) => NgxListHelpers.get(record, sortColumn, null);
+      if (fallbackSortColumn && fallbackSortColumn !== sortColumn) {
+        sortFns.push(NgxListSort.getColumnValueFn(fallbackSortColumn, valueFns, caseSensitive));
+      }
 
-      const defaultValueFn = options.fallbackSortColumn ?
-         options.valueFns[options.fallbackSortColumn] && 'function' === typeof options.valueFns[options.fallbackSortColumn] ?
-          options.valueFns[options.fallbackSortColumn] :
-            (record: NgxListRecord) => NgxListHelpers.get(record, options.fallbackSortColumn, null)
-          : null;
-
-
-      sorted.sort((a: NgxListRecord, b: NgxListRecord) => {
-        const aVal = NgxListHelpers.orNull(valueFn(a));
-        const bVal = NgxListHelpers.orNull(valueFn(b));
-        const bySortKey = NgxListSort.compareValues(aVal, bVal, options.caseInsensitive);
-        if (bySortKey !== 0) {
-          return bySortKey;
-        }
-        if (! defaultValueFn) {
-          return bySortKey;
-        }
-        if (options.fallbackSortColumn === sortColumn) {
-          return bySortKey;
-        }
-        const aFallback = NgxListHelpers.orNull(defaultValueFn(a));
-        const bFallback = NgxListHelpers.orNull(defaultValueFn(b));
-        return NgxListSort.compareValues(aFallback, bFallback, options.caseInsensitive);
-
-      });
+      const sorted = sortBy(records, sortFns) as  NgxListRecord[];
       return sorted;
     };
     return fn;
+  }
+
+  /**
+   * A helper method to get the value function for a column.
+   */
+  static getColumnValueFn(
+    k: string,
+    valueFns: {[key: string]: NgxListColumnValueFn} = {},
+    caseSensitive: boolean
+  ): NgxListColumnValueFn {
+    if (isFunction(valueFns[k])) {
+      return valueFns[k];
+    }
+    return (record) => {
+      const value = get(record, k);
+      if ((! caseSensitive) && typeof value === 'string') {
+        return (value as string).toLowerCase();
+      }
+      return value;
+    };
   }
 }

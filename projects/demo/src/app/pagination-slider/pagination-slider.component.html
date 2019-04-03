@@ -1,0 +1,15 @@
+<input type="range"
+  class="custom-range"
+  [attr.value]="result.page"
+  min="0"
+  [attr.max]="result.pageCount - 1"
+  (input)="onRangeInput($event)"
+  (change)="onRangeChange($event)"
+  [attr.id]="inputId">
+
+<p>Page: {{list.page}}</p>
+<div class="slider-feedback">
+  <div *ngIf="sliderPage > -1" class="slider-feedback-inner"  [style.left.%]="sliderPageLeft">
+    {{sliderPage | number}}
+  </div>
+</div>

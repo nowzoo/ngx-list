@@ -1,5 +1,5 @@
 import { NgxListAbstractSortLink } from './sort-link';
-import { NgxListResult } from '../api';
+import { NgxListResult } from '../shared';
 describe('NgxListAbstractSortLink', () => {
   it('should create an instance', () => {
     expect(new NgxListAbstractSortLink()).toBeTruthy();

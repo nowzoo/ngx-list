@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import {
   NgxListRecord,
   NgxListInit
-} from './api';
+} from './shared';
 import { NgxList } from './list';
 
 
@@ -39,6 +39,9 @@ describe('NgxList', () => {
     });
     it('should have pageCount', () => {
       expect(list.pageCount).toBe(list.currentResult.pageCount);
+    });
+    it('should have recordCount', () => {
+      expect(list.recordCount).toBe(list.currentResult.recordCount);
     });
     it('should have recordsPerPage', () => {
       expect(list.recordsPerPage).toBe(list.currentResult.recordsPerPage);

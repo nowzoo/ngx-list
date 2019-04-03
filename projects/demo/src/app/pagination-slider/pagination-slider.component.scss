@@ -1,0 +1,10 @@
+.slider-feedback {
+  position: relative;
+  height: 100px;
+  >.slider-feedback-inner {
+    position: absolute;
+    width: 100px;
+    margin-left: -50%;
+    background-color: #aaa;
+  }
+}

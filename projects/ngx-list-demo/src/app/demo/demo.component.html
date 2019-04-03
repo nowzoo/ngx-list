@@ -1,0 +1,83 @@
+<ng-container *ngIf="result">
+  <div class="row">
+    <div class="col-md-6">
+      <app-pagination [list]="list" inputId="foo-bar-2"></app-pagination>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label [attr.for]="id + 'search-1'" class="sr-only">Search</label>
+        <ngx-list-bootstrap-search-control
+          [list]="list"
+          filterKey="search"
+          [inputId]="id + 'search-1'"
+          placeholder="Search socks..."
+          bootstrapSize="sm"></ngx-list-bootstrap-search-control>
+      </div>
+    </div>
+  </div>
+  <label for="foo-bar">Page</label>
+  <app-pagination-slider [list]="list" inputId="foo-bar"></app-pagination-slider>
+
+  <div class="table-responsive" *ngIf="result.records.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="id">ID</ngx-list-bootstrap-sort-link>
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="firstName">First Name</ngx-list-bootstrap-sort-link>
+
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="lastName">Last Name</ngx-list-bootstrap-sort-link>
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="color">Color</ngx-list-bootstrap-sort-link>
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="age">Age</ngx-list-bootstrap-sort-link>
+
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="value" defaultReversed="true">Assessed Value</ngx-list-bootstrap-sort-link>
+
+          </th>
+          <th>
+            <ngx-list-bootstrap-sort-link [list]="list" columnKey="missing">Missing</ngx-list-bootstrap-sort-link>
+
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of result.records">
+          <td>
+            {{record.id}}
+          </td>
+          <td>
+            {{record.firstName}}
+          </td>
+          <td>
+            {{record.lastName}}
+          </td>
+          <td>
+            {{record.color}}
+          </td>
+          <td>
+            {{record.age}} months
+          </td>
+          <td>
+            ${{record.value | number:'1.2-2'}}
+          </td>
+          <td>
+            {{record.missing ? record.missing : 'none'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p *ngIf="result.records.length === 0" class="text-muted">No results found.</p>
+
+
+</ng-container>
