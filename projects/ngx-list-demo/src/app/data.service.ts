@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../environments/environment';
 
 
 @Injectable({
@@ -19,7 +19,7 @@ export class DataService {
     private client: HttpClient
   ) {
 
-    this.client.get('/assets/d.json')
+    this.client.get(`${environment.path}assets/d.json`)
       .toPromise()
       .then(r => {
         this._data = r as any[];
