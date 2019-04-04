@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { NgxList, NgxListSort,
   NgxListCompare,
   NgxListFilters, NgxListInit, NgxListResult } from '@nowzoo/ngx-list';
@@ -16,17 +16,52 @@ export class DemoComponent implements OnInit {
   result: NgxListResult = null;
   missingSelect: FormControl;
   purchasePriceSelect: FormControl;
+  listFg: FormGroup;
+
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    const valueFilter = (value: number) => {
+      if (value >= 100) {
+        return '>=100';
+      }
+      if (value >= 50) {
+        return '>=50';
+      }
+      if (value >= 25) {
+        return '>=25';
+      }
+      if (value >= 10) {
+        return '>=10';
+      }
+      return '<10';
+    };
+    this.listFg = this.fb.group({
+      page: [0],
+      sortColumn: ['id'],
+      sortReversed: [false],
+      recordsPerPage: [10],
+      filters: {
+        search: [''],
+        missing: [''],
+        purchasePrice: [''],
+        currentValue: ['']
+      }
+    });
+
+
 
     const listInit: NgxListInit = {
       src$: this.dataService.data$,
       initialParams: {
-        sortColumn: 'id'
+        sortColumn: 'id',
+        filterParams: {
+          search: 'foo'
+        }
       },
       sortFn: NgxListSort.sortFn({
         caseSensitive: false,
@@ -52,20 +87,7 @@ export class DemoComponent implements OnInit {
           filterKey: 'purchasePrice',
           columnKey: 'purchased.price',
           valueFn: (rec) => {
-            const price = rec.purchased.price;
-            if (price >= 100) {
-              return '>=100';
-            }
-            if (price >= 50) {
-              return '>=50';
-            }
-            if (price >= 25) {
-              return '>=25';
-            }
-            if (price >= 10) {
-              return '>=10';
-            }
-            return '<10';
+            return valueFilter(rec.purchased.price);
           }
         })
       ]

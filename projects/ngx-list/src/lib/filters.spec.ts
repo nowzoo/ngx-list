@@ -107,24 +107,24 @@ describe('NgxListFilters', () => {
   describe('comparisonFilter(options)', () => {
 
     it('should return a function', () => {
-      const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a'});
+      const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a'});
       expect(fn).toEqual(jasmine.any(Function));
     });
     it('should return an empty list if the compare is not handled', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
       const fn = NgxListFilters.comparisonFilter({
-        filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.eq + 2929});
+        filterKey: 'foo', value: 'a', compare: NgxListCompare.eq + 2929});
       expect(fn(records, {foo: 8}).length).toBe(0);
     });
     it('should use eq by default', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
-      const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a'});
+      const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a'});
       expect(fn(records, {foo: 8}).length).toBe(1);
       expect(fn(records, {foo: '8'}).length).toBe(1);
     });
     it('should use the default ignoreFilterWhen by default', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
-      const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a'});
+      const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a'});
       expect(fn(records, {foo: undefined}).length).toBe(records.length);
       expect(fn(records, {foo: ''}).length).toBe(records.length);
       expect(fn(records, {foo: null}).length).toBe(records.length);
@@ -133,7 +133,7 @@ describe('NgxListFilters', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
       const fn = NgxListFilters.comparisonFilter({
         filterKey: 'foo',
-        columnKey: 'a',
+        value: 'a',
         ignoreFilterWhen: (filterValue) => filterValue === null
       });
       expect(fn(records, {foo: null}).length).toBe(records.length);
@@ -141,12 +141,11 @@ describe('NgxListFilters', () => {
       expect(fn(records, {}).length).toBe(0);
       expect(fn(records, {foo: ''}).length).toBe(0);
     });
-    it('should use the value function is passed in', () => {
+    it('should use the function if passed in', () => {
       const records = [{a: 'a'}, {a: 'bcdefgf'}];
       const fn = NgxListFilters.comparisonFilter({
         filterKey: 'foo',
-        columnKey: 'a',
-        valueFn: (rec) => rec.a.length > 1
+        value: (rec) => rec.a.length > 1
       });
       expect(fn(records, {foo: true}).length).toBe(1);
       expect(fn(records, {foo: false}).length).toBe(1);
@@ -158,24 +157,24 @@ describe('NgxListFilters', () => {
         records = [{a: 'a'}, {a: 'A'},  {a: 'z'}, {a: 'z'}];
       });
       it('should work with NgxListCompare.eq', () => {
-        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.eq});
+        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.eq});
         expect(fn(records, {foo: false}).length).toBe(0);
         expect(fn(records, {foo: 'a'}).length).toBe(1);
         expect(fn(records, {foo: 'A'}).length).toBe(1);
       });
       it('should work with NgxListCompare.neq', () => {
-        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.neq});
+        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.neq});
         expect(fn(records, {foo: false}).length).toBe(records.length);
         expect(fn(records, {foo: 'a'}).length).toBe(records.length - 1);
         expect(fn(records, {foo: 'A'}).length).toBe(records.length - 1);
       });
       it('should work with NgxListCompare.gte', () => {
-        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.gte});
+        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.gte});
         expect(fn(records, {foo: 'a'}).length).toBe(records.length - 1);
         expect(fn(records, {foo: 'A'}).length).toBe(records.length);
       });
       it('should work with NgxListCompare.lte', () => {
-        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.lte});
+        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.lte});
         expect(fn(records, {foo: 'z'}).length).toBe(records.length);
         expect(fn(records, {foo: 'A'}).length).toBe(1);
       });
@@ -188,7 +187,7 @@ describe('NgxListFilters', () => {
         records = [{a: 8}, {a: 9}, {a: 200}, {a: -1}, {a: 0}];
       });
       it('should work with NgxListCompare.eq when comparing numeric columns', () => {
-        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.eq});
+        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.eq});
         expect(fn(records, {foo: 8}).length).toBe(1);
         expect(fn(records, {foo: 200}).length).toBe(1);
         expect(fn(records, {foo: 0}).length).toBe(1);
@@ -197,33 +196,33 @@ describe('NgxListFilters', () => {
       });
       it('should work with NgxListCompare.neq when comparing numeric columns', () => {
         const fn = NgxListFilters.comparisonFilter({
-          filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.neq});
+          filterKey: 'foo', value: 'a', compare: NgxListCompare.neq});
         expect(fn(records, {foo: 8}).length).toBe(records.length - 1);
       });
       it('should work with NgxListCompare.gte when comparing numeric columns', () => {
         const fn = NgxListFilters.comparisonFilter({
-          filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.gte});
+          filterKey: 'foo', value: 'a', compare: NgxListCompare.gte});
         expect(fn(records, {foo: 8}).length).toBe(records.length - 2);
         expect(fn(records, {foo: 6778}).length).toBe(0);
         expect(fn(records, {foo: -6778}).length).toBe(records.length);
       });
       it('should work with NgxListCompare.gt when comparing numeric columns', () => {
         const fn = NgxListFilters.comparisonFilter({
-          filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.gt});
+          filterKey: 'foo', value: 'a', compare: NgxListCompare.gt});
         expect(fn(records, {foo: 8}).length).toBe(records.length - 3);
         expect(fn(records, {foo: 6778}).length).toBe(0);
         expect(fn(records, {foo: -6778}).length).toBe(records.length);
       });
       it('should work with NgxListCompare.lte when comparing numeric columns', () => {
         const fn = NgxListFilters.comparisonFilter({
-          filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.lte});
+          filterKey: 'foo', value: 'a', compare: NgxListCompare.lte});
         expect(fn(records, {foo: -1}).length).toBe(1);
         expect(fn(records, {foo: 6778}).length).toBe(records.length);
         expect(fn(records, {foo: -6778}).length).toBe(0);
       });
       it('should work with NgxListCompare.lt when comparing numeric columns', () => {
         const fn = NgxListFilters.comparisonFilter({
-          filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.lt});
+          filterKey: 'foo', value: 'a', compare: NgxListCompare.lt});
         expect(fn(records, {foo: -1}).length).toBe(0);
         expect(fn(records, {foo: 0}).length).toBe(1);
         expect(fn(records, {foo: 6778}).length).toBe(records.length);
@@ -237,7 +236,7 @@ describe('NgxListFilters', () => {
         records = [{a: true}, {a: false}, {a: false}];
       });
       it('should work with NgxListCompare.eq', () => {
-        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', columnKey: 'a', compare: NgxListCompare.eq});
+        const fn = NgxListFilters.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.eq});
         expect(fn(records, {foo: 8}).length).toBe(0);
         expect(fn(records, {foo: true}).length).toBe(1);
         expect(fn(records, {foo: false}).length).toBe(2);

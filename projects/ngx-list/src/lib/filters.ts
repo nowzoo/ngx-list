@@ -71,12 +71,11 @@ export class NgxListFilters {
    */
   static comparisonFilter(options: NgxListCompareFilterOptions): NgxListFilterFn  {
     const filterKey = options.filterKey;
-    const columnKey = options.columnKey;
     const compare = undefined === options.compare ? NgxListCompare.eq : options.compare;
     const ignoreFilterWhen: (filterValue: any) => boolean = isFunction(options.ignoreFilterWhen) ?
       options.ignoreFilterWhen : NgxListFilters.ignoreFilterWhen;
-    const valueFn: NgxListColumnValueFn = isFunction(options.valueFn) ?
-      options.valueFn : (record) => get(record, columnKey);
+    const valueFn: NgxListColumnValueFn = isFunction(options.value) ?
+      options.value : (record) => get(record, toString(options.value));
     const fn: NgxListFilterFn = (records: NgxListRecord[], filterParams: {[filterKey: string]: any}): NgxListRecord[] => {
       const filterValue = filterParams[filterKey];
       if (ignoreFilterWhen(filterValue)) {
@@ -97,4 +96,5 @@ export class NgxListFilters {
     };
     return fn;
   }
+
 }

@@ -117,10 +117,9 @@ export interface NgxListSearchFilterOptions {
 
 export interface NgxListCompareFilterOptions {
   filterKey: string;
-  columnKey: string;
+  value: string | NgxListColumnValueFn;
   compare?: NgxListCompare;
   ignoreFilterWhen?: (filterValue: any) => boolean;
-  valueFn?: NgxListColumnValueFn;
 }
 
 export interface NGxListSortFunctionOptions {
