@@ -19,7 +19,7 @@ export class DataService {
     private client: HttpClient
   ) {
 
-    this.client.get(`${environment.path}assets/d.json`)
+    this.client.get(`assets/d.json`)
       .toPromise()
       .then(r => {
         this._data = r as any[];
