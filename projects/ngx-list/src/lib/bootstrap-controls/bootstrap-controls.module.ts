@@ -6,6 +6,7 @@ import { NgxListBootstrapSearchControlComponent } from './search-control/search-
 import { PaginationComponent } from './pagination/pagination.component';
 import { PaginationSliderComponent } from './pagination-slider/pagination-slider.component';
 import { NgxListBootstrapRppControlComponent } from './rpp-control/rpp-control.component';
+import { PageControlsComponent } from './page-controls/page-controls.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { NgxListBootstrapRppControlComponent } from './rpp-control/rpp-control.c
     NgxListBootstrapSearchControlComponent,
     PaginationComponent,
     PaginationSliderComponent,
-    NgxListBootstrapRppControlComponent
+    NgxListBootstrapRppControlComponent,
+    PageControlsComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { NgxListBootstrapRppControlComponent } from './rpp-control/rpp-control.c
     NgxListBootstrapSearchControlComponent,
     PaginationComponent,
     PaginationSliderComponent,
-    NgxListBootstrapRppControlComponent
+    NgxListBootstrapRppControlComponent,
+    PageControlsComponent
   ]
 })
 export class NgxListBootstrapControlsModule { }
