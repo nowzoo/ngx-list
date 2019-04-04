@@ -1,0 +1,10 @@
+<select
+  class="form-control"
+  [class.form-control-sm]="'sm'===bootstrapSize"
+  [class.form-control-lg]="'lg'===bootstrapSize"
+  [formControl]="control"
+  [attr.id]="inputId">
+  <ng-container *ngFor="let n of options">
+    <option [value]="n">{{n <= 0 ? noPagingLabel : n + perPageLabel}}</option>
+  </ng-container>
+</select>

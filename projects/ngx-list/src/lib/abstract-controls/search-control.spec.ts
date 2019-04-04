@@ -43,7 +43,7 @@ describe('SearchControl', () => {
       spyOn(searchControl, 'onControlValueChange');
       spyOn(fc, 'setValue').and.callThrough();
       spyOnProperty(searchControl, 'control').and.returnValue(fc);
-      result = {records: [], filterParams: {}, page: 0, recordsPerPage: 0, pageCount: 0,
+      result = {records: [], recordCount: 0, filterParams: {}, page: 0, recordsPerPage: 0, pageCount: 0,
         sortColumn: 'foo', sortReversed: false, unfilteredRecordCount: 0};
     });
     it('should set the control value to an empty string if the filter param is missing', () => {

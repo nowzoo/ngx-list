@@ -52,7 +52,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-list-demo",
+            "outputPath": "docs",
             "index": "projects/ngx-list-demo/src/index.html",
             "main": "projects/ngx-list-demo/src/main.ts",
             "polyfills": "projects/ngx-list-demo/src/polyfills.ts",

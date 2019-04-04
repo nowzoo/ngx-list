@@ -5,13 +5,15 @@ import { NgxListBootstrapSortLinkComponent } from './sort-link/sort-link.compone
 import { NgxListBootstrapSearchControlComponent } from './search-control/search-control.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { PaginationSliderComponent } from './pagination-slider/pagination-slider.component';
+import { NgxListBootstrapRppControlComponent } from './rpp-control/rpp-control.component';
 
 @NgModule({
   declarations: [
     NgxListBootstrapSortLinkComponent,
     NgxListBootstrapSearchControlComponent,
     PaginationComponent,
-    PaginationSliderComponent
+    PaginationSliderComponent,
+    NgxListBootstrapRppControlComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { PaginationSliderComponent } from './pagination-slider/pagination-slider
     NgxListBootstrapSortLinkComponent,
     NgxListBootstrapSearchControlComponent,
     PaginationComponent,
-    PaginationSliderComponent
+    PaginationSliderComponent,
+    NgxListBootstrapRppControlComponent
   ]
 })
 export class NgxListBootstrapControlsModule { }

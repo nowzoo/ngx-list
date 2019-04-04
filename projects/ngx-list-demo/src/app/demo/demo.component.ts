@@ -59,8 +59,9 @@ export class DemoComponent implements OnInit {
       src$: this.dataService.data$,
       initialParams: {
         sortColumn: 'id',
+        recordsPerPage: 0,
         filterParams: {
-          search: 'foo'
+          search: ''
         }
       },
       sortFn: NgxListSort.sortFn({
@@ -80,13 +81,11 @@ export class DemoComponent implements OnInit {
         }),
         NgxListFilters.comparisonFilter({
           filterKey: 'missing',
-          columnKey: 'missing',
-          valueFn: (rec) => rec.missing ? rec.missing : 'none'
+          value: (rec) => rec.missing ? rec.missing : 'none'
         }),
         NgxListFilters.comparisonFilter({
           filterKey: 'purchasePrice',
-          columnKey: 'purchased.price',
-          valueFn: (rec) => {
+          value: (rec) => {
             return valueFilter(rec.purchased.price);
           }
         })

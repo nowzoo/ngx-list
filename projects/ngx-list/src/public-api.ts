@@ -15,4 +15,5 @@ export * from './lib/bootstrap-controls/pagination-slider/pagination-slider.comp
 export * from './lib/bootstrap-controls/pagination/pagination.component';
 export * from './lib/bootstrap-controls/sort-link/sort-link.component';
 export * from './lib/bootstrap-controls/search-control/search-control.component';
+export * from './lib/bootstrap-controls/rpp-control/rpp-control.component';
 export * from './lib/bootstrap-controls/bootstrap-controls.module';

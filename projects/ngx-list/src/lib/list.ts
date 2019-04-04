@@ -243,7 +243,7 @@ export class NgxList  {
     const params = init.initialParams || {};
     const listParams: NgxListParams = {
       page: params.page || 0,
-      recordsPerPage: params.recordsPerPage || 10,
+      recordsPerPage: params.recordsPerPage !== undefined ? params.recordsPerPage : 10,
       sortColumn: params.sortColumn || null,
       sortReversed: true === params.sortReversed,
       filterParams: params.filterParams || {}
