@@ -59,7 +59,7 @@ export class DemoComponent implements OnInit {
       src$: this.dataService.data$,
       initialParams: {
         sortColumn: 'id',
-        recordsPerPage: 0,
+        recordsPerPage: 3,
         filterParams: {
           search: ''
         }

@@ -17,43 +17,27 @@ import { NgxListResult } from '../../shared';
 })
 export class PageControlsComponent extends NgxListAbstractControl implements OnInit {
   static ct = 0;
+  @Input() bootstrapSize: 'sm' | 'lg' = null;
   id: string;
-  control: FormControl;
+  pageOptions: {value: number, label: string}[] = [];
   ngOnInit() {
     super.ngOnInit();
     this.id = `ngx-list-bootstrap-page-controls-${++ PageControlsComponent.ct}`;
-    this.control = new FormControl(0);
     this.list.results$
-      .pipe(take(1))
-      .subscribe(result => {
-        this.onFirstResult(result);
-      });
-  }
-
-  onFirstResult(result: NgxListResult) {
-    this.control.setValue(result.page);
-    this.control.valueChanges
       .pipe(takeUntil(this._ngUnsubscribe))
-      .subscribe((value) => {
-        this.onControlValueChange(value);
+      .subscribe(result => {
+        const opts: {value: number, label: string}[] = [];
+        if (result.pageCount > 0) {
+
+          for (let n = 0; n < result.pageCount; n++) {
+            opts.push({value: n, label: (n + 1).toString()});
+          }
+        } else {
+
+          opts.push({value: null, label: '-'});
+        }
+        this.pageOptions = opts;
       });
-  }
-
-  onControlValueChange(value: number) {
-    this.list.setPage(value);
-  }
-
-  get pageOptions(): {value: number, label: string}[] {
-    const opts: {value: number, label: string}[] = [];
-    if (this.result.pageCount > 0) {
-      for (let n = 0; n < this.result.pageCount; n++) {
-        opts.push({value: n, label: (n + 1).toString()});
-      }
-    } else {
-      opts.push({value: null, label: '-'});
-    }
-
-    return opts;
   }
 
 }

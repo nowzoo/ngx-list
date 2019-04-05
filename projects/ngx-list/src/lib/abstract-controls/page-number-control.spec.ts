@@ -1,7 +1,7 @@
-import { PageNumberControl } from './page-number-control';
+import { NgxListAbstractPageNumberControl } from './page-number-control';
 
-describe('PageNumberControl', () => {
+describe('NgxListAbstractPageNumberControl', () => {
   it('should create an instance', () => {
-    expect(new PageNumberControl()).toBeTruthy();
+    expect(new NgxListAbstractPageNumberControl()).toBeTruthy();
   });
 });

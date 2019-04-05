@@ -1,4 +1,6 @@
 import { NgxListFilters } from './filters';
+import set from 'lodash/set';
+import get from 'lodash/get';
 import {
   NgxListFilterFn,
   NgxListFilterParams,
@@ -69,22 +71,6 @@ describe('NgxListFilters', () => {
       expect(fnB(records, {search: 'abc'}).length).toBe(1);
       expect(fnB(records, {search: 'foo'}).length).toBe(1);
       expect(fnB(records, {search: 'bar'}).length).toBe(1);
-      expect(fnB(records, {search: 'object'}).length).toBe(2);
-    });
-    it('should inspect nested keys if specified in inspectKeys', () => {
-      const records = [{a: {b: {c: 'foo', d: 8}}}, {a: {b: {c: 'bar', d: 9}}}];
-      const fn = NgxListFilters.searchFilter({filterKey: 'search', inspectKeys: ['a.b.c', 'a.b.d']});
-      expect(fn(records, {search: 'foo'}).length).toBe(1);
-      expect(fn(records, {search: '8'}).length).toBe(1);
-      expect(fn(records, {search: 'bar'}).length).toBe(1);
-      expect(fn(records, {search: '9'}).length).toBe(1);
-      // without inspect keys...
-      const fnB = NgxListFilters.searchFilter({filterKey: 'search', inspectKeys: []});
-      expect(fnB(records, {search: 'foo'}).length).toBe(0);
-      expect(fnB(records, {search: '8'}).length).toBe(0);
-      expect(fnB(records, {search: 'bar'}).length).toBe(0);
-      expect(fnB(records, {search: '9'}).length).toBe(0);
-
     });
     it('should return all the records if search is empty or not a string', () => {
       const records = [{a: 'foo'}, {a: 'bar'}];
@@ -244,4 +230,135 @@ describe('NgxListFilters', () => {
     });
 
   });
+
+  describe('dotKeys', () => {
+    it('should work', () => {
+      expect(NgxListFilters.dotKeys({a: {b: 8, c: 3}})).toContain('a.b');
+      expect(NgxListFilters.dotKeys({a: {b: 8, c: 3}})).toContain('a.c');
+
+    });
+    it('should work with arrays', () => {
+      expect(NgxListFilters.dotKeys({a: [8, 9]})).toContain('a.0');
+      expect(NgxListFilters.dotKeys({a: [8, 9]})).toContain('a.1');
+      expect(get({a: [8, 9]}, 'a.1')).toBe(9);
+    });
+    it('should contain all the keys', () => {
+      const o = {};
+      set(o, 'a.date', new Date());
+      set(o, 'a.nullish', null);
+      set(o, 'a.b', {});
+      expect(NgxListFilters.dotKeys(o).length).toBe(4);
+    });
+    it('should exclude all the keys under a path', () => {
+      const o = {a: 'foo', b: {c: 45, d: 45}};
+      expect(NgxListFilters.dotKeys(o, ['b']).length).toBe(1);
+    });
+    it('should exclude a key under a path', () => {
+      const o = {a: 'foo', b: {c: 45, d: 45}};
+      expect(NgxListFilters.dotKeys(o, ['b.d']).length).toBe(3);
+      expect(NgxListFilters.dotKeys(o, ['b.d'])).toContain('b.c');
+      expect(NgxListFilters.dotKeys(o, ['b.d'])).not.toContain('b.d');
+    });
+
+  });
+
+
+  describe('keySearchValue(rec, key, valueFn)', () => {
+    it('should always return the value function result if defined for the key', () => {
+      const f = (rec) => 'Hi There!';
+      const valueFns = {'a.b.c': f };
+      const spy = spyOn(valueFns, 'a.b.c').and.callThrough();
+      const o = {a: {b: {c: 'foo'}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', valueFns)).toBe('Hi There!');
+      expect(spy).toHaveBeenCalledWith(o);
+    });
+    it('should always return the result of the value function as a string', () => {
+      const f = (rec) => 100;
+      const valueFns = {'a.b.c': f };
+      const spy = spyOn(valueFns, 'a.b.c').and.callThrough();
+      const o = {a: {b: {c: 'foo'}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', valueFns)).toBe('100');
+      expect(spy).toHaveBeenCalledWith(o);
+    });
+    it('should return empty string for undefined', () => {
+      const o = {a: {b: {c: 'foo'}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.d', {})).toBe('');
+    });
+    it('should return empty string for boolean', () => {
+      const o = {a: {b: {c: true}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', {})).toBe('');
+    });
+    it('should return empty string for a plain object', () => {
+      const o = {a: {b: {c: {x: 1}}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', {})).toBe('');
+    });
+    it('should return empty string for an array', () => {
+      const o = {a: {b: {c: ['foo', 'bar']}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', {})).toBe('');
+    });
+    it('should return empty string for a function', () => {
+      const o = {a: {b: {c: () => {}}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', {})).toBe('');
+    });
+    it('should return empty string for a NaN', () => {
+      const o = {a: {b: {c: parseInt('foo', 10)}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', {})).toBe('');
+    });
+    it('should return tHe string if defined', () => {
+      const o = {a: {b: {c: 'foo'}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', {})).toBe('foo');
+    });
+    it('should always convert to string', () => {
+      const o = {a: {b: {c: -8.9}}};
+      expect(NgxListFilters.keySearchValue(o, 'a.b.c', {})).toBe('-8.9');
+    });
+  });
+
+  describe('recordMatchesSearch(rec, casedSearch, caseSensitive, ignoredKeys, valueFns)', () => {
+    it('should match a number', () => {
+      const o = {a: {b: {c: -8.9}}};
+      expect(NgxListFilters.recordMatchesSearch(o, '8', false, [], {})).toBe(true);
+      expect(NgxListFilters.recordMatchesSearch(o, '8.9', false, [], {})).toBe(true);
+      expect(NgxListFilters.recordMatchesSearch(o, '-8.9', false, [], {})).toBe(true);
+      expect(NgxListFilters.recordMatchesSearch(o, '-9.9', false, [], {})).toBe(false);
+    });
+    it('should match a string', () => {
+      const o = {a: {b: {c: 'foo bar'}}};
+      expect(NgxListFilters.recordMatchesSearch(o, 'bar', false, [], {})).toBe(true);
+      expect(NgxListFilters.recordMatchesSearch(o, 'bar', true, [], {})).toBe(true);
+      expect(NgxListFilters.recordMatchesSearch(o, 'Bar', true, [], {})).toBe(false);
+    });
+    it('should not match plain objects', () => {
+      const o = {a: {b: {c: 'foo bar', d: {n: 89}}}};
+      expect(o.a.b.d.toString()).toContain('object');
+      expect(NgxListFilters.recordMatchesSearch(o, 'object', false, [], {})).toBe(false);
+    });
+    it('should not match arrays, but should match indiovidual elements', () => {
+      const o: any = {a: {b: {c: 'foo bar', d: [89, 75]}}};
+      expect(o.a.b.d.toString()).toBe('89,75');
+      expect(NgxListFilters.recordMatchesSearch(o, '89.75', false, [], {})).toBe(false);
+      expect(NgxListFilters.recordMatchesSearch(o, '89', false, [], {})).toBe(true);
+      expect(NgxListFilters.recordMatchesSearch(o, '75', false, [], {})).toBe(true);
+      o.a.b.d = ['xyz', 'abc'];
+      expect(o.a.b.d.toString()).toBe('xyz,abc');
+      expect(NgxListFilters.recordMatchesSearch(o, 'xyz,abc', false, [], {})).toBe(false);
+      expect(NgxListFilters.recordMatchesSearch(o, 'xy', false, [], {})).toBe(true);
+      expect(NgxListFilters.recordMatchesSearch(o, 'bc', false, [], {})).toBe(true);
+    });
+    it('should not match booleans', () => {
+      const o: any = {a: {b: {c: 'foo bar', d: false}}};
+      expect(o.a.b.d.toString()).toBe('false');
+      expect(NgxListFilters.recordMatchesSearch(o, 'false', false, [], {})).toBe(false);
+    });
+    it('should not match null', () => {
+      const o: any = {a: {b: {c: 'foo bar', d: null}}};
+      expect(NgxListFilters.recordMatchesSearch(o, 'object', false, [], {})).toBe(false);
+    });
+    it('should not match undefined', () => {
+      const o: any = {a: {b: {c: 'foo bar', d: undefined}}};
+      expect(NgxListFilters.recordMatchesSearch(o, 'undefined', false, [], {})).toBe(false);
+    });
+  });
+
+
 });

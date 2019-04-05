@@ -36,19 +36,13 @@
   </div>
   <label for="foo-bar">Page</label>
 
+  <div class="my-5">
+
+  </div>
+
   <div class="row">
     <div class="col-sm-8 col-lg-10">
-      <div *ngIf="result.recordCount === 0" class="text-muted">
-        No results found.
-        <span *ngIf="result.unfilteredRecordCount > 0">
-          <button class="btn btn-sm btn-link">
-            Clear Filters
-          </button>
-        </span>
-      </div>
-      <div *ngIf="result.recordCount > 0">
-        <ngx-list-bootstrap-page-controls [list]="list"></ngx-list-bootstrap-page-controls>
-      </div>
+      <ngx-list-bootstrap-page-controls bootstrapSize="lg" [list]="list"></ngx-list-bootstrap-page-controls>
     </div>
     <div class="col-sm-4 col-lg-2">
       <div class="form-group">

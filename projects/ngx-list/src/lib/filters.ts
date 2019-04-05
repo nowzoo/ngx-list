@@ -10,6 +10,7 @@ import trim from 'lodash/trim';
 import toString from 'lodash/toString';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
+import isPlainObject from 'lodash/isPlainObject';
 
 /**
  * Static methods to easily create search and comparison filters.
@@ -36,34 +37,69 @@ export class NgxListFilters {
   static searchFilter(options: NgxListSearchFilterOptions): NgxListFilterFn {
     const filterKey: string = options.filterKey;
     const caseSensitive: boolean = options.caseSensitive === true;
-    const inspectKeys = options.inspectKeys || [];
     const ignoreKeys = options.ignoreKeys || [];
-    const valueFns = options.valueFns || [];
+    const valueFns = options.valueFns || {};
     const fn = (records: NgxListRecord[], filterParams: {[filterKey: string]: any}): NgxListRecord[] => {
       let search: string = 'string' === typeof filterParams[filterKey] ? trim(filterParams[filterKey]) : '';
-      if (! caseSensitive) {
-        search = search.toLowerCase();
-      }
       if (search.length === 0) {
         return records.slice();
       }
+      if (! caseSensitive) {
+        search = search.toLowerCase();
+      }
       return records.filter((record: NgxListRecord) => {
-        const keys = [...Object.keys(record), ...inspectKeys].filter(k => ignoreKeys.indexOf(k) === -1);
-        let matched = false;
-        while (! matched && keys.length > 0) {
-          const k = keys.shift();
-          const value: string = isFunction(valueFns[k]) ?
-            toString(valueFns[k](record)) :
-            toString(get(record, k));
-          const casedValue: string = caseSensitive ? value : value.toLowerCase();
-          if (casedValue.indexOf(search) > -1) {
-            matched = true;
-          }
-        }
-        return matched;
+        return NgxListFilters.recordMatchesSearch(record, search, caseSensitive, ignoreKeys, valueFns);
       });
     };
     return fn;
+  }
+
+  static keySearchValue(
+    record: NgxListRecord,
+    key: string,
+    valueFns: {[key: string]: NgxListColumnValueFn}
+  ): string {
+    if (isFunction(valueFns[key])) {
+      return toString(valueFns[key](record));
+    }
+    const value = get(record, key, '');
+    if (isPlainObject(value)) {
+      return '';
+    }
+    if (isFunction(value)) {
+      return '';
+    }
+    if (Array.isArray(value)) {
+      return '';
+    }
+    if ('boolean' === typeof value) {
+      return '';
+    }
+    if ('number' === typeof value && isNaN(value)) {
+      return '';
+    }
+    return toString(value);
+
+  }
+
+  static recordMatchesSearch(
+    record: NgxListRecord,
+    casedSearch: string,
+    caseSensitive: boolean,
+    ignoredKeys: string[],
+    valueFns: {[key: string]: NgxListColumnValueFn}
+  ): boolean {
+    const keys = NgxListFilters.dotKeys(record, ignoredKeys);
+    let matched = false;
+    while ((! matched) && (keys.length > 0)) {
+      const k = keys.shift();
+      const value: string = NgxListFilters.keySearchValue(record, k, valueFns);
+      const casedValue: string = caseSensitive ? value : value.toLowerCase();
+      if (casedValue.indexOf(casedSearch) > -1) {
+        matched = true;
+      }
+    }
+    return matched;
   }
 
   /**
@@ -96,5 +132,28 @@ export class NgxListFilters {
     };
     return fn;
   }
+
+
+
+  static dotKeys(x: any, ignoredKeys: string[] = []): string[] {
+    const dotKeys: string[] = [];
+    const recurse = (y: any, currentKeys: string[] = []) => {
+      const dotKey = currentKeys.length > 0 ? currentKeys.join('.') : null;
+      const ignored = (dotKey === null) ? false : ignoredKeys.filter(iK => dotKey.indexOf(iK) === 0).length > 0;
+      if (ignored) {
+        return;
+      }
+      if (dotKey) {
+        dotKeys.push(dotKey);
+      }
+      if (typeof y === 'object' && null !== y) {
+        Object.keys(y).forEach(k => recurse(y[k], [...currentKeys, k]));
+      }
+    };
+    recurse(x);
+    return dotKeys;
+  }
+
+
 
 }

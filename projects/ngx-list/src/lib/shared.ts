@@ -97,15 +97,7 @@ export interface NgxListSearchFilterOptions {
    * To avoid this, pass ['profile'] for `ignoreKeys`.
    */
   ignoreKeys?: string[];
-  /**
-   * Optional. Use this to specify nested keys that you
-   * want to test agains the search. By default only the top
-   * level keys are inspected. So, if your record structure
-   * is something like `{id: 123, profile: {firstName: 'Foo', lastName: 'Bar'}}`,
-   * you need to specify `inspectKeys: ['profile.firstName', 'profile.lastName']` for
-   * in order for those keys to be searched.
-   */
-  inspectKeys?: string[];
+
   /**
    * A map of functions (`{[key: string]: NgxListColumnValueFn}`) that
    * return values for specific keys. For example, for purposes of search, you may want to represent a

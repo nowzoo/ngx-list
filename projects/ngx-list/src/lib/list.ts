@@ -21,10 +21,7 @@ export class NgxList  {
   private _result$: BehaviorSubject<NgxListResult>;
   private _filters: NgxListFilterFn[];
   private _sortFn: NgxListSortFn;
-  private _fg: FormGroup;
-  private _filtersFg: FormGroup;
 
-  private _filtersMap: {fn: NgxListFilterFn, key: string}[] = [];
 
 
   /**
@@ -177,24 +174,7 @@ export class NgxList  {
     this._paused$.next(true);
   }
 
-  addFilter(key: string, fn: NgxListFilterFn, initialValue: any = ''): void {
-    const filters = this._filtersMap.slice(0);
-    const existingIndex = filters.findIndex(o => o.key === key);
-    if (existingIndex !== -1) {
-      filters.splice(existingIndex, 1);
-      this._filtersFg.removeControl(key);
-    }
-    this._filtersFg.addControl(key, new FormControl(initialValue));
-    filters.push({fn, key});
-  }
-  removeFilter(key: string): void {
-    const filters = this._filtersMap.slice(0);
-    const existingIndex = filters.findIndex(o => o.key === key);
-    if (existingIndex !== -1) {
-      filters.splice(existingIndex, 1);
-      this._filtersFg.removeControl(key);
-    }
-  }
+
 
   /**
    * Unsubscribes from the list source and cleans up.
@@ -274,13 +254,6 @@ export class NgxList  {
       sortReversed: true === params.sortReversed,
       filterParams: params.filterParams || {}
     };
-    this._fg = fb.group({
-      page: [listParams.page],
-      recordsPerPage: [listParams.recordsPerPage],
-      sortColumn: [listParams.sortColumn],
-      sortReversed: [listParams.sortReversed],
-      filters: listParams.filterParams
-    });
 
     this._listParams$ = new BehaviorSubject(listParams);
     this._paused$ = new BehaviorSubject(true === init.initiallyPaused);

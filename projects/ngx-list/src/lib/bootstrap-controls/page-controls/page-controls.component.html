@@ -1,33 +1,44 @@
-<div class="input-group input-group-lg">
-  <div class="input-group-prepend">
+Page: {{result.page}}
+Page Count: {{result.pageCount}}
+<div class="btn-group"
+  role="group" aria-label="Button group with nested dropdown"
+[class.btn-group-sm]="'sm' === bootstrapSize"
+[class.btn-group-lg]="'lg' === bootstrapSize">
+  <button
+    [disabled]="result.page <= 0"
+    (click)="list.setPage(0)"
+    class="btn btn-outline-secondary"
+    type="button">|&lt;</button>
+  <button
+    [disabled]="result.page <= 0"
+    (click)="list.setPage(result.page - 1)"
+    class="btn btn-outline-secondary" type="button">&lt;</button>
+
+  <div class="btn-group" role="group">
     <button
-      [disabled]="result.page <= 0"
-      (click)="control.setValue(0)"
-      class="btn btn-outline-secondary"
-      type="button">|&lt;</button>
-    <button
-      [disabled]="result.page <= 0"
-      (click)="control.setValue(result.page - 1)"
-      class="btn btn-outline-secondary" type="button">&lt;</button>
-    <label class="input-group-text" [attr.for]="id + 'page-select'">Page</label>
+      [disabled]="result.pageCount <= 0"
+      id="btnGroupDrop1" type="button"
+      class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{result.pageCount > 0 ? result.page + 1 : '-'}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a
+        href="#"
+        *ngFor="let o of pageOptions"
+        (click)="$event.preventDefault();list.setPage(o.value)"
+        class="dropdown-item"
+        [class.selected]="result.page === o.value"
+        role="button">{{o.label}}</a>
+    </div>
   </div>
-  <select
-    [formControl]="control"
-    class="custom-select"
-    [attr.id]="id + 'page-select'">
-    <option *ngFor="let o of pageOptions" [value]="o.value">{{o.label}}</option>
-  </select>
-  <div class="input-group-append">
-    <label class="input-group-text" [attr.for]="id + 'page-select'">of {{result.pageCount}}</label>
-    <button
-      [disabled]="result.page >= result.pageCount - 1"
-      (click)="control.setValue(result.page + 1)"
-      class="btn btn-outline-secondary"
-      type="button">&gt;</button>
-    <button
-      [disabled]="result.page >= result.pageCount - 1"
-      (click)="control.setValue(result.pageCount - 1)"
-      class="btn btn-outline-secondary"
-      type="button">&gt;|</button>
-  </div>
+  <button
+    [disabled]="result.page >= result.pageCount - 1"
+    (click)="list.setPage(result.page + 1)"
+    class="btn btn-outline-secondary"
+    type="button">&gt;</button>
+  <button
+    [disabled]="result.page >= result.pageCount - 1"
+    (click)="list.setPage(result.pageCount - 1)"
+    class="btn btn-outline-secondary"
+    type="button">&gt;|</button>
 </div>
