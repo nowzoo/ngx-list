@@ -8,50 +8,48 @@ import {
   NgxListInit,
   NgxListResult,
   NgxListFilterParams,
-  NgxListParams
+  NgxListParams,
+  NgxListFilterResult
 } from './shared';
 import chunk from 'lodash/chunk';
 
 
 export class NgxList  {
 
+  private _src$: Observable<NgxListRecord[]>;
   private _subscription: Subscription = null;
   private _listParams$: BehaviorSubject<NgxListParams>;
   private _paused$: BehaviorSubject<boolean>;
   private _result$: BehaviorSubject<NgxListResult>;
-  private _filters: NgxListFilterFn[];
+  private _idKey: string;
   private _sortFn: NgxListSortFn;
-  private _filterInfos: {key: string, fn: NgxListFilterFn}[] = [];
+  private _filters: {key: string, fn: NgxListFilterFn}[] = [];
   private _fg: FormGroup;
 
 
 
-  /**
-   * Create an instance of NgxList with an {@link NgxListInit} object with the
-   * following (mostly optional) properties:
-   *
-   * - `src$: Observable<NgxListRecord[]` Required. The source of your list
-   * records, such as from a data API or just `of([{a: 1}, {b: 2}])`
-   * - `filters?: NgxListFilterFn[]` Optional. An array of filter functions.
-   * You can easily create search and comparison filters with the factory
-   * methods provided by {@link NgxListFilters}: [searchFilter]{@link NgxListFilters#searchFilter}
-   * and [comparisonFilter]{@link NgxListFilters#comparisonFilter}, or roll your own filters.
-   * - `sortFn?: NgxListSortFn` Optional. If omitted, a sorting function will be created for you
-   * using the {@link NgxListSort} [sortFn]{@link NgxListSort#sortFn} factory method
-   *
-   * Passing your own sort function:
-   *
-   *    const mySort = (records) => {
-   *       const sorted = records.slice(0);
-   *       sorted.reverse();
-   *       return sorted;
-   *    }
-   *    const list = new NgxList({src$: myApi.getRecords(), sortFn: mySort});
-   *
-   *
-   */
   constructor(init: NgxListInit) {
-    this._init(init);
+
+  }
+
+  get src$(): Observable<NgxListRecord[]> {
+    return this._src$;
+  }
+
+  get idKey(): string {
+    return this._idKey;
+  }
+
+  get fg(): FormGroup {
+    return this._fg;
+  }
+
+  get pageControl(): FormControl {
+    return this.fg.get('page') as FormControl;
+  }
+
+  get recordsPerPageControl(): FormControl {
+    return this.fg.get('recordsPerPage') as FormControl;
   }
 
   /**
@@ -244,8 +242,45 @@ export class NgxList  {
   /**
    * Initialization of the List.
    */
-  private _init(init: NgxListInit) {
-    const fb = new FormBuilder();
+  private _init(options: {
+    src$: Observable<NgxListRecord[]>,
+    idKey: string,
+    filters?: {key: string, fn: NgxListFilterFn, initialValue?: any}[],
+    initialPage?: any,
+    initialRecordsPerPage?: any,
+    initialSort?: {
+      key?: string,
+      reversed?: boolean
+    }
+  }) {
+    this._src$ = options.src$;
+    this._idKey = options.idKey;
+    let page = parseInt(options.initialPage, 10);
+    if (isNaN(page) || page < 0) {
+      page = 0;
+    }
+    let recordsPerPage = parseInt(options.initialRecordsPerPage, 10);
+    if (isNaN(recordsPerPage) || recordsPerPage < 0) {
+      recordsPerPage = 10;
+    }
+    const sort = typeof options.initialSort === 'object'  ? options.initialSort : {};
+    sort.key = sort.key && typeof sort.key === 'string' ? sort.key : this.idKey;
+    const filtersFg = new FormGroup({});
+    this._fg = new FormGroup({
+      page: new FormControl(page),
+      recordsPerPage: new FormControl(recordsPerPage),
+      sort: new FormControl(sort),
+      filters: filtersFg
+    });
+    const filters = options.filters || [];
+    filters.forEach(info => {
+      const initialValue = info.initialValue || '';
+      filtersFg.addControl(info.key, initialValue);
+      this._filters.push({key: info.key, fn: info.fn});
+    });
+
+
+
     this._filters = init.filters || [];
     this._sortFn = typeof init.sortFn === 'function' ? init.sortFn : NgxListSort.sortFn();
     const params = init.initialParams || {};
@@ -271,6 +306,29 @@ export class NgxList  {
       .subscribe((results: [NgxListRecord[], NgxListParams, boolean]) => {
         this._update(...results);
       });
+  }
+
+
+
+  private _initPageControl(value?: any) {
+
+    this.fg.addControl('page', new FormControl(page));
+  }
+
+  private _initRecordsPerPageControl(value?: any) {
+    let rpp = parseInt(value, 10);
+    if (isNaN(rpp) || rpp < 0) {
+      rpp = 10;
+    }
+    this.fg.addControl('recordsPerPage', new FormControl(rpp));
+  }
+
+  private _initSortControl(value?: any) {
+
+  }
+
+  private _initFilter(key: string, fn: NgxListFilterFn, initialValue: any) {
+
   }
 
   /**
@@ -309,7 +367,5 @@ export class NgxList  {
     this._result$.next(result);
   }
 
-  private _initFilter(key: string, fn: NgxListFilterFn, initialValue: any) {
 
-  }
 }

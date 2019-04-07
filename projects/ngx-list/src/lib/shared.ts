@@ -194,3 +194,9 @@ export interface NgxListResult {
    */
   filterParams: NgxListFilterParams;
 }
+
+export interface NgxListFilterResult {
+  key: string;
+  active: boolean;
+  matchedIds: string[];
+}
