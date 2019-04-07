@@ -114,7 +114,7 @@ export interface NgxListCompareFilterOptions {
   ignoreFilterWhen?: (filterValue: any) => boolean;
 }
 
-export interface NGxListSortFunctionOptions {
+export interface NgxListSortFunctionOptions {
   fallbackSortColumn?: string;
   caseSensitive?: boolean;
   valueFns?: {[key: string]: NgxListColumnValueFn};

@@ -14,11 +14,7 @@
         <label for="purchasePriceSelect">Purchase Price...</label>
         <select class="form-control" [formControl]="purchasePriceSelect" id="purchasePriceSelect">
           <option value="">All Socks (don't filter by price)</option>
-          <option value="<10">Less than $10</option>
-          <option value=">=10">$10 - $24.99</option>
-          <option value=">=25">$25 - $49.99</option>
-          <option value=">=50">$50 - $99.99</option>
-          <option value=">=100">More than $100</option>
+          <option *ngFor="let value of valueOptions">{{value}}</option>
         </select>
       </div>
     </div>

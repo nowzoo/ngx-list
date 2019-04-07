@@ -154,6 +154,4 @@ export class NgxListFilters {
     return dotKeys;
   }
 
-
-
 }

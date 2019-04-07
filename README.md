@@ -70,7 +70,111 @@ Result:
 }
 ```
 
+The following examples assumes your list records follow this structure:
+```ts
+interface SockRecord {
+  id: number;
+  firstName: string,
+  lastName: string,
+  purchased: {
+    date: number; // ms since the epoch
+    price: number;
+  },
+  color: string;
+  missing: 'left' | 'right' | null;
+  lastWorn: number; // ms since the epoch
+  currentValue: number;
+}
+```
 
+### Implementing a comparison filter
+Let's say we want to have a dropdown that allows the user to filter socks by purchase price.
+```ts
+// sock-list.component.ts
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { NgxList, NgxListFilters, NgxListResult } from '@nowzoo/ngx-list';
+import { DataService, SockRecord } from '../data.service';
+
+// Let's create an enum here to keep track of
+// the filter value and display the options in the menu.
+enum ValueOptions {
+  lessThan10 = 'less than $10',
+  from10to25 = '$10 to $24.99',
+  from25to50 = '$25 to $49.99',
+  from50to100 = '$50 to $99.99',
+  moreThan100 = 'more than $100',
+}
+export class SockListComponent implements OnInit, OnDestroy {
+  list: NgxList;
+  result: NgxListResult = null;
+  // expose the enum to the template...
+  valueOptions = Object.values(ValueOptions);
+  // form control for the filter dropdown..
+  purchasePriceSelect: FormControl;
+
+  constructor(
+    private dataService: DataService
+  ) { }
+
+  ngOnInit() {
+    this.list = new NgxList({
+      src$: this.dataService.socks$,
+      filters: [
+        // use the factory function...
+        NgxListFilters.comparisonFilter({
+          filterKey: 'purchasePrice',
+          // pass a function that takes a record and returns one of the options...
+          value: (rec) => {
+            const value: number = rec.purchased && rec.purchased.price ? rec.purchased.price : 0;
+            if (value >= 100) {
+              return ValueOptions.moreThan100;
+            }
+            if (value >= 50) {
+              return ValueOptions.from50to100;
+            }
+            if (value >= 25) {
+              return ValueOptions.from25to50;
+            }
+            if (value >= 10) {
+              return ValueOptions.from10to25;
+            }
+            return ValueOptions.lessThan10;
+          }
+        })
+      ]
+    });
+    this.list.results$.subscribe(result => this.result = result);
+    // create the form control, and listen for changes...
+    this.purchasePriceSelect = new FormControl('');
+    this.purchasePriceSelect.subscribe(value => this.list.setFilterParam('purchasePrice', value));
+  }
+  ngOnDestroy() {
+    this.list.destroy();
+  }
+}
+```
+The template...
+```html
+<!-- sock-list.component.html -->
+<div class="form-group">
+  <label for="purchasePriceSelect">Filter By Purchase Price</label>
+  <select class="form-control" [formControl]="purchasePriceSelect" id="purchasePriceSelect">
+    <option value="">All Price Ranges</option>
+    <option *ngFor="let opt of valueOptions">{{opt}}</option>
+  </select>
+</div>
+<div *ngIf="result">
+  <div *ngIf="result.listParams.purchasePrice">
+    You filtered by purchase price: {{result.listParams.purchasePrice}}.
+    <button class="btn btn-sm btn-link" type="button" (click)="purchasePriceSelect.setValue('')">Clear</button>
+  </div>
+  <table>
+    ...
+  </table>
+</div>
+```
 
 
 

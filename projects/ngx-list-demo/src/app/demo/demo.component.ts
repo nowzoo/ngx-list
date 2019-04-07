@@ -5,6 +5,14 @@ import { NgxList, NgxListSort,
   NgxListFilters, NgxListInit, NgxListResult } from '@nowzoo/ngx-list';
 import { DataService } from '../data.service';
 import moment from 'moment';
+
+enum ValueOptions {
+  lessThan10 = 'less than $10',
+  from10to25 = '$10 to $24.99',
+  from25to50 = '$25 to $49.99',
+  from50to100 = '$50 to $99.99',
+  moreThan100 = 'more than $100',
+}
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
@@ -17,6 +25,7 @@ export class DemoComponent implements OnInit {
   missingSelect: FormControl;
   purchasePriceSelect: FormControl;
   listFg: FormGroup;
+  valueOptions = Object.values(ValueOptions);
 
 
   constructor(
@@ -25,20 +34,21 @@ export class DemoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const valueFilter = (value: number) => {
+
+    const dollarValue = (value: number) => {
       if (value >= 100) {
-        return '>=100';
+        return ValueOptions.moreThan100;
       }
       if (value >= 50) {
-        return '>=50';
+        return ValueOptions.from50to100;
       }
       if (value >= 25) {
-        return '>=25';
+        return ValueOptions.from25to50;
       }
       if (value >= 10) {
-        return '>=10';
+        return ValueOptions.from10to25;
       }
-      return '<10';
+      return ValueOptions.lessThan10;
     };
     this.listFg = this.fb.group({
       page: [0],
@@ -73,7 +83,6 @@ export class DemoComponent implements OnInit {
         NgxListFilters.searchFilter({
           filterKey: 'search',
           ignoreKeys: ['id'],
-          inspectKeys: ['purchased.date', 'purchased.price'],
           valueFns: {
             'purchased.date': (rec) => moment(rec.purchased.date).format('LLLL'),
             lastWorn: (rec) => moment(rec.lastWorn).format('LLLL'),
@@ -85,10 +94,12 @@ export class DemoComponent implements OnInit {
         }),
         NgxListFilters.comparisonFilter({
           filterKey: 'purchasePrice',
-          value: (rec) => {
-            return valueFilter(rec.purchased.price);
-          }
-        })
+          value: rec => dollarValue(rec.purchased.price)
+        }),
+        NgxListFilters.comparisonFilter({
+          filterKey: 'currentValue',
+          value: rec => dollarValue(rec.currentValue)
+        }),
       ]
     };
     this.list = new NgxList(listInit);

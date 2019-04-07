@@ -21,6 +21,8 @@ export class NgxList  {
   private _result$: BehaviorSubject<NgxListResult>;
   private _filters: NgxListFilterFn[];
   private _sortFn: NgxListSortFn;
+  private _filterInfos: {key: string, fn: NgxListFilterFn}[] = [];
+  private _fg: FormGroup;
 
 
 
@@ -305,5 +307,9 @@ export class NgxList  {
       filterParams, sortColumn, sortReversed
     };
     this._result$.next(result);
+  }
+
+  private _initFilter(key: string, fn: NgxListFilterFn, initialValue: any) {
+
   }
 }

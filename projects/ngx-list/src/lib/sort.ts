@@ -2,7 +2,7 @@ import {
   NgxListRecord,
   NgxListSortFn,
   NgxListColumnValueFn,
-  NGxListSortFunctionOptions
+  NgxListSortFunctionOptions
 } from './shared';
 import get from 'lodash/get';
 import sortBy from 'lodash/sortBy';
@@ -14,7 +14,7 @@ export class NgxListSort {
   /**
    * A factory that returns an instance of {@Link NgxListSortFn}.
    */
-  static sortFn(options?: NGxListSortFunctionOptions): NgxListSortFn {
+  static sortFn(options?: NgxListSortFunctionOptions): NgxListSortFn {
     options = options || {};
     const fallbackSortColumn: string = options.fallbackSortColumn || null;
     const caseSensitive = options.caseSensitive === true;
