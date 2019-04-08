@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgxListAbstractRppControl } from '../../abstract-controls/rpp-control';
+import { NgxListAbstractRppControl } from '../../rpp-control';
 
 @Component({
   selector: 'ngx-list-bootstrap-rpp-control',

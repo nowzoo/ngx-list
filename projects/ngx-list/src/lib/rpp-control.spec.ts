@@ -1,7 +1,7 @@
 import { NgxListAbstractRppControl } from './rpp-control';
 import { BehaviorSubject } from 'rxjs';
-import { NgxList } from '../list';
-import { NgxListResult } from '../shared';
+import { NgxList } from './list';
+import { NgxListResult } from './shared';
 import { FormControl } from '@angular/forms';
 import { fakeAsync, tick } from '@angular/core/testing';
 
@@ -12,7 +12,7 @@ describe('NgxListAbstractRppControl', () => {
   let rppControl: NgxListAbstractRppControl;
   beforeEach(() => {
     src$ = new BehaviorSubject([]);
-    list = new NgxList({src$: src$.asObservable()});
+    list = new NgxList({src$: src$.asObservable(), idKey: 'id'});
     rppControl = new NgxListAbstractRppControl();
     rppControl.list = list;
   });
@@ -42,8 +42,8 @@ describe('NgxListAbstractRppControl', () => {
       spyOn(rppControl, 'onControlValueChange');
       spyOn(fc, 'setValue').and.callThrough();
       spyOnProperty(rppControl, 'control').and.returnValue(fc);
-      result = {records: [], recordCount: 0, filterParams: {}, page: 0, recordsPerPage: 0, pageCount: 0,
-        sortColumn: 'foo', sortReversed: false, unfilteredRecordCount: 0};
+      result = {records: [], recordCount: 0, filterValues: {}, page: 0, recordsPerPage: 0, pageCount: 0,
+        sort: {key: 'foo', reversed: false}, unfilteredRecordCount: 0};
     });
     it('should set the control value', () => {
       result.recordsPerPage = 0;
@@ -52,7 +52,7 @@ describe('NgxListAbstractRppControl', () => {
     });
 
     it('should start listening to the control, and call onControlValueChange when it changes', fakeAsync(() => {
-      result.filterParams = {search: ''};
+      result.filterValues = {search: ''};
       rppControl.onFirstResult(result);
       fc.setValue('foo');
       tick();

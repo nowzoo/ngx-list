@@ -1,14 +1,8 @@
-import { Component, OnInit, Input, OnChanges, Inject, Optional} from '@angular/core';
-import { takeUntil, take } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
-import { NgxListAbstractControl } from '../../abstract-controls/control';
-import {
-  NgxListPaginationLabels,
-  NGX_LIST_PAGINATION_LABELS,
-  ngxListPaginationLabels
-} from '../options';
+import { Component, OnInit, Input} from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { NgxListAbstractControl } from '../../control';
 
-import { NgxListResult } from '../../shared';
+
 
 @Component({
   selector: 'ngx-list-bootstrap-page-controls',

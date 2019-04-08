@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { NgxListAbstractControl } from '../../abstract-controls/control';
+import { NgxListAbstractControl } from '../../control';
 
 @Component({
   selector: 'ngx-list-bootstrap-pagination-slider',

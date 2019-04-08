@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, Inject, Optional} from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { NgxListAbstractControl } from '../../abstract-controls/control';
+import { NgxListAbstractControl } from '../../control';
 import {
   NgxListPaginationLabels,
   NGX_LIST_PAGINATION_LABELS,

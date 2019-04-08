@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgxListAbstractSortLink } from '../../abstract-controls/sort-link';
+import { NgxListAbstractSortLink } from '../../sort-link';
 @Component({
   selector: 'ngx-list-bootstrap-sort-link',
   templateUrl: './sort-link.component.html',

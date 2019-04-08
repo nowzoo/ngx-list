@@ -1,13 +1,13 @@
 import { NgxListAbstractControl } from './control';
 import { BehaviorSubject } from 'rxjs';
-import { NgxList } from '../list';
+import { NgxList } from './list';
 describe('NgxListAbstractControl', () => {
   let list: NgxList;
   let src$: BehaviorSubject<any[]>;
   let baseListControl: NgxListAbstractControl;
   beforeEach(() => {
     src$ = new BehaviorSubject([]);
-    list = new NgxList({src$: src$.asObservable()});
+    list = new NgxList({src$: src$.asObservable(), idKey: 'id'});
     baseListControl = new NgxListAbstractControl();
     baseListControl.list = list;
   });

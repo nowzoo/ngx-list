@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgxListAbstractSearchControl } from '../../abstract-controls/search-control';
+import { NgxListAbstractSearchControl } from '../../search-control';
 
 @Component({
   selector: 'ngx-list-bootstrap-search-control',

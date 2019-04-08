@@ -1,5 +1,5 @@
 import { NgxListAbstractSortLink } from './sort-link';
-import { NgxListResult } from '../shared';
+import { NgxListResult } from './shared';
 describe('NgxListAbstractSortLink', () => {
   it('should create an instance', () => {
     expect(new NgxListAbstractSortLink()).toBeTruthy();
@@ -13,9 +13,9 @@ describe('NgxListAbstractSortLink', () => {
     beforeEach(() => {
       event = {preventDefault: jasmine.createSpy()};
       list = {setSort: jasmine.createSpy()};
-      result = {filterParams: {}, page: 0, pageCount: 1,
+      result = {filterValues: {}, page: 0, pageCount: 1,
         recordCount: 1, records: [{foo: 8}], recordsPerPage: 10,
-        sortColumn: 'id', sortReversed: false, unfilteredRecordCount: 1};
+        sort: {key: 'id', reversed: false}, unfilteredRecordCount: 1};
       sortLink = new NgxListAbstractSortLink();
       sortLink.columnKey = 'foo';
       sortLink.defaultReversed = false;
@@ -32,17 +32,17 @@ describe('NgxListAbstractSortLink', () => {
     it('should call list.setSort with defaultReversed if it is not the current column', () => {
       sortLink.result = result;
       sortLink.onClick(event);
-      expect(list.setSort).toHaveBeenCalledWith('foo', false);
+      expect(list.setSort).toHaveBeenCalledWith({key: 'foo', reversed: false});
     });
-    it('should call list.setSort with the opposite of sortReversed if it is the current column', () => {
-      result.sortColumn = 'foo';
+    it('should call list.setSort with the opposite of sort.reversed if it is the current column', () => {
+      result.sort.key = 'foo';
       sortLink.result = result;
       sortLink.onClick(event);
-      expect(list.setSort).toHaveBeenCalledWith('foo', true);
-      result.sortColumn = 'foo';
-      result.sortReversed = true;
+      expect(list.setSort).toHaveBeenCalledWith({key: 'foo', reversed: true});
+      result.sort.key = 'foo';
+      result.sort.reversed = true;
       sortLink.onClick(event);
-      expect(list.setSort).toHaveBeenCalledWith('foo', false);
+      expect(list.setSort).toHaveBeenCalledWith({key: 'foo', reversed: false});
     });
   });
 });

@@ -8,8 +8,8 @@ export class NgxListAbstractSortLink extends NgxListAbstractControl {
     if (event) {
       event.preventDefault();
     }
-    const reversed: boolean = this.result && this.result.sortColumn === this.columnKey ?
-      (! this.result.sortReversed) : this.defaultReversed;
-    this.list.setSort(this.columnKey, reversed);
+    const reversed: boolean = this.result && this.result.sort.key === this.columnKey ?
+      (! this.result.sort.reversed) : this.defaultReversed;
+    this.list.setSort({key: this.columnKey, reversed});
   }
 }
