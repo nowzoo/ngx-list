@@ -1,0 +1,20 @@
+<a class="ngx-bootstrap-sort"
+  href="#"
+  [class.active]="selected"
+  (click)="$event.preventDefault(); select()"
+  [attr.title]="normalizedOptions.sortLabel"
+  role="button">
+  <div class="mr-2">
+    <ng-content></ng-content>
+  </div>
+  <div
+    *ngIf="selected && reversed">
+    <span [innerHTML]="normalizedOptions.sortDescHTML"></span>
+    <span class="sr-only">{{normalizedOptions.sortDescLabel}}</span>
+  </div>
+  <div
+    *ngIf="selected && (!reversed)">
+    <span [innerHTML]="normalizedOptions.sortAscHTML"></span>
+    <span class="sr-only">{{normalizedOptions.sortAscLabel}}</span>
+  </div>
+</a>

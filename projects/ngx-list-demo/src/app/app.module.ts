@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
 
 
-import { NgxListBootstrapControlsModule } from '@nowzoo/ngx-list';
+import { NgxListBootstrapModule } from '@nowzoo/ngx-list';
 import { DataService } from './data.service';
 
 import { AppComponent } from './app.component';
@@ -20,7 +20,7 @@ import { DemoComponent } from './demo/demo.component';
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxListBootstrapControlsModule,
+    NgxListBootstrapModule,
     MomentModule
   ],
   providers: [DataService],

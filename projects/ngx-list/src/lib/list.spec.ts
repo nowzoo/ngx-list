@@ -141,41 +141,42 @@ describe('NgxList', () => {
   });
   describe('searchFilter(options)', () => {
     it('should return a function', () => {
-      const fn = NgxList.searchFilter({filterKey: 'search'});
+      const fn = NgxList.searchFilter();
       expect(fn).toEqual(jasmine.any(Function));
     });
     it('should match case-insensitively by default', () => {
       const records = [{a: 'foo'}, {a: 'Foo'}];
-      const fn = NgxList.searchFilter({filterKey: 'search'});
-      expect(fn(records, {search: 'foo'}).length).toBe(2);
-      expect(fn(records, {search: 'Foo'}).length).toBe(2);
-      expect(fn(records, {search: 'FoO'}).length).toBe(2);
+      const fn = NgxList.searchFilter();
+      expect(fn(records, 'foo').length).toBe(2);
+      expect(fn(records, 'Foo').length).toBe(2);
+      expect(fn(records, 'FoO').length).toBe(2);
     });
     it('should match case-sensitively if caseSensitive', () => {
       const records = [{a: 'foo'}, {a: 'Foo'}];
-      const fn = NgxList.searchFilter({filterKey: 'search', caseSensitive: true});
-      expect(fn(records, {search: 'foo'}).length).toBe(1);
-      expect(fn(records, {search: 'Foo'}).length).toBe(1);
-      expect(fn(records, {search: 'FoO'}).length).toBe(0);
+      const fn = NgxList.searchFilter({caseSensitive: true});
+      expect(fn(records, 'foo').length).toBe(1);
+      expect(fn(records, 'Foo').length).toBe(1);
+      expect(fn(records, 'FoO').length).toBe(0);
     });
     it('should ignore keys if ignoredKeys is set', () => {
       const records = [{a: 'foo', b: 'xyz', c: {}}, {a: 'bar',  b: 'abc', c: {}}];
-      const fn = NgxList.searchFilter({filterKey: 'search', ignoredKeys: ['b', 'c']});
-      expect(fn(records, {search: 'xyz'}).length).toBe(0);
-      expect(fn(records, {search: 'abc'}).length).toBe(0);
-      expect(fn(records, {search: 'object'}).length).toBe(0);
-      expect(fn(records, {search: 'foo'}).length).toBe(1);
-      expect(fn(records, {search: 'bar'}).length).toBe(1);
+      let fn = NgxList.searchFilter({ignoredKeys: ['b', 'c']});
+      expect(fn(records, 'xyz').length).toBe(0);
+      expect(fn(records, 'abc').length).toBe(0);
+      expect(fn(records,  'object').length).toBe(0);
+      expect(fn(records, 'foo').length).toBe(1);
+      expect(fn(records, 'bar').length).toBe(1);
       // without ignored keys...
-      const fnB =  NgxList.searchFilter({filterKey: 'search', ignoredKeys: []});
-      expect(fnB(records, {search: 'xyz'}).length).toBe(1);
-      expect(fnB(records, {search: 'abc'}).length).toBe(1);
-      expect(fnB(records, {search: 'foo'}).length).toBe(1);
-      expect(fnB(records, {search: 'bar'}).length).toBe(1);
+      fn =  NgxList.searchFilter({ ignoredKeys: []});
+      expect(fn(records, 'xyz').length).toBe(1);
+      expect(fn(records, 'abc').length).toBe(1);
+      expect(fn(records,  'object').length).toBe(0);
+      expect(fn(records, 'foo').length).toBe(1);
+      expect(fn(records, 'bar').length).toBe(1);
     });
     it('should return all the records if search is empty or not a string', () => {
       const records = [{a: 'foo'}, {a: 'bar'}];
-      const fn = NgxList.searchFilter({filterKey: 'search'});
+      const fn = NgxList.searchFilter();
       expect(fn(records, {}).length).toBe(2);
       expect(fn(records, {search: {}}).length).toBe(2);
       expect(fn(records, {search: '   '}).length).toBe(2);
@@ -183,59 +184,57 @@ describe('NgxList', () => {
     it('should use valueFns if specified', () => {
       const records = [{a: 'foo'}, {a: 'bar'}];
       const valueFn = (record: any) => (record.a as string)[0] + 'xxx';
-      const fn = NgxList.searchFilter({filterKey: 'search', valueFns: {a: valueFn}});
-      expect(fn(records, {search: 'foo'}).length).toBe(0);
-      expect(fn(records, {search: 'fxxx'}).length).toBe(1);
-      expect(fn(records, {search: 'bar'}).length).toBe(0);
-      expect(fn(records, {search: 'bxxx'}).length).toBe(1);
+      const fn = NgxList.searchFilter({valueFns: {a: valueFn}});
+      expect(fn(records, 'foo').length).toBe(0);
+      expect(fn(records, 'fxxx').length).toBe(1);
+      expect(fn(records, 'bar').length).toBe(0);
+      expect(fn(records,  'bxxx').length).toBe(1);
     });
   });
 
   describe('comparisonFilter(options)', () => {
 
     it('should return a function', () => {
-      const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a'});
+      const fn = NgxList.comparisonFilter({value: 'a'});
       expect(fn).toEqual(jasmine.any(Function));
     });
     it('should return an empty list if the compare is not handled', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
       const fn = NgxList.comparisonFilter({
-        filterKey: 'foo', value: 'a', compare: NgxListCompare.eq + 2929});
+         value: 'a', compare: NgxListCompare.eq + 2929});
       expect(fn(records, {foo: 8}).length).toBe(0);
     });
     it('should use eq by default', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
-      const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a'});
-      expect(fn(records, {foo: 8}).length).toBe(1);
-      expect(fn(records, {foo: '8'}).length).toBe(1);
+      const fn = NgxList.comparisonFilter({value: 'a'});
+      expect(fn(records, 8).length).toBe(1);
+      expect(fn(records, '8').length).toBe(1);
     });
     it('should use the default ignoreFilterWhen by default', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
-      const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a'});
-      expect(fn(records, {foo: undefined}).length).toBe(records.length);
-      expect(fn(records, {foo: ''}).length).toBe(records.length);
-      expect(fn(records, {foo: null}).length).toBe(records.length);
+      const fn = NgxList.comparisonFilter({value: 'a'});
+      expect(fn(records, undefined).length).toBe(records.length);
+      expect(fn(records, '').length).toBe(records.length);
+      expect(fn(records, null).length).toBe(records.length);
     });
     it('should respect the ignoreFilterWhen function passed in', () => {
       const records = [{a: 8}, {a: 9}, {a: 200}, {a: '8'}];
       const fn = NgxList.comparisonFilter({
-        filterKey: 'foo',
         value: 'a',
         ignoreFilterWhen: (filterValue) => filterValue === null
       });
-      expect(fn(records, {foo: null}).length).toBe(records.length);
-      expect(fn(records, {foo: undefined}).length).toBe(0);
+      expect(fn(records, null).length).toBe(records.length);
+      expect(fn(records, undefined).length).toBe(0);
       expect(fn(records, {}).length).toBe(0);
-      expect(fn(records, {foo: ''}).length).toBe(0);
+      expect(fn(records, '').length).toBe(0);
     });
-    it('should use the function if passed in', () => {
+    it('should use the value function if passed in', () => {
       const records = [{a: 'a'}, {a: 'bcdefgf'}];
       const fn = NgxList.comparisonFilter({
-        filterKey: 'foo',
         value: (rec) => rec.a.length > 1
       });
-      expect(fn(records, {foo: true}).length).toBe(1);
-      expect(fn(records, {foo: false}).length).toBe(1);
+      expect(fn(records, true).length).toBe(1);
+      expect(fn(records, false).length).toBe(1);
     });
 
     describe('comparing string columns', () => {
@@ -244,26 +243,26 @@ describe('NgxList', () => {
         records = [{a: 'a'}, {a: 'A'},  {a: 'z'}, {a: 'z'}];
       });
       it('should work with NgxListCompare.eq', () => {
-        const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.eq});
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.eq});
         expect(fn(records, {foo: false}).length).toBe(0);
-        expect(fn(records, {foo: 'a'}).length).toBe(1);
-        expect(fn(records, {foo: 'A'}).length).toBe(1);
+        expect(fn(records, 'a').length).toBe(1);
+        expect(fn(records,  'A').length).toBe(1);
       });
       it('should work with NgxListCompare.neq', () => {
-        const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.neq});
-        expect(fn(records, {foo: false}).length).toBe(records.length);
-        expect(fn(records, {foo: 'a'}).length).toBe(records.length - 1);
-        expect(fn(records, {foo: 'A'}).length).toBe(records.length - 1);
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.neq});
+        expect(fn(records, false).length).toBe(records.length);
+        expect(fn(records, 'a').length).toBe(records.length - 1);
+        expect(fn(records, 'A').length).toBe(records.length - 1);
       });
       it('should work with NgxListCompare.gte', () => {
-        const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.gte});
-        expect(fn(records, {foo: 'a'}).length).toBe(records.length - 1);
-        expect(fn(records, {foo: 'A'}).length).toBe(records.length);
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.gte});
+        expect(fn(records, 'a').length).toBe(records.length - 1);
+        expect(fn(records, 'A').length).toBe(records.length);
       });
       it('should work with NgxListCompare.lte', () => {
-        const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.lte});
-        expect(fn(records, {foo: 'z'}).length).toBe(records.length);
-        expect(fn(records, {foo: 'A'}).length).toBe(1);
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.lte});
+        expect(fn(records, 'z').length).toBe(records.length);
+        expect(fn(records, 'A').length).toBe(1);
       });
 
     });
@@ -274,46 +273,41 @@ describe('NgxList', () => {
         records = [{a: 8}, {a: 9}, {a: 200}, {a: -1}, {a: 0}];
       });
       it('should work with NgxListCompare.eq when comparing numeric columns', () => {
-        const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.eq});
-        expect(fn(records, {foo: 8}).length).toBe(1);
-        expect(fn(records, {foo: 200}).length).toBe(1);
-        expect(fn(records, {foo: 0}).length).toBe(1);
-        expect(fn(records, {foo: -1}).length).toBe(1);
-        expect(fn(records, {foo: -344}).length).toBe(0);
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.eq});
+        expect(fn(records, 9).length).toBe(1);
+        expect(fn(records, 200).length).toBe(1);
+        expect(fn(records, 0).length).toBe(1);
+        expect(fn(records, -1).length).toBe(1);
+        expect(fn(records, -344).length).toBe(0);
       });
       it('should work with NgxListCompare.neq when comparing numeric columns', () => {
-        const fn = NgxList.comparisonFilter({
-          filterKey: 'foo', value: 'a', compare: NgxListCompare.neq});
-        expect(fn(records, {foo: 8}).length).toBe(records.length - 1);
+        const fn = NgxList.comparisonFilter({ value: 'a', compare: NgxListCompare.neq});
+        expect(fn(records, 8).length).toBe(records.length - 1);
       });
       it('should work with NgxListCompare.gte when comparing numeric columns', () => {
-        const fn = NgxList.comparisonFilter({
-          filterKey: 'foo', value: 'a', compare: NgxListCompare.gte});
-        expect(fn(records, {foo: 8}).length).toBe(records.length - 2);
-        expect(fn(records, {foo: 6778}).length).toBe(0);
-        expect(fn(records, {foo: -6778}).length).toBe(records.length);
+        const fn = NgxList.comparisonFilter({ value: 'a', compare: NgxListCompare.gte});
+        expect(fn(records, 8).length).toBe(records.length - 2);
+        expect(fn(records,  6778).length).toBe(0);
+        expect(fn(records, -6778).length).toBe(records.length);
       });
       it('should work with NgxListCompare.gt when comparing numeric columns', () => {
-        const fn = NgxList.comparisonFilter({
-          filterKey: 'foo', value: 'a', compare: NgxListCompare.gt});
-        expect(fn(records, {foo: 8}).length).toBe(records.length - 3);
-        expect(fn(records, {foo: 6778}).length).toBe(0);
-        expect(fn(records, {foo: -6778}).length).toBe(records.length);
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.gt});
+        expect(fn(records, 8).length).toBe(records.length - 3);
+        expect(fn(records, 6778).length).toBe(0);
+        expect(fn(records, -6778).length).toBe(records.length);
       });
       it('should work with NgxListCompare.lte when comparing numeric columns', () => {
-        const fn = NgxList.comparisonFilter({
-          filterKey: 'foo', value: 'a', compare: NgxListCompare.lte});
-        expect(fn(records, {foo: -1}).length).toBe(1);
-        expect(fn(records, {foo: 6778}).length).toBe(records.length);
-        expect(fn(records, {foo: -6778}).length).toBe(0);
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.lte});
+        expect(fn(records, -1).length).toBe(1);
+        expect(fn(records, 6778).length).toBe(records.length);
+        expect(fn(records, -6778).length).toBe(0);
       });
       it('should work with NgxListCompare.lt when comparing numeric columns', () => {
-        const fn = NgxList.comparisonFilter({
-          filterKey: 'foo', value: 'a', compare: NgxListCompare.lt});
-        expect(fn(records, {foo: -1}).length).toBe(0);
-        expect(fn(records, {foo: 0}).length).toBe(1);
-        expect(fn(records, {foo: 6778}).length).toBe(records.length);
-        expect(fn(records, {foo: -6778}).length).toBe(0);
+        const fn = NgxList.comparisonFilter({ value: 'a', compare: NgxListCompare.lt});
+        expect(fn(records, -1).length).toBe(0);
+        expect(fn(records, 0).length).toBe(1);
+        expect(fn(records, 6778).length).toBe(records.length);
+        expect(fn(records, -6778).length).toBe(0);
       });
     });
 
@@ -323,10 +317,10 @@ describe('NgxList', () => {
         records = [{a: true}, {a: false}, {a: false}];
       });
       it('should work with NgxListCompare.eq', () => {
-        const fn = NgxList.comparisonFilter({filterKey: 'foo', value: 'a', compare: NgxListCompare.eq});
-        expect(fn(records, {foo: 8}).length).toBe(0);
-        expect(fn(records, {foo: true}).length).toBe(1);
-        expect(fn(records, {foo: false}).length).toBe(2);
+        const fn = NgxList.comparisonFilter({value: 'a', compare: NgxListCompare.eq});
+        expect(fn(records,  8).length).toBe(0);
+        expect(fn(records, true).length).toBe(1);
+        expect(fn(records, false).length).toBe(2);
       });
     });
 
@@ -555,6 +549,104 @@ describe('NgxList', () => {
     });
   });
 
+  describe('initialization', () => {
+    let myInit: any;
+    beforeEach(() => {
+      myInit = {
+        src$: recordSubject$.asObservable(),
+        idKey: 'id'
+      };
+      recordSubject$.next([
+        {id: 'a'},
+        {id: 'b'},
+        {id: 'c'},
+        {id: 'd'},
+        {id: 'e'},
+        {id: 'f'},
+      ]);
+    });
+    it('should set page to 0 if page is missing from the init', () => {
+      list = new NgxList(myInit);
+      expect(list.currentResult.page).toBe(0);
+    });
+    it('should set page to 0 if page is less than 0', () => {
+      myInit.page = -1773;
+      list = new NgxList(myInit);
+      expect(list.currentResult.page).toBe(0);
+    });
+    it('should set page to 0 if page is not an int', () => {
+      myInit.page = 'foo';
+      list = new NgxList(myInit);
+      expect(list.currentResult.page).toBe(0);
+    });
+    it('should set page to 1 if page is 1 and there are at least 2 pages', () => {
+      myInit.page = 1;
+      myInit.recordsPerPage = 3;
+      list = new NgxList(myInit);
+      expect(list.currentResult.page).toBe(1);
+    });
+    it('should set recordsPerPage to 10 if recordsPerPage is less than 0', () => {
+      myInit.recordsPerPage = -1828;
+      list = new NgxList(myInit);
+      expect(list.currentResult.recordsPerPage).toBe(10);
+    });
+    it('should set recordsPerPage to an int greater than 0', () => {
+      myInit.recordsPerPage = 4;
+      list = new NgxList(myInit);
+      expect(list.currentResult.recordsPerPage).toBe(4);
+    });
+    it('should set recordsPerPage to an int === 0', () => {
+      myInit.recordsPerPage = 0;
+      list = new NgxList(myInit);
+      expect(list.currentResult.recordsPerPage).toBe(0);
+    });
+    it('should set sort if passed  no sort obj', () => {
+      list = new NgxList(myInit);
+      expect(list.currentResult.sort).toEqual({key: 'id', reversed: false});
+    });
+    it('should set sort if passed  a complete sort obj', () => {
+      myInit.sort = {key: 'foo', reversed: true};
+      list = new NgxList(myInit);
+      expect(list.currentResult.sort).toEqual({key: 'foo', reversed: true});
+    });
+    it('should set sort if passed an incomplete sort obj -w/o key', () => {
+      myInit.sort = {reversed: true};
+      list = new NgxList(myInit);
+      expect(list.currentResult.sort).toEqual({key: 'id', reversed: true});
+    });
+    it('should set sort if passed an incomplete sort obj - w/o reversed', () => {
+      myInit.sort = {key: 'foo'};
+      list = new NgxList(myInit);
+      expect(list.currentResult.sort).toEqual({key: 'foo', reversed: false});
+    });
+    it('should set filterValues', () => {
+      myInit.filterValues = {search: 'foo'};
+      list = new NgxList(myInit);
+      expect(list.currentResult.filterValues).toEqual({search: 'foo'});
+    });
+    it('should set the sortFn if passed', () => {
+      const sortFn = jasmine.createSpy().and.callFake(() => recordSubject$.value);
+      myInit.sortFn = sortFn;
+      list = new NgxList(myInit);
+      expect(sortFn).toHaveBeenCalled();
+    });
+    it('should set the sortFn if not passed in init', () => {
+      const spy = spyOn(NgxList, 'sortFn').and.callThrough();
+      list = new NgxList(myInit);
+      expect(spy).toHaveBeenCalled();
+    });
 
+    it('should set filters', () => {
+      const spy1 = jasmine.createSpy().and.returnValue([]);
+      const spy2 = jasmine.createSpy().and.returnValue([]);
+      myInit.filters = {
+        foo: spy1,
+        bar: spy2
+      };
+      list = new NgxList(myInit);
+      expect(spy1).toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+    });
+  });
 
 });

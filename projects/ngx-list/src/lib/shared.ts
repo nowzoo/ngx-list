@@ -1,4 +1,4 @@
-
+import { Observable } from 'rxjs';
 /**
  * What this library expects a record to look like.
  */
@@ -6,17 +6,7 @@ export interface NgxListRecord {
   [key: string]: any;
 }
 
-/**
- * The list maintains a map of filter params that
- * you can modify.
- */
-export interface NgxListFilterParams {
-  /**
-   * The filterKey is something like `'search'` or `'color'`.
-   * The value can be anything you choose to set.
-   */
-  [filterKey: string]: any;
-}
+
 
 /**
  * A function that, given a record and a column key,
@@ -35,7 +25,7 @@ export type NgxListColumnValueFn = (record: NgxListRecord) => any;
  * and `[searchFilter]{@link NgxListFilters#searchFilter}` factories to create filters,
  * or roll your own using this signature.
  */
-export type NgxListFilterFn = (records: NgxListRecord[], filterValues: {[key: string]: any}) => NgxListRecord[];
+export type NgxListFilterFn = (records: NgxListRecord[], value: any) => NgxListRecord[];
 
 /**
  * The signature of a sorting function.  You can use the [NgxListSort.sortFn]{@link NgxListSort#sortFn}
@@ -75,6 +65,50 @@ export enum NgxListCompare {
 
 
 
+export interface NgxListInit {
+  /**
+   * Required. An observable of your records.
+   */
+  src$: Observable<NgxListRecord[]>;
+  /**
+   *  Required. The key that should be used as the id for each record.
+   */
+  idKey: string;
+  /**
+   *  Optional. The initial page, zero-based.
+   */
+  page?: number;
+  /**
+   * Optional. Initial records per page. Default 10. Pass 0 for no paging.
+   */
+  recordsPerPage?: number;
+  /**
+   *  Optional. The initial sort params.
+   */
+  sort?: {
+    /**
+     *  Indicates the column by which the list is sorted. Defaults to `idKey`.
+     */
+    key?: string;
+    /**
+     * Indicates whether the list  is displayed in reverse ('desc') order. Default false.
+     */
+    reversed?: boolean;
+  };
+  /**
+   * Optional. Initial filter values.
+   */
+  filterValues?: {[filterKey: string]: any};
+  /**
+   * A map of filters.
+   */
+  filters?: {[key: string]: NgxListFilterFn};
+  /**
+   * Optional. By default a sort function will be created for you with some sensible defaults.
+   */
+  sortFn?: NgxListSortFn;
+
+}
 
 
 

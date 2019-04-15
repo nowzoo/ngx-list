@@ -1,0 +1,51 @@
+<div
+  class="input-group w-auto"
+  [class.input-group-sm]="'sm' === bootstrapSize"
+  [class.input-group-lg]="'lg' === bootstrapSize">
+  <div class="input-group-prepend">
+    <button
+      [disabled]="prevDisabled"
+      (click)="control.setValue(0)"
+      [attr.class]="buttonClass"
+      type="button"
+      [attr.aria-label]="normalizedOptions.firstPageButtonTitle"
+      [attr.title]="normalizedOptions.firstPageButtonTitle"
+      [innerHTML]="normalizedOptions.firstPageButtonHTML"></button>
+    <button
+      [disabled]="prevDisabled"
+      (click)="control.setValue(control.value - 1)"
+      [attr.class]="buttonClass"
+      type="button"
+      [attr.aria-label]="normalizedOptions.prevPageButtonTitle"
+      [attr.title]="normalizedOptions.prevPageButtonTitle"
+      [innerHTML]="normalizedOptions.prevPageButtonHTML"></button>
+  </div>
+  <select
+    class="custom-select"
+    [attr.id]="selectId"
+    [attr.aria-label]="normalizedOptions.currentPageTitle"
+    [attr.title]="normalizedOptions.currentPageTitle"
+    [formControl]="control">
+    <option
+      *ngFor="let n of pageNumbers"
+      [value]="n">{{(n + 1)}}</option>
+  </select>
+  <div class="input-group-append">
+    <button
+      [disabled]="nextDisabled"
+      (click)="control.setValue(control.value + 1)"
+      [attr.class]="buttonClass"
+      type="button"
+      [attr.aria-label]="normalizedOptions.nextPageButtonTitle"
+      [attr.title]="normalizedOptions.nextPageButtonTitle"
+      [innerHTML]="normalizedOptions.nextPageButtonHTML"></button>
+    <button
+      [disabled]="nextDisabled"
+      (click)="control.setValue(lastPage)"
+      [attr.class]="buttonClass"
+      type="button"
+      [attr.aria-label]="normalizedOptions.lastPageButtonTitle"
+      [attr.title]="normalizedOptions.lastPageButtonTitle"
+      [innerHTML]="normalizedOptions.lastPageButtonHTML"></button>
+  </div>
+</div>

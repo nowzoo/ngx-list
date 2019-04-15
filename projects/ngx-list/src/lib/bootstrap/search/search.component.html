@@ -6,19 +6,19 @@
     [class.form-control-lg]="'lg'===bootstrapSize"
     [formControl]="control"
     [attr.id]="inputId"
-    [attr.placeholder]="placeholder"
-    [attr.aria-label]="placeholder">
+    [attr.placeholder]="normalizedOptions.searchPlaceholder"
+    [attr.aria-label]="normalizedOptions.searchPlaceholder">
     <div
       class="clear"
       [class.clear-sm]="'sm'===bootstrapSize"
       [class.clear-lg]="'lg'===bootstrapSize"
       *ngIf="control.value.trim().length > 0">
       <a href="#"
-      [attr.title]="clearLabel"
+      [attr.title]="normalizedOptions.clearSearchLabel"
       (click)="$event.preventDefault();control.setValue('')"
       role="button">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">{{clearLabel}}</span>
+        <span aria-hidden="true" [innerHTML]="normalizedOptions.clearSearchHTML"></span>
+        <span class="sr-only">{{normalizedOptions.clearSearchLabel}}</span>
       </a>
-    </div>
   </div>
+</div>

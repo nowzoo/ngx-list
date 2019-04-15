@@ -9,7 +9,8 @@
       "lodash/sortBy": "_.sortBy",
       "lodash/trim": "_.trim",
       "lodash/chunk": "_.chunk",
-      "lodash/isFunction": "_.isFunction"
+      "lodash/isFunction": "_.isFunction",
+      "lodash/isPlainObject": "_.isPlainObject"
     }
   }
 }

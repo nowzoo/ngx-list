@@ -1,0 +1,13 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.ngx-bootstrap-sort {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: $gray-500;
+  &.active, &:hover, &:active {
+    color: $primary;
+  }
+
+}

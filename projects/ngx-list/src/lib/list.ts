@@ -6,7 +6,8 @@ import {
   NgxListResult,
   NgxListCompare,
   NgxListParams,
-  NgxListColumnValueFn
+  NgxListColumnValueFn,
+  NgxListInit
 } from './shared';
 import chunk from 'lodash/chunk';
 import isFunction from 'lodash/isFunction';
@@ -23,7 +24,7 @@ export class NgxList  {
   private _subscription: Subscription = null;
   private _params$: BehaviorSubject<NgxListParams>;
   private _result$: BehaviorSubject<NgxListResult>;
-  private _filters: {key: string, fn: NgxListFilterFn}[];
+  private _filters: {[key: string]: NgxListFilterFn};
   private _sortFn: NgxListSortFn;
 
 
@@ -169,8 +170,6 @@ export class NgxList  {
 
   /**
    * Search filter factory. Pass an options object containing...
-   * - filterKey
-   *    Required. The key of the filter. This should be unique among your filters.
    * - caseSensitive?
    *    Optional. Default false -- string values will be compared case-insensitively.
    * - ignoredKeys?
@@ -180,18 +179,17 @@ export class NgxList  {
    *    Optional. Use this if you want to mess with the values before matching, like
    *    formatting dates.
    */
-  static searchFilter(options: {
-    filterKey: string,
+  static searchFilter(options?: {
     caseSensitive?: boolean,
     ignoredKeys?: string[],
     valueFns?: {[key: string]: NgxListColumnValueFn}
   }): NgxListFilterFn {
+    options = isPlainObject(options) ? options : {};
     const caseSensitive: boolean = options.caseSensitive === true;
     const ignoredKeys = options.ignoredKeys || [];
     const valueFns = options.valueFns || {};
-    const filterKey = options.filterKey;
-    const fn = (records: NgxListRecord[], filterValues: {[key: string]: any}): NgxListRecord[] => {
-      let search: string = 'string' === typeof filterValues[filterKey] ? trim(filterValues[filterKey]) : '';
+    const fn = (records: NgxListRecord[], filterValue: any): NgxListRecord[] => {
+      let search: string = ('string' === typeof filterValue) ? trim(filterValue) : '';
       if (search.length === 0) {
         return records.slice();
       }
@@ -209,20 +207,17 @@ export class NgxList  {
    * Factory for a function that filters the records by comparing a single column against a value.
    */
   static comparisonFilter(options: {
-    filterKey: string;
     value: string | NgxListColumnValueFn;
     compare?: NgxListCompare;
     ignoreFilterWhen?: (filterValue: any) => boolean;
   }): NgxListFilterFn  {
-    const filterKey = options.filterKey;
     const compare = undefined === options.compare ? NgxListCompare.eq : options.compare;
     const ignoreFilterWhen: (filterValue: any) => boolean = isFunction(options.ignoreFilterWhen) ?
       options.ignoreFilterWhen : NgxList.ignoreFilterWhen;
     const valueFn: NgxListColumnValueFn = isFunction(options.value) ?
       options.value : (record) => get(record, toString(options.value));
 
-    const fn: NgxListFilterFn = (records: NgxListRecord[], filterValues: {[key: string]: any}): NgxListRecord[] => {
-      const filterValue = filterValues[filterKey];
+    const fn: NgxListFilterFn = (records: NgxListRecord[], filterValue: any): NgxListRecord[] => {
       if (ignoreFilterWhen(filterValue)) {
         return records.slice(0);
       }
@@ -247,44 +242,9 @@ export class NgxList  {
   /**
    * Create a list.
    *
-   * @param options An object with the following properties:
-   * - src$
-   *      Required. An observable of your records.
-   * - idKey
-   *      Required. The key that should be used as the id for each record.
-   * - page?
-   *      Optional. The initial page, zero-based.
-   * - recordsPerPage?
-   *      Optional. Initial records per page. Default 10. Pass 0 for no paging.
-   * - sort?
-   *      Optional. The initial sort params.
-   *      - key?
-   *            Indicates the column by which the list is sorted. Default: idKey.
-   *      - reversed?
-   *            Indicates whether the list  is displayed in reverse ('desc') order. Default false.
-   * - sortFn?
-   *      Optional. By default a sort function will be created for you with some sensible defaults.
-   * - filters?
-   *      Optional. An array to set up the list filters. Each element should be an object withh:
-   *      - key
-   *            Required. The key which will hold the filter's current value.
-   *      - fn
-   *            Required. The filter function itself.
-   *      - value?
-   *            Optional. The initial value of the filter. By default this will be set to the empty string.
+   * @param options See {@link NgxListInit}
    */
-  constructor(options: {
-    src$: Observable<NgxListRecord[]>,
-    idKey: string,
-    page?: number,
-    recordsPerPage?: number,
-    sort?: {
-      key?: string,
-      reversed?: boolean
-    }
-    sortFn?: NgxListSortFn,
-    filters?: {key: string, fn: NgxListFilterFn, value?: any}[]
-  }) {
+  constructor(options: NgxListInit) {
     this._src$ = options.src$;
     this._idKey = options.idKey;
     const params: NgxListParams = {page: null, recordsPerPage: null, sort: null,  filterValues: null};
@@ -297,14 +257,9 @@ export class NgxList  {
       params.recordsPerPage = 10;
     }
     params.sort = Object.assign({key: this._idKey, reversed: false}, options.sort || {});
-    params.filterValues = {};
-    this._filters = [];
-    if (options.filters) {
-      options.filters.forEach((o: {key: string, fn: NgxListFilterFn, value?: any}) => {
-        this._filters.push({key: o.key, fn: o.fn});
-        params.filterValues[o.key] = Object.keys(o).indexOf('value') > -1 ? o.value : '';
-      });
-    }
+    params.filterValues = options.filterValues && typeof options.filterValues === 'object' ?
+      options.filterValues : {};
+    this._filters = options.filters || {};
     this._params$ = new BehaviorSubject(params);
     const initialResult: NgxListResult = Object.assign({}, params, {
       records: [], pageCount: 0, recordCount: 0, unfilteredRecordCount: 0
@@ -440,11 +395,6 @@ export class NgxList  {
   }
 
 
-
-
-
-
-
   /**
    * Update the list when...
    * (1) the source records have changed,
@@ -456,8 +406,9 @@ export class NgxList  {
 
     const unfilteredRecordCount = srcRecords.length;
     let results = srcRecords.slice(0);
-    this._filters.forEach((o: {key: string, fn: NgxListFilterFn}) => {
-      results = o.fn(results, listParams.filterValues);
+    Object.keys(this._filters).forEach(key => {
+      const fn = this._filters[key];
+      results = fn(results, listParams.filterValues[key]);
     });
     results = this._sortFn(results, listParams.sort.key);
     if (listParams.sort.reversed) {

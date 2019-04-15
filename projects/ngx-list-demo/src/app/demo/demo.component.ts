@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { NgxList, NgxListSort,
+import {
+  NgxList,
   NgxListCompare,
-  NgxListFilters, NgxListInit, NgxListResult } from '@nowzoo/ngx-list';
+  NgxListInit,
+  NgxListResult
+ } from '@nowzoo/ngx-list';
 import { DataService } from '../data.service';
 import moment from 'moment';
 
@@ -24,7 +27,7 @@ export class DemoComponent implements OnInit {
   result: NgxListResult = null;
   missingSelect: FormControl;
   purchasePriceSelect: FormControl;
-  listFg: FormGroup;
+  currentValueSelect: FormControl;
   valueOptions = Object.values(ValueOptions);
 
 
@@ -50,64 +53,47 @@ export class DemoComponent implements OnInit {
       }
       return ValueOptions.lessThan10;
     };
-    this.listFg = this.fb.group({
-      page: [0],
-      sortColumn: ['id'],
-      sortReversed: [false],
-      recordsPerPage: [10],
-      filters: {
-        search: [''],
-        missing: [''],
-        purchasePrice: [''],
-        currentValue: ['']
-      }
-    });
+
 
 
 
     const listInit: NgxListInit = {
       src$: this.dataService.data$,
-      initialParams: {
-        sortColumn: 'id',
-        recordsPerPage: 3,
-        filterParams: {
-          search: ''
-        }
-      },
-      sortFn: NgxListSort.sortFn({
+      idKey: 'id',
+      recordsPerPage: 5,
+      sortFn: NgxList.sortFn({
         caseSensitive: false,
         fallbackSortColumn: 'id',
         valueFns: {name: (rec: any) => `${rec.lastName} ${rec.firstName}`}
       }),
-      filters: [
-        NgxListFilters.searchFilter({
-          filterKey: 'search',
-          ignoreKeys: ['id'],
+      filters: {
+        search: NgxList.searchFilter({
+          ignoredKeys: ['id'],
           valueFns: {
             'purchased.date': (rec) => moment(rec.purchased.date).format('LLLL'),
             lastWorn: (rec) => moment(rec.lastWorn).format('LLLL'),
           }
         }),
-        NgxListFilters.comparisonFilter({
-          filterKey: 'missing',
+        missing: NgxList.comparisonFilter({
           value: (rec) => rec.missing ? rec.missing : 'none'
         }),
-        NgxListFilters.comparisonFilter({
-          filterKey: 'purchasePrice',
-          value: rec => dollarValue(rec.purchased.price)
+        purchasePrice:   NgxList.comparisonFilter({
+          value: (rec) => dollarValue(rec.purchased.price)
         }),
-        NgxListFilters.comparisonFilter({
-          filterKey: 'currentValue',
-          value: rec => dollarValue(rec.currentValue)
+        currentValue: NgxList.comparisonFilter({
+          value: (rec) => dollarValue(rec.currentValue)
         }),
-      ]
+
+      }
     };
     this.list = new NgxList(listInit);
     this.list.results$.subscribe(result => this.result = result);
     this.missingSelect = new FormControl('');
-    this.missingSelect.valueChanges.subscribe(v => this.list.setFilterParam('missing', v));
+    this.missingSelect.valueChanges.subscribe(v => this.list.setFilterValue('missing', v));
     this.purchasePriceSelect = new FormControl('');
-    this.purchasePriceSelect.valueChanges.subscribe(v => this.list.setFilterParam('purchasePrice', v));
+    this.purchasePriceSelect.valueChanges.subscribe(v => this.list.setFilterValue('purchasePrice', v));
+    this.currentValueSelect = new FormControl('');
+    this.currentValueSelect.valueChanges.subscribe(v => this.list.setFilterValue('currentValue', v));
 
   }
 

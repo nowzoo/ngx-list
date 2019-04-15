@@ -11,42 +11,46 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="purchasePriceSelect">Purchase Price...</label>
+        <label for="purchasePriceSelect">Filter By Purchase Price</label>
         <select class="form-control" [formControl]="purchasePriceSelect" id="purchasePriceSelect">
           <option value="">All Socks (don't filter by price)</option>
           <option *ngFor="let value of valueOptions">{{value}}</option>
         </select>
       </div>
-    </div>
-    <div class="col-md-6">
+      <div class="form-group">
+        <label for="currentValueSelect">Filter By Current Value</label>
+        <select class="form-control" [formControl]="currentValueSelect" id="currentValueSelect">
+          <option value="">All Socks (don't filter by current value)</option>
+          <option *ngFor="let value of valueOptions">{{value}}</option>
+        </select>
+      </div>
       <div class="form-group">
         <label [attr.for]="id + 'search-1'" class="sr-only">Search</label>
-        <ngx-list-bootstrap-search-control
+        <ngx-list-bootstrap-search
           [list]="list"
           filterKey="search"
           [inputId]="id + 'search-1'"
-          placeholder="Search socks..."
-          bootstrapSize="sm"></ngx-list-bootstrap-search-control>
+          placeholder="Search socks..."></ngx-list-bootstrap-search>
       </div>
     </div>
-  </div>
-  <label for="foo-bar">Page</label>
+    <div class="col-md-6">
 
-  <div class="my-5">
-
+    </div>
   </div>
+
+
 
   <div class="row">
-    <div class="col-sm-8 col-lg-10">
-      <ngx-list-bootstrap-page-controls bootstrapSize="lg" [list]="list"></ngx-list-bootstrap-page-controls>
+    <div class="col-sm-8">
+      <ngx-list-bootstrap-pagination bootstrapSize="lg" [list]="list"></ngx-list-bootstrap-pagination>
     </div>
     <div class="col-sm-4 col-lg-2">
       <div class="form-group">
         <label for="rpp-1" class="sr-only">Socks Per Page</label>
-        <ngx-list-bootstrap-rpp-control inputId="rpp-1"
+        <ngx-list-bootstrap-rpp inputId="rpp-1"
           [list]="list"
           [options]="[0, 10, 25, 50, 100]">
-        </ngx-list-bootstrap-rpp-control>
+        </ngx-list-bootstrap-rpp>
       </div>
     </div>
   </div>
@@ -56,39 +60,39 @@
       <thead>
         <tr>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="id">ID</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort [list]="list" key="id">ID</ngx-list-bootstrap-sort>
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="name">Sock Name</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort [list]="list" key="name">Sock Name</ngx-list-bootstrap-sort>
 
           </th>
 
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="color">Color</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort [list]="list" key="color">Color</ngx-list-bootstrap-sort>
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list"
-            columnKey="lastWorn">Last Worn</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort [list]="list"
+            key="lastWorn">Last Worn</ngx-list-bootstrap-sort>
 
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list"
-              columnKey="purchased.date">Purchased</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort [list]="list"
+              key="purchased.date">Purchased</ngx-list-bootstrap-sort>
 
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list"
+            <ngx-list-bootstrap-sort [list]="list"
               defaultReversed="true"
-              columnKey="purchased.price">Price</ngx-list-bootstrap-sort-link>
+              key="purchased.price">Price</ngx-list-bootstrap-sort>
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link
-            [list]="list" columnKey="currentValue"
-            defaultReversed="true">Current Value</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort
+            [list]="list" key="currentValue"
+            defaultReversed="true">Current Value</ngx-list-bootstrap-sort>
 
           </th>
           <th>
-            <ngx-list-bootstrap-sort-link [list]="list" columnKey="missing">Missing</ngx-list-bootstrap-sort-link>
+            <ngx-list-bootstrap-sort [list]="list" key="missing">Missing</ngx-list-bootstrap-sort>
 
           </th>
         </tr>
@@ -125,8 +129,5 @@
   </div>
 
   <p *ngIf="result.records.length === 0" class="text-muted">No results found.</p>
-
-  <ngx-list-bootstrap-pagination
-  [list]="list" bootstrapSize="sm" maxAdjacent="2"></ngx-list-bootstrap-pagination>
 
 </ng-container>
