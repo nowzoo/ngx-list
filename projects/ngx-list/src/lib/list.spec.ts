@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import {
-  NgxListRecord, NgxListCompare
+   NgxListCompare
 } from './shared';
 import { NgxList } from './list';
 import set from 'lodash/set';
@@ -9,7 +9,7 @@ import get from 'lodash/get';
 
 
 describe('NgxList', () => {
-  let recordSubject$: BehaviorSubject<NgxListRecord[]>;
+  let recordSubject$: BehaviorSubject<any[]>;
   let init: any;
   let list: NgxList;
   beforeEach(() => {

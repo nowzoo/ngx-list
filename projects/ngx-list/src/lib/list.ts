@@ -2,12 +2,11 @@ import { Observable, BehaviorSubject, Subscription, combineLatest } from 'rxjs';
 import {
   NgxListFilterFn,
   NgxListSortFn,
-  NgxListRecord,
-  NgxListResult,
+  INgxListResult,
   NgxListCompare,
-  NgxListParams,
+  INgxListParams,
   NgxListColumnValueFn,
-  NgxListInit
+  INgxListInit
 } from './shared';
 import chunk from 'lodash/chunk';
 import isFunction from 'lodash/isFunction';
@@ -19,11 +18,11 @@ import isPlainObject from 'lodash/isPlainObject';
 
 export class NgxList  {
 
-  private _src$: Observable<NgxListRecord[]>;
+  private _src$: Observable<any[]>;
   private _idKey: string;
   private _subscription: Subscription = null;
-  private _params$: BehaviorSubject<NgxListParams>;
-  private _result$: BehaviorSubject<NgxListResult>;
+  private _params$: BehaviorSubject<INgxListParams>;
+  private _result$: BehaviorSubject<INgxListResult>;
   private _filters: {[key: string]: NgxListFilterFn};
   private _sortFn: NgxListSortFn;
 
@@ -104,7 +103,7 @@ export class NgxList  {
     const fallbackSortColumn: string = options.fallbackSortColumn || null;
     const caseSensitive = options.caseSensitive === true;
     const valueFns = options.valueFns || {};
-    const fn: NgxListSortFn = (records: NgxListRecord[], sortColumn: string): NgxListRecord[] => {
+    const fn: NgxListSortFn = (records: any[], sortColumn: string): any[] => {
       const sortFns: NgxListColumnValueFn[] = [];
       if (sortColumn) {
         sortFns.push(NgxList.getColumnValueFn(sortColumn, valueFns, caseSensitive));
@@ -113,7 +112,7 @@ export class NgxList  {
         sortFns.push(NgxList.getColumnValueFn(fallbackSortColumn, valueFns, caseSensitive));
       }
 
-      const sorted = sortBy(records, sortFns) as  NgxListRecord[];
+      const sorted = sortBy(records, sortFns) as  any[];
       return sorted;
     };
     return fn;
@@ -121,7 +120,7 @@ export class NgxList  {
 
 
   static keySearchValue(
-    record: NgxListRecord,
+    record: any,
     key: string,
     valueFns: {[key: string]: NgxListColumnValueFn}
   ): string {
@@ -149,7 +148,7 @@ export class NgxList  {
   }
 
   static recordMatchesSearch(
-    record: NgxListRecord,
+    record: any,
     casedSearch: string,
     caseSensitive: boolean,
     ignoredKeys: string[],
@@ -188,7 +187,7 @@ export class NgxList  {
     const caseSensitive: boolean = options.caseSensitive === true;
     const ignoredKeys = options.ignoredKeys || [];
     const valueFns = options.valueFns || {};
-    const fn = (records: NgxListRecord[], filterValue: any): NgxListRecord[] => {
+    const fn = (records: any[], filterValue: any): any[] => {
       let search: string = ('string' === typeof filterValue) ? trim(filterValue) : '';
       if (search.length === 0) {
         return records.slice();
@@ -196,7 +195,7 @@ export class NgxList  {
       if (! caseSensitive) {
         search = search.toLowerCase();
       }
-      return records.filter((record: NgxListRecord) => {
+      return records.filter((record: any) => {
         return NgxList.recordMatchesSearch(record, search, caseSensitive, ignoredKeys, valueFns);
       });
     };
@@ -217,11 +216,11 @@ export class NgxList  {
     const valueFn: NgxListColumnValueFn = isFunction(options.value) ?
       options.value : (record) => get(record, toString(options.value));
 
-    const fn: NgxListFilterFn = (records: NgxListRecord[], filterValue: any): NgxListRecord[] => {
+    const fn: NgxListFilterFn = (records: any[], filterValue: any): any[] => {
       if (ignoreFilterWhen(filterValue)) {
         return records.slice(0);
       }
-      return records.filter((record: NgxListRecord) => {
+      return records.filter((record: any) => {
         const recordValue = valueFn(record);
         switch (compare) {
           case NgxListCompare.eq: return recordValue === filterValue;
@@ -241,13 +240,11 @@ export class NgxList  {
 
   /**
    * Create a list.
-   *
-   * @param options See {@link NgxListInit}
    */
-  constructor(options: NgxListInit) {
+  constructor(options: INgxListInit) {
     this._src$ = options.src$;
     this._idKey = options.idKey;
-    const params: NgxListParams = {page: null, recordsPerPage: null, sort: null,  filterValues: null};
+    const params: INgxListParams = {page: null, recordsPerPage: null, sort: null,  filterValues: null};
     params.page = parseInt(options.page as any, 10);
     if (isNaN(params.page) || params.page < 0) {
       params.page = 0;
@@ -261,37 +258,37 @@ export class NgxList  {
       options.filterValues : {};
     this._filters = options.filters || {};
     this._params$ = new BehaviorSubject(params);
-    const initialResult: NgxListResult = Object.assign({}, params, {
+    const initialResult: INgxListResult = Object.assign({}, params, {
       records: [], pageCount: 0, recordCount: 0, unfilteredRecordCount: 0
     });
     this._sortFn = isFunction(options.sortFn) ?
       options.sortFn : NgxList.sortFn({caseSensitive: true, fallbackSortColumn: this._idKey});
     this._result$ = new BehaviorSubject(initialResult) ;
     this._subscription = combineLatest(this._src$, this._params$)
-      .subscribe((results: [NgxListRecord[], NgxListParams]) => {
+      .subscribe((results: [any[], INgxListParams]) => {
         this._update(...results);
       });
 
   }
 
   /**
-   * An observable of {@link NgxListResult}.
+   * An observable of {@link INgxListResult}.
    */
-  get results$(): Observable<NgxListResult> {
+  get results$(): Observable<INgxListResult> {
     return this._result$.asObservable();
   }
 
   /**
-   * The latest {@link NgxListResult}.
+   * The latest {@link INgxListResult}.
    */
-  get currentResult(): NgxListResult {
+  get currentResult(): INgxListResult {
     return this._result$.value;
   }
 
   /**
    * The records that belong to the current page.
    */
-  get records(): NgxListRecord[] {
+  get records(): any[] {
     return this.currentResult.records;
   }
 
@@ -403,7 +400,7 @@ export class NgxList  {
    * @param  srcRecords The latest source records.
    * @param  listParams The latest list params.
    */
-  private _update(srcRecords: NgxListRecord[], listParams: NgxListParams) {
+  private _update(srcRecords: any[], listParams: INgxListParams) {
 
     const unfilteredRecordCount = srcRecords.length;
     let results = srcRecords.slice(0);
@@ -421,7 +418,7 @@ export class NgxList  {
     const pageCount = pages.length;
     const page = Math.min(pageCount - 1, Math.max(0, listParams.page));
     const records = pageCount > 0 ? pages[page] : [];
-    const result: NgxListResult = Object.assign({}, listParams, {
+    const result: INgxListResult = Object.assign({}, listParams, {
       records, recordCount, pageCount,  unfilteredRecordCount,
       // add these in because they may have changed...
       recordsPerPage, page

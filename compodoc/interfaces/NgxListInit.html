@@ -84,11 +84,22 @@
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#initiallyPaused">initiallyPaused</a>
+                                        <a href="#filterValues">filterValues</a>
+                                </li>
+                                <li>
+                                        <a href="#idKey">idKey</a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#initialParams">initialParams</a>
+                                        <a href="#page">page</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#recordsPerPage">recordsPerPage</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#sort">sort</a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
@@ -118,82 +129,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>filters:         <code><a href="../classes/NgxList.html" target="_self" >NgxListFilterFn[]</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../classes/NgxList.html" target="_self" >NgxListFilterFn[]</a></code>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
-
-
-
-
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-description"><p>A list of filters. You can use the factory methods provided by
-NgxListFilters or roll your own.</p>
-</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="initiallyPaused"></a>
-                                        <span class="name"><b>initiallyPaused</b><a href="#initiallyPaused"><span class="icon ion-ios-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>initiallyPaused:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="initialParams"></a>
-                                        <span class="name"><b>initialParams</b><a href="#initialParams"><span class="icon ion-ios-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>initialParams:     <code>literal type</code>
+                                        <code>filters:     <code>literal type</code>
 </code>
                                     </td>
                                 </tr>
@@ -215,19 +151,25 @@ NgxListFilters or roll your own.</p>
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>A map of filters.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="sortFn"></a>
-                                        <span class="name"><b>sortFn</b><a href="#sortFn"><span class="icon ion-ios-link"></span></a></span>
+                                        <a name="filterValues"></a>
+                                        <span class="name"><b>filterValues</b><a href="#filterValues"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>sortFn:         <code><a href="../miscellaneous/typealiases.html#NgxListSortFn" target="_self" >NgxListSortFn</a></code>
+                                        <code>filterValues:     <code>literal type</code>
 </code>
                                     </td>
                                 </tr>
@@ -235,7 +177,7 @@ NgxListFilters or roll your own.</p>
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#NgxListSortFn" target="_self" >NgxListSortFn</a></code>
+                                            <i>Type : </i>    <code>literal type</code>
 
                                         </td>
                                     </tr>
@@ -251,7 +193,202 @@ NgxListFilters or roll your own.</p>
 
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>The sort function. By</p>
+                                    <div class="io-description"><p>Optional. Initial filter values.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="idKey"></a>
+                                        <span class="name"><b>idKey</b><a href="#idKey"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>idKey:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Required. The key that should be used as the id for each record.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="page"></a>
+                                        <span class="name"><b>page</b><a href="#page"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>page:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Optional. The initial page, zero-based.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="recordsPerPage"></a>
+                                        <span class="name"><b>recordsPerPage</b><a href="#recordsPerPage"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>recordsPerPage:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Optional. Initial records per page. Default 10. Pass 0 for no paging.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sort"></a>
+                                        <span class="name"><b>sort</b><a href="#sort"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sort:     <code>literal type</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>literal type</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Optional. The initial sort params.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sortFn"></a>
+                                        <span class="name"><b>sortFn</b><a href="#sortFn"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sortFn:         <code><a href="../classes/NgxList.html" target="_self" >NgxListSortFn</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../classes/NgxList.html" target="_self" >NgxListSortFn</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Optional. By default a sort function will be created for you with some sensible defaults.</p>
 </div>
                                 </td>
                             </tr>
@@ -267,7 +404,7 @@ NgxListFilters or roll your own.</p>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>src$:         <code><a href="../interfaces/NgxListRecord.html" target="_self" >Observable&lt;NgxListRecord[]&gt;</a></code>
+                                        <code>src$:     <code>Observable&lt;any[]&gt;</code>
 </code>
                                     </td>
                                 </tr>
@@ -275,7 +412,7 @@ NgxListFilters or roll your own.</p>
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../interfaces/NgxListRecord.html" target="_self" >Observable&lt;NgxListRecord[]&gt;</a></code>
+                                            <i>Type : </i>    <code>Observable&lt;any[]&gt;</code>
 
                                         </td>
                                     </tr>
@@ -286,7 +423,7 @@ NgxListFilters or roll your own.</p>
 
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>Required. An observable of all the records in the list, unsorted and unfiltered.</p>
+                                    <div class="io-description"><p>Required. An observable of your records.</p>
 </div>
                                 </td>
                             </tr>
@@ -299,49 +436,12 @@ NgxListFilters or roll your own.</p>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Observable } from &#x27;rxjs&#x27;;
 
-/**
- * What this library expects a record to look like.
- */
-export interface NgxListRecord {
-  [key: string]: any;
-}
 
-/**
- * The list maintains a map of filter params that
- * you can modify.
- */
-export interface NgxListFilterParams {
-  /**
-   * The filterKey is something like &#x60;&#x27;search&#x27;&#x60; or &#x60;&#x27;color&#x27;&#x60;.
-   * The value can be anything you choose to set.
-   */
-  [filterKey: string]: any;
-}
+export type NgxListColumnValueFn &#x3D; (record: any) &#x3D;&gt; any;
 
-/**
- * A function that, given a record and a column key,
- * returns the value of the key for purposes of sorting,
- * search or filtering.
- */
-export type NgxListColumnValueFn &#x3D; (record: NgxListRecord) &#x3D;&gt; any;
+export type NgxListFilterFn &#x3D; (records: any[], value: any) &#x3D;&gt; any[];
 
-
-/**
- * The signature of a filter functions. The function is passed a set of records
- * and the current &#x60;{@link NgxListFilterParams}&#x60; object. It should
- * return the records that match.
- *
- * Note that youy can use the &#x60;[comparisonFilter]{@link NgxListFilters#comparisonFilter}&#x60;
- * and &#x60;[searchFilter]{@link NgxListFilters#searchFilter}&#x60; factories to create filters,
- * or roll your own using this signature.
- */
-export type NgxListFilterFn &#x3D; (records: NgxListRecord[], filterParams: NgxListFilterParams) &#x3D;&gt; NgxListRecord[];
-
-/**
- * The signature of a sorting function.  You can use the [NgxListSort.sortFn]{@link NgxListSort#sortFn}
- * factory to craete this function, or roll your own.
- */
-export type NgxListSortFn &#x3D; (records: NgxListRecord[], sortColumn: string) &#x3D;&gt; NgxListRecord[];
+export type NgxListSortFn &#x3D; (records: any[], sortKey: string) &#x3D;&gt; any[];
 
 /**
  * Filter comparison types. Used by {@link NgxListFilters}
@@ -373,100 +473,92 @@ export enum NgxListCompare {
   lte
 }
 
-/**
- * The interface for creating a search filter
- * with the &#x60;[NgxListFilters.searchFilter]{@link NgxListFilters#searchFilter}&#x60;
- * factory.
- */
-export interface NgxListSearchFilterOptions {
-  /**
-   * The key of the filter. This should be unique among your filters.
-   */
-  filterKey: string;
-  /**
-   * Optional. By default this is &#x60;false&#x60;: searches
-   * will be performed case-insensitively.
-   */
-  caseSensitive?: boolean;
-  /**
-   * Optional. By default all of the top level
-   * keys in a record object will be converted to strings
-   * and searched. So a record like &#x60;{id: 123, profile: {}}&#x60;
-   * would be matched by the search &#x60;&#x27;object&#x27;&#x60; because &#x60;profile.toString() &#x3D;&#x3D;&#x3D; &#x27;[object Object]&#x27;&#x60;.
-   * To avoid this, pass [&#x27;profile&#x27;] for &#x60;ignoreKeys&#x60;.
-   */
-  ignoreKeys?: string[];
-  /**
-   * Optional. Use this to specify nested keys that you
-   * want to test agains the search. By default only the top
-   * level keys are inspected. So, if your record structure
-   * is something like &#x60;{id: 123, profile: {firstName: &#x27;Foo&#x27;, lastName: &#x27;Bar&#x27;}}&#x60;,
-   * you need to specify &#x60;inspectKeys: [&#x27;profile.firstName&#x27;, &#x27;profile.lastName&#x27;]&#x60; for
-   * in order for those keys to be searched.
-   */
-  inspectKeys?: string[];
-  /**
-   * A map of functions (&#x60;{[key: string]: NgxListColumnValueFn}&#x60;) that
-   * return values for specific keys. For example, for purposes of search, you may want to represent a
-   * date stored as an integer in more useful form. In that case you would pass something like
-   * &#x60;{&#x27;profile.birthday&#x27;: (record) &#x3D;&gt; moment.format(record.profile.birthday, &#x27;LL&#x27;)}&#x60;
-   */
-  valueFns?: {[key: string]: NgxListColumnValueFn};
-}
-
-export interface NgxListCompareFilterOptions {
-  filterKey: string;
-  columnKey: string;
-  compare?: NgxListCompare;
-  ignoreFilterWhen?: (filterValue: any) &#x3D;&gt; boolean;
-  valueFn?: NgxListColumnValueFn;
-}
-
-export interface NgxListParams {
- page: number;
- recordsPerPage: number;
- sortColumn: string;
- sortReversed: boolean;
- filterParams: NgxListFilterParams;
-}
 
 
 export interface NgxListInit {
   /**
-   * Required. An observable of all the records in the list, unsorted and unfiltered.
+   * Required. An observable of your records.
    */
-  src$: Observable&lt;NgxListRecord[]&gt;;
-
+  src$: Observable&lt;any[]&gt;;
   /**
-   * A list of filters. You can use the factory methods provided by
-   * NgxListFilters or roll your own.
-   * @see NgxListFilters
-   * @see NgxListFilterFn
+   *  Required. The key that should be used as the id for each record.
    */
-  filters?: NgxListFilterFn[];
+  idKey: string;
   /**
-   * The sort function. By
+   *  Optional. The initial page, zero-based.
+   */
+  page?: number;
+  /**
+   * Optional. Initial records per page. Default 10. Pass 0 for no paging.
+   */
+  recordsPerPage?: number;
+  /**
+   *  Optional. The initial sort params.
+   */
+  sort?: {
+    /**
+     *  Indicates the column by which the list is sorted. Defaults to &#x60;idKey&#x60;.
+     */
+    key?: string;
+    /**
+     * Indicates whether the list  is displayed in reverse (&#x27;desc&#x27;) order. Default false.
+     */
+    reversed?: boolean;
+  };
+  /**
+   * Optional. Initial filter values.
+   */
+  filterValues?: {[filterKey: string]: any};
+  /**
+   * A map of filters.
+   */
+  filters?: {[key: string]: NgxListFilterFn};
+  /**
+   * Optional. By default a sort function will be created for you with some sensible defaults.
    */
   sortFn?: NgxListSortFn;
-  initialParams?: {
-    page?: number;
-    recordsPerPage?: number;
-    sortColumn?: string;
-    sortReversed?: boolean;
-    filterParams?: NgxListFilterParams;
-  };
-  initiallyPaused?: boolean;
+
 }
 
-export interface NgxListResult {
+
+
+
+export interface INgxListParams {
+  /**
+   * The current page. Zero-based.
+   */
+ page: number;
+ /**
+  * The number of records per page. 0 for no paging.
+  */
+ recordsPerPage: number;
+
+ /**
+  * The sort params.
+  */
+ sort: {
+   /**
+    * The key of the column, like &#x27;name&#x27; or &#x27;profile.firstName&#x27;
+    */
+   key: string;
+   /**
+    * Whether the list should be sorted in reverse (z-a) order
+    */
+   reversed: boolean;
+ };
+ /**
+  * The current values of the filters
+  */
+ filterValues: {[key: string]: any};
+}
+
+
+
+export interface INgxListResult extends INgxListParams {
   /**
    * The records that belong on the current page.
    */
-  records: NgxListRecord[];
-  /**
-   * The current page number, zero-based.
-   */
-  page: number;
+  records: any[];
   /**
    * The number of pages.
    */
@@ -475,26 +567,12 @@ export interface NgxListResult {
    * The total number of records in the list, after the current filters are applied.
    */
   recordCount: number;
-  /**
-   * The number of records per page.
-   */
-  recordsPerPage: number;
-  /**
-   * the current sort column.
-   */
-  sortColumn: string;
-  /**
-   * Whether the list is currently sorted in reverse (&#x27;descending&#x27;) order.
-   */
-  sortReversed: boolean;
+
   /**
    * The total number of records in the list, befor applying filters.
    */
   unfilteredRecordCount: number;
-  /**
-   * The current filter params.
-   */
-  filterParams: NgxListFilterParams;
+
 }
 </code></pre>
     </div>

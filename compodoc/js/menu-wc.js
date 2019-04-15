@@ -57,23 +57,27 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </a>
                         <ul class="links collapse" ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
                             <li class="link">
-                                <a href="modules/NgxListBootstrapControlsModule.html" data-type="entity-link">NgxListBootstrapControlsModule</a>
+                                <a href="modules/NgxListBootstrapModule.html" data-type="entity-link">NgxListBootstrapModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-NgxListBootstrapControlsModule-476b0b59e92b5bb260ce19dedca50e1d"' : 'data-target="#xs-components-links-module-NgxListBootstrapControlsModule-476b0b59e92b5bb260ce19dedca50e1d"' }>
+                                            'data-target="#components-links-module-NgxListBootstrapModule-f8dfc44044bb76af153012e8445f6396"' : 'data-target="#xs-components-links-module-NgxListBootstrapModule-f8dfc44044bb76af153012e8445f6396"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-NgxListBootstrapControlsModule-476b0b59e92b5bb260ce19dedca50e1d"' :
-                                            'id="xs-components-links-module-NgxListBootstrapControlsModule-476b0b59e92b5bb260ce19dedca50e1d"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-NgxListBootstrapModule-f8dfc44044bb76af153012e8445f6396"' :
+                                            'id="xs-components-links-module-NgxListBootstrapModule-f8dfc44044bb76af153012e8445f6396"' }>
                                             <li class="link">
-                                                <a href="components/NgxListBootstrapSearchControlComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">NgxListBootstrapSearchControlComponent</a>
+                                                <a href="components/NgxListBoostrapPaginationComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">NgxListBoostrapPaginationComponent</a>
                                             </li>
                                             <li class="link">
-                                                <a href="components/NgxListBootstrapSortLinkComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">NgxListBootstrapSortLinkComponent</a>
+                                                <a href="components/NgxListBoostrapRppComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">NgxListBoostrapRppComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/NgxListBootstrapSortComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">NgxListBootstrapSortComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -91,24 +95,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <li class="link">
                                 <a href="classes/NgxList.html" data-type="entity-link">NgxList</a>
                             </li>
-                            <li class="link">
-                                <a href="classes/NgxListAbstractControl.html" data-type="entity-link">NgxListAbstractControl</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/NgxListAbstractSearchControl.html" data-type="entity-link">NgxListAbstractSearchControl</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/NgxListAbstractSortLink.html" data-type="entity-link">NgxListAbstractSortLink</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/NgxListFilters.html" data-type="entity-link">NgxListFilters</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/NgxListSort.html" data-type="entity-link">NgxListSort</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/PageLink.html" data-type="entity-link">PageLink</a>
-                            </li>
                         </ul>
                     </li>
                     <li class="chapter">
@@ -120,10 +106,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse" ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
-                                <a href="interfaces/NgxListCompareFilterOptions.html" data-type="entity-link">NgxListCompareFilterOptions</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/NgxListFilterParams.html" data-type="entity-link">NgxListFilterParams</a>
+                                <a href="interfaces/INgxListBoostrapOptions.html" data-type="entity-link">INgxListBoostrapOptions</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/NgxListInit.html" data-type="entity-link">NgxListInit</a>
@@ -132,13 +115,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/NgxListParams.html" data-type="entity-link">NgxListParams</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/NgxListRecord.html" data-type="entity-link">NgxListRecord</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/NgxListResult.html" data-type="entity-link">NgxListResult</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/NgxListSearchFilterOptions.html" data-type="entity-link">NgxListSearchFilterOptions</a>
                             </li>
                         </ul>
                     </li>
@@ -155,6 +132,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="miscellaneous/typealiases.html" data-type="entity-link">Type aliases</a>
+                            </li>
+                            <li class="link">
+                                <a href="miscellaneous/variables.html" data-type="entity-link">Variables</a>
                             </li>
                         </ul>
                     </li>

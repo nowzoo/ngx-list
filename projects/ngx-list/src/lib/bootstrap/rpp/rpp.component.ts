@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NgxList } from '../../list';
-import { NgxListResult } from '../../shared';
+import { INgxListResult } from '../../shared';
 import {
   INgxListBoostrapOptions,
   NGX_LIST_BOOTSTRAP_OPTIONS,
@@ -53,7 +53,7 @@ export class NgxListBoostrapRppComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateControl(result: NgxListResult) {
+  updateControl(result: INgxListResult) {
     this.control.setValue(result.recordsPerPage, {emitEvent: false});
   }
 

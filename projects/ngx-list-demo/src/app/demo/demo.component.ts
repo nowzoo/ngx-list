@@ -109,6 +109,7 @@ export class DemoComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
+    this.list.destroy();
   }
 
 

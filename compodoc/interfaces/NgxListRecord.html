@@ -87,7 +87,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">projects/ngx-list/src/lib/shared.ts:6</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">projects/ngx-list/src/lib/shared.ts:5</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -99,7 +99,6 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Observable } from &#x27;rxjs&#x27;;
-
 /**
  * What this library expects a record to look like.
  */
@@ -107,17 +106,7 @@ export interface NgxListRecord {
   [key: string]: any;
 }
 
-/**
- * The list maintains a map of filter params that
- * you can modify.
- */
-export interface NgxListFilterParams {
-  /**
-   * The filterKey is something like &#x60;&#x27;search&#x27;&#x60; or &#x60;&#x27;color&#x27;&#x60;.
-   * The value can be anything you choose to set.
-   */
-  [filterKey: string]: any;
-}
+
 
 /**
  * A function that, given a record and a column key,
@@ -136,13 +125,13 @@ export type NgxListColumnValueFn &#x3D; (record: NgxListRecord) &#x3D;&gt; any;
  * and &#x60;[searchFilter]{@link NgxListFilters#searchFilter}&#x60; factories to create filters,
  * or roll your own using this signature.
  */
-export type NgxListFilterFn &#x3D; (records: NgxListRecord[], filterParams: NgxListFilterParams) &#x3D;&gt; NgxListRecord[];
+export type NgxListFilterFn &#x3D; (records: NgxListRecord[], value: any) &#x3D;&gt; NgxListRecord[];
 
 /**
  * The signature of a sorting function.  You can use the [NgxListSort.sortFn]{@link NgxListSort#sortFn}
  * factory to craete this function, or roll your own.
  */
-export type NgxListSortFn &#x3D; (records: NgxListRecord[], sortColumn: string) &#x3D;&gt; NgxListRecord[];
+export type NgxListSortFn &#x3D; (records: NgxListRecord[], sortKey: string) &#x3D;&gt; NgxListRecord[];
 
 /**
  * Filter comparison types. Used by {@link NgxListFilters}
@@ -174,100 +163,92 @@ export enum NgxListCompare {
   lte
 }
 
-/**
- * The interface for creating a search filter
- * with the &#x60;[NgxListFilters.searchFilter]{@link NgxListFilters#searchFilter}&#x60;
- * factory.
- */
-export interface NgxListSearchFilterOptions {
-  /**
-   * The key of the filter. This should be unique among your filters.
-   */
-  filterKey: string;
-  /**
-   * Optional. By default this is &#x60;false&#x60;: searches
-   * will be performed case-insensitively.
-   */
-  caseSensitive?: boolean;
-  /**
-   * Optional. By default all of the top level
-   * keys in a record object will be converted to strings
-   * and searched. So a record like &#x60;{id: 123, profile: {}}&#x60;
-   * would be matched by the search &#x60;&#x27;object&#x27;&#x60; because &#x60;profile.toString() &#x3D;&#x3D;&#x3D; &#x27;[object Object]&#x27;&#x60;.
-   * To avoid this, pass [&#x27;profile&#x27;] for &#x60;ignoreKeys&#x60;.
-   */
-  ignoreKeys?: string[];
-  /**
-   * Optional. Use this to specify nested keys that you
-   * want to test agains the search. By default only the top
-   * level keys are inspected. So, if your record structure
-   * is something like &#x60;{id: 123, profile: {firstName: &#x27;Foo&#x27;, lastName: &#x27;Bar&#x27;}}&#x60;,
-   * you need to specify &#x60;inspectKeys: [&#x27;profile.firstName&#x27;, &#x27;profile.lastName&#x27;]&#x60; for
-   * in order for those keys to be searched.
-   */
-  inspectKeys?: string[];
-  /**
-   * A map of functions (&#x60;{[key: string]: NgxListColumnValueFn}&#x60;) that
-   * return values for specific keys. For example, for purposes of search, you may want to represent a
-   * date stored as an integer in more useful form. In that case you would pass something like
-   * &#x60;{&#x27;profile.birthday&#x27;: (record) &#x3D;&gt; moment.format(record.profile.birthday, &#x27;LL&#x27;)}&#x60;
-   */
-  valueFns?: {[key: string]: NgxListColumnValueFn};
-}
-
-export interface NgxListCompareFilterOptions {
-  filterKey: string;
-  columnKey: string;
-  compare?: NgxListCompare;
-  ignoreFilterWhen?: (filterValue: any) &#x3D;&gt; boolean;
-  valueFn?: NgxListColumnValueFn;
-}
-
-export interface NgxListParams {
- page: number;
- recordsPerPage: number;
- sortColumn: string;
- sortReversed: boolean;
- filterParams: NgxListFilterParams;
-}
 
 
 export interface NgxListInit {
   /**
-   * Required. An observable of all the records in the list, unsorted and unfiltered.
+   * Required. An observable of your records.
    */
   src$: Observable&lt;NgxListRecord[]&gt;;
-
   /**
-   * A list of filters. You can use the factory methods provided by
-   * NgxListFilters or roll your own.
-   * @see NgxListFilters
-   * @see NgxListFilterFn
+   *  Required. The key that should be used as the id for each record.
    */
-  filters?: NgxListFilterFn[];
+  idKey: string;
   /**
-   * The sort function. By
+   *  Optional. The initial page, zero-based.
+   */
+  page?: number;
+  /**
+   * Optional. Initial records per page. Default 10. Pass 0 for no paging.
+   */
+  recordsPerPage?: number;
+  /**
+   *  Optional. The initial sort params.
+   */
+  sort?: {
+    /**
+     *  Indicates the column by which the list is sorted. Defaults to &#x60;idKey&#x60;.
+     */
+    key?: string;
+    /**
+     * Indicates whether the list  is displayed in reverse (&#x27;desc&#x27;) order. Default false.
+     */
+    reversed?: boolean;
+  };
+  /**
+   * Optional. Initial filter values.
+   */
+  filterValues?: {[filterKey: string]: any};
+  /**
+   * A map of filters.
+   */
+  filters?: {[key: string]: NgxListFilterFn};
+  /**
+   * Optional. By default a sort function will be created for you with some sensible defaults.
    */
   sortFn?: NgxListSortFn;
-  initialParams?: {
-    page?: number;
-    recordsPerPage?: number;
-    sortColumn?: string;
-    sortReversed?: boolean;
-    filterParams?: NgxListFilterParams;
-  };
-  initiallyPaused?: boolean;
+
 }
 
-export interface NgxListResult {
+
+
+
+export interface NgxListParams {
+  /**
+   * The current page. Zero-based.
+   */
+ page: number;
+ /**
+  * The number of records per page. 0 for no paging.
+  */
+ recordsPerPage: number;
+
+ /**
+  * The sort params.
+  */
+ sort: {
+   /**
+    * The key of the column, like &#x27;name&#x27; or &#x27;profile.firstName&#x27;
+    */
+   key: string;
+   /**
+    * Whether the list should be sorted in reverse (z-a) order
+    */
+   reversed: boolean;
+ };
+ /**
+  * The current values of the filters
+  */
+ filterValues: {[key: string]: any};
+}
+
+
+
+export interface NgxListResult extends NgxListParams {
   /**
    * The records that belong on the current page.
    */
   records: NgxListRecord[];
-  /**
-   * The current page number, zero-based.
-   */
-  page: number;
   /**
    * The number of pages.
    */
@@ -276,26 +257,12 @@ export interface NgxListResult {
    * The total number of records in the list, after the current filters are applied.
    */
   recordCount: number;
-  /**
-   * The number of records per page.
-   */
-  recordsPerPage: number;
-  /**
-   * the current sort column.
-   */
-  sortColumn: string;
-  /**
-   * Whether the list is currently sorted in reverse (&#x27;descending&#x27;) order.
-   */
-  sortReversed: boolean;
+
   /**
    * The total number of records in the list, befor applying filters.
    */
   unfilteredRecordCount: number;
-  /**
-   * The current filter params.
-   */
-  filterParams: NgxListFilterParams;
+
 }
 </code></pre>
     </div>

@@ -33,13 +33,166 @@
 <h1 id="nowzoongx-list">@nowzoo/ngx-list</h1>
 <p>Paginated, sorted and filtered lists from observables. The base library is agnostic as to styling and controls; a full set of Bootstrap 4 controls is available as a separate module.</p>
 <h2 id="quick-start">Quick Start</h2>
-<p>Install the library and Lodash.
-<code>bash
+<p>Install the library and Lodash.</p>
+<p><code>bash
 npm i -S @nowzoo/ngx-list lodash</code></p>
-<p>** A note about the Lodash dependency:** We use Lodash because it just does some things better and more consistently than we can do on our own. The library uses a minimal set of Lodash functions, adding up to about </p>
-<h3 id="usage">Usage</h3>
+<p>Problem with depending on Lodash? <a href="#about-the-lodash-dependency">Read this note</a>.</p>
+<p>If you are planning on using the Bootstrap 4 components, you need to include Bootstrap css somewhere in your build process. None of the Bootstrap components depend on Bootstrap javascript.</p>
+<h3 id="basic-usage">Basic Usage</h3>
+<p>The base library does not expose any components or services, so there&#39;s no module to import. There&#39;s just the <code>NgxList</code> class that you import and instantiate in your component code...</p>
+<p>```ts
+import { Component, OnInit, OnDestroy } from &#39;@angular/core&#39;;
+import { NgxList, NgxListResult } from &#39;@nowzoo/ngx-list&#39;;
+import { MyDataService } from &#39;../my-data.service&#39;;</p>
+<p>@Component({
+  selector: &#39;app-demo&#39;,
+  templateUrl: &#39;./demo.component.html&#39;,
+  styles: []
+})
+export class DemoComponent implements OnInit, OnDestroy {
+  list: NgxList;
+  result: NgxListResult = null;</p>
+<p>  constructor(
+    private dataService: MyDataService
+  ) { }</p>
+<p>  ngOnInit() {
+    // assuming dataService.data$ is an observable
+    // of an array of records
+    this.list = new NgxList({
+      src$: this.dataService.data$, //required
+      idKey: &#39;id&#39; //required
+    });
+    this.list.results$.subscribe(result =&gt; this.result = result);
+  }</p>
+<p>  ngOnDestroy() {
+    this.list.destroy();
+  }
+}
+```</p>
+<p>```html</p>
+<!-- demo.component.html -->
+<pre>{{result | json}}</pre>
+<p>```</p>
+<p>Result:
+<code>json
+{
+  &quot;page&quot;: 0,
+  &quot;recordsPerPage&quot;: 10,
+  &quot;sort&quot;: {
+    &quot;key&quot;: &quot;id&quot;,
+    &quot;reversed&quot;: false
+  },
+  &quot;filterValues&quot;: {},
+  &quot;recordCount&quot;: 88,
+  &quot;pageCount&quot;: 9,
+  &quot;unfilteredRecordCount&quot;: 88,
+  &quot;records&quot;: [...]
+}</code></p>
+<p>At this point, <code>result.records</code> is the array of sorted and filtered records from your <code>src$</code> observable that belong on the current page.</p>
+<p>It&#39;s up to you to layout the records, for example in a table...</p>
+<p>```html</p>
+<table class="table">
+  <tbody>
+    <tr *ngFor="let record of result.records">
+      ...
+    </tr>
+  </tbody>
+</table>
+```
+
+<h4 id="setting-list-params">Setting list params</h4>
+<p>Note: In the real world you&#39;ll probably want to hook the list parameters up to form controls, or use the Bootstrap components.</p>
+<p>Set <code>page</code>...
+<code>ts
+// Go to the second page (page is zero-based.)
+this.list.setPage(1);</code></p>
+<p>Set <code>recordsPerPage</code>...
+<code>ts
+this.list.setRecordsPerPage(20);
+// show all the records, with no paging...
+this.list.setRecordsPerPage(0);</code></p>
+<p>Set <code>sort</code>...
+<code>ts
+this.list.setSort({key: &#39;firstName&#39;, reversed: false});</code></p>
+<p>Set a filter value.  Note that you have to actually set up the filter when you instantiate the list. See below.
+<code>ts
+this.list.setFilterValue(&#39;search&#39; &#39;foo&#39;);</code></p>
+<h4 id="constructor-options">Constructor options</h4>
+<p>The <code>NgxList</code> constructor takes an object. The only required properties are:</p>
+<ul>
+<li><code>src$: Observable&lt;NgxListRecord[]&gt;</code> The records from your data source.</li>
+<li><code>idKey: string</code> The key of some unique record identifier. This is used as the fallback sort key.</li>
+</ul>
+<p>Optional properties:</p>
+<ul>
+<li><code>page: number</code></li>
+<li><code>recordsPerPage: number</code></li>
+<li><code>sort: {key: string, reversed: boolean}</code></li>
+<li><code>filterValues: {[filterKey: string]: any}</code> The initial values for the filters. For example, you could pass <code>{search: &#39;foo&#39;}</code> if initializing the list from a query param.</li>
+<li><code>filters: {[filterKey: string]: NgxListFilterFn}</code> Your filter functions. You can roll your own or use the <code>NgxList</code> factories, <code>NgxList.searchFilter</code> (for text searches) and <code>NgxList.comparisonFilter</code>.</li>
+<li><code>sortFn: NgxListSortFn</code> You can roll your own function here, use the <code>NgxList.sortFn</code> factory. If nothing is passed, the list creates a sort function with some sensible defaults.</li>
+</ul>
+<h2 id="api">API</h2>
+<h4 id="type-ngxlistcolumnvaluefn--record-any--any"><code>type NgxListColumnValueFn = (record: any) =&gt; any</code></h4>
+<p>A function that, given a record, returns a value for purposes of sorting, search or filtering. Used by the factory functions.</p>
+<h4 id="type-ngxlistfilterfn--records-any-value-any--any"><code>type NgxListFilterFn = (records: any[], value: any) =&gt; any[]</code></h4>
+<p>The signature of a filter function. You should return a new array of records that match your filter logic. (Don&#39;t mutate the array passed in the parameter.)</p>
+<ul>
+<li><code>records</code> contains the unfiltered records.</li>
+<li><code>value</code> is the current filter value.</li>
+</ul>
+<h4 id="type-ngxlistsortfn--records-any-key-string--any"><code>type NgxListSortFn = (records: any[], key: string) =&gt; any[]</code></h4>
+<p>The signature of a sort function. You should return a separate array sorted by your logic. (Don&#39;t mutate the array passed in the parameter.)</p>
+<ul>
+<li><code>records</code> are the unsorted records.</li>
+<li><code>key</code> is the sort key.</li>
+</ul>
+<p>Note that reversing the list, if necessary, happens separately.</p>
+<h4 id="enum-ngxlistcompare"><code>enum NgxListCompare</code></h4>
+<p>Used by the <code>NgxList.comparisonFilter</code> factory.
+- <code>eq</code> Use <code>===</code>  to compare values.
+- <code>neq</code> Use <code>!==</code>  to compare values.
+- <code>gte</code> Use <code>&gt;=</code>  to compare values.
+- <code>gt</code> Use <code>&gt;</code>  to compare values.
+- <code>lte</code> Use <code>&lt;=</code>  to compare values.
+- <code>lt</code> Use <code>&lt;</code> to compare values.</p>
+<h4 id="interface-ingxlistinit"><code>interface INgxListInit</code></h4>
+<p>Options passed to the <code>NgxList</code> constructor.</p>
+<ul>
+<li><code>src$: Observable&lt;any[]&gt;</code> Required. The records from your data source.</li>
+<li><code>idKey: string</code> Required The key of some unique record identifier. This is used as the fallback sort key.</li>
+<li><code>page?: number</code> Optional. The initial page. Default <code>0</code>.</li>
+<li><code>recordsPerPage?: number</code> Optional. The initial recordsPerPage. Default <code>10</code>.</li>
+<li><code>sort?: {key?: string, reversed?: boolean}</code> Optional. The initial sort. Defaults to <code>{key: THE_ID_KEY_PASSED_ABOVE,  reversed: false}</code></li>
+<li><code>filterValues?: {[filterKey: string]: any}</code> Optional. The initial values for the filters. For example, you could pass <code>{search: &#39;foo&#39;}</code> if initializing the list from a query param.</li>
+<li><code>filters?: {[filterKey: string]: NgxListFilterFn}</code> Optional. Your filter functions. You can roll your own or use the <code>NgxList</code> factories, <code>NgxList.searchFilter</code> (for text searches) and <code>NgxList.comparisonFilter</code>.</li>
+<li><code>sortFn?: NgxListSortFn</code> Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the <code>NgxList.sortFn</code> factory.</li>
+</ul>
+<h4 id="interface-ingxlistresult"><code>interface INgxListResult</code></h4>
+<p>The end product of the list.</p>
+<ul>
+<li><code>records: any[]</code> The records that belong on the current page.</li>
+<li><code>recordCount: number</code> The number of records that match the current filters.</li>
+<li><code>unfilteredRecordCount: number</code> The total number of records, before filtering.</li>
+<li><code>pageCount: number</code> The number of pages.</li>
+<li><code>page: number</code> The current page. If there are records, this will be between <code>0</code> and <code>pageCount - 1</code>.</li>
+<li><code>recordsPerPage: number</code> The value used to page the result.</li>
+<li><code>sort: {key: string, reversed: boolean}</code> The parameters used to sort the list.</li>
+<li><code>filterValues: {[key: string]: any}</code> The filter values used to filter the result.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<h6 id="about-the-lodash-dependency">About the Lodash dependency</h6>
+<p>Yeah, yeah, I know you can do everything Lodash does natively. But you can&#39;t do it as well or as consistently. So, Lodash.</p>
+<p>The library uses a minimal set of Lodash functions, which will add about 7.5kB to the payload of your app, if you don&#39;t use other Lodash functions elsewhere. If you do use it elsewhere, make sure to use the following tree-shakeable import syntax:</p>
 <p><code>ts
-import { NgxList } from &#39;@nowzoo/ngx-list&#39;;</code></p>
+// good
+import chunk from &#39;lodash/chunk&#39;;
+import sortBy from &#39;lodash/sortBy&#39;;
+// bad
+// import * as _ from &#39;lodash&#39;;
+// just as bad...
+// import { chunk, sortBy } from &#39;lodash&#39;;</code></p>
+<p>To make this compile for your code, you will probably have to add <code>&quot;esModuleInterop&quot;: true, &quot;allowSyntheticDefaultImports&quot;: true</code>  to <code>compilerOptions</code> in <code>tsconfig.json</code>. (You don&#39;t need to add it if you are not using Lodash elsewhere, only using the <code>ngx-list</code> library.)</p>
 
 
 

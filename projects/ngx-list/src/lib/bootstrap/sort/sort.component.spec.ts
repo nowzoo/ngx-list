@@ -3,7 +3,7 @@ import { NgxListBootstrapSortComponent } from './sort.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { NgxList } from '../../list';
-import { NgxListResult } from '../../shared';
+import { INgxListResult } from '../../shared';
 import {
   INgxListBoostrapOptions,
   NGX_LIST_BOOTSTRAP_OPTIONS,

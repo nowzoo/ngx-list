@@ -7,11 +7,12 @@ Paginated, sorted and filtered lists from observables. The base library is agnos
 ## Quick Start
 
 Install the library and Lodash.
+
 ```bash
 npm i -S @nowzoo/ngx-list lodash
 ```
 
-Problem with depending on Lodash? [Read the note](#about-the-lodash-dependency).
+Problem with depending on Lodash? [Read this note](#about-the-lodash-dependency).
 
 If you are planning on using the Bootstrap 4 components, you need to include Bootstrap css somewhere in your build process. None of the Bootstrap components depend on Bootstrap javascript.
 
@@ -40,7 +41,10 @@ export class DemoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // assuming dataService.data$ is an observable
     // of an array of records
-    this.list = new NgxList({src$: this.dataService.data$});
+    this.list = new NgxList({
+      src$: this.dataService.data$, //required
+      idKey: 'id' //required
+    });
     this.list.results$.subscribe(result => this.result = result);
   }
 
@@ -49,132 +53,148 @@ export class DemoComponent implements OnInit, OnDestroy {
   }
 }
 ```
+
 ```html
 <!-- demo.component.html -->
 <pre>{{result | json}}</pre>
 ```
+
 Result:
 ```json
 {
-  "records": [
-    {"name": "Mary"}, {"name": "Jane"},
-  ],
   "page": 0,
-  "pageCount": 1,
-  "recordCount": 2,
-  "unfilteredRecordCount": 2,
   "recordsPerPage": 10,
-  "sortColumn": null,
-  "sortReversed": false,
-  "filterParams": {}
-}
-```
-
-The following examples assumes your list records follow this structure:
-```ts
-interface SockRecord {
-  id: number;
-  firstName: string,
-  lastName: string,
-  purchased: {
-    date: number; // ms since the epoch
-    price: number;
+  "sort": {
+    "key": "id",
+    "reversed": false
   },
-  color: string;
-  missing: 'left' | 'right' | null;
-  lastWorn: number; // ms since the epoch
-  currentValue: number;
+  "filterValues": {},
+  "recordCount": 88,
+  "pageCount": 9,
+  "unfilteredRecordCount": 88,
+  "records": [...]
 }
 ```
 
-### Implementing a comparison filter
-Let's say we want to have a dropdown that allows the user to filter socks by purchase price.
-```ts
-// sock-list.component.ts
+At this point, `result.records` is the array of sorted and filtered records from your `src$` observable that belong on the current page.
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { NgxList, NgxListFilters, NgxListResult } from '@nowzoo/ngx-list';
-import { DataService, SockRecord } from '../data.service';
+It's up to you to layout the records, for example in a table...
 
-// Let's create an enum here to keep track of
-// the filter value and display the options in the menu.
-enum ValueOptions {
-  lessThan10 = 'less than $10',
-  from10to25 = '$10 to $24.99',
-  from25to50 = '$25 to $49.99',
-  from50to100 = '$50 to $99.99',
-  moreThan100 = 'more than $100',
-}
-export class SockListComponent implements OnInit, OnDestroy {
-  list: NgxList;
-  result: NgxListResult = null;
-  // expose the enum to the template...
-  valueOptions = Object.values(ValueOptions);
-  // form control for the filter dropdown..
-  purchasePriceSelect: FormControl;
-
-  constructor(
-    private dataService: DataService
-  ) { }
-
-  ngOnInit() {
-    this.list = new NgxList({
-      src$: this.dataService.socks$,
-      filters: [
-        // use the factory function...
-        NgxListFilters.comparisonFilter({
-          filterKey: 'purchasePrice',
-          // pass a function that takes a record and returns one of the options...
-          value: (rec) => {
-            const value: number = rec.purchased && rec.purchased.price ? rec.purchased.price : 0;
-            if (value >= 100) {
-              return ValueOptions.moreThan100;
-            }
-            if (value >= 50) {
-              return ValueOptions.from50to100;
-            }
-            if (value >= 25) {
-              return ValueOptions.from25to50;
-            }
-            if (value >= 10) {
-              return ValueOptions.from10to25;
-            }
-            return ValueOptions.lessThan10;
-          }
-        })
-      ]
-    });
-    this.list.results$.subscribe(result => this.result = result);
-    // create the form control, and listen for changes...
-    this.purchasePriceSelect = new FormControl('');
-    this.purchasePriceSelect.subscribe(value => this.list.setFilterParam('purchasePrice', value));
-  }
-  ngOnDestroy() {
-    this.list.destroy();
-  }
-}
-```
-The template...
 ```html
-<!-- sock-list.component.html -->
-<div class="form-group">
-  <label for="purchasePriceSelect">Filter By Purchase Price</label>
-  <select class="form-control" [formControl]="purchasePriceSelect" id="purchasePriceSelect">
-    <option value="">All Price Ranges</option>
-    <option *ngFor="let opt of valueOptions">{{opt}}</option>
-  </select>
-</div>
-<div *ngIf="result">
-  <div *ngIf="result.listParams.purchasePrice">
-    You filtered by purchase price: {{result.listParams.purchasePrice}}.
-    <button class="btn btn-sm btn-link" type="button" (click)="purchasePriceSelect.setValue('')">Clear</button>
-  </div>
-  <table>
-    ...
-  </table>
-</div>
+<table class="table">
+  <tbody>
+    <tr *ngFor="let record of result.records">
+      ...
+    </tr>
+  </tbody>
+</table>
 ```
+
+#### Setting list params
+
+Note: In the real world you'll probably want to hook the list parameters up to form controls, or use the Bootstrap components.
+
+Set `page`...
+```ts
+// Go to the second page (page is zero-based.)
+this.list.setPage(1);
+```
+
+Set `recordsPerPage`...
+```ts
+this.list.setRecordsPerPage(20);
+// show all the records, with no paging...
+this.list.setRecordsPerPage(0);
+```
+
+Set `sort`...
+```ts
+this.list.setSort({key: 'firstName', reversed: false});
+```
+
+Set a filter value.  Note that you have to actually set up the filter when you instantiate the list. See below.
+```ts
+this.list.setFilterValue('search' 'foo');
+```
+
+#### Constructor options
+
+The `NgxList` constructor takes an object. The only required properties are:
+
+- `src$: Observable<NgxListRecord[]>` The records from your data source.
+- `idKey: string` The key of some unique record identifier. This is used as the fallback sort key.
+
+Optional properties:
+
+- `page: number`
+- `recordsPerPage: number`
+- `sort: {key: string, reversed: boolean}`
+- `filterValues: {[filterKey: string]: any}` The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
+- `filters: {[filterKey: string]: NgxListFilterFn}` Your filter functions. You can roll your own or use the `NgxList` factories, `NgxList.searchFilter` (for text searches) and `NgxList.comparisonFilter`.
+- `sortFn: NgxListSortFn` You can roll your own function here, use the `NgxList.sortFn` factory. If nothing is passed, the list creates a sort function with some sensible defaults.
+
+
+## API
+
+#### `type NgxListColumnValueFn = (record: any) => any`
+
+A function that, given a record, returns a value for purposes of sorting, search or filtering. Used by the factory functions.
+
+
+#### `type NgxListFilterFn = (records: any[], value: any) => any[]`
+
+The signature of a filter function. You should return a new array of records that match your filter logic. (Don't mutate the array passed in the parameter.)
+
+- `records` contains the unfiltered records.
+- `value` is the current filter value.
+
+#### `type NgxListSortFn = (records: any[], key: string) => any[]`
+
+The signature of a sort function. You should return a separate array sorted by your logic. (Don't mutate the array passed in the parameter.)
+
+- `records` are the unsorted records.
+- `key` is the sort key.
+
+Note that reversing the list, if necessary, happens separately.
+
+
+#### `enum NgxListCompare`
+
+Used by the `NgxList.comparisonFilter` factory.
+- `eq` Use `===`  to compare values.
+- `neq` Use `!==`  to compare values.
+- `gte` Use `>=`  to compare values.
+- `gt` Use `>`  to compare values.
+- `lte` Use `<=`  to compare values.
+- `lt` Use `<` to compare values.
+
+
+#### `interface INgxListInit`
+
+Options passed to the `NgxList` constructor.
+
+- `src$: Observable<any[]>` Required. The records from your data source.
+- `idKey: string` Required The key of some unique record identifier. This is used as the fallback sort key.
+- `page?: number` Optional. The initial page. Default `0`.
+- `recordsPerPage?: number` Optional. The initial recordsPerPage. Default `10`.
+- `sort?: {key?: string, reversed?: boolean}` Optional. The initial sort. Defaults to `{key: THE_ID_KEY_PASSED_ABOVE,  reversed: false}`
+- `filterValues?: {[filterKey: string]: any}` Optional. The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
+- `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. Your filter functions. You can roll your own or use the `NgxList` factories, `NgxList.searchFilter` (for text searches) and `NgxList.comparisonFilter`.
+- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the `NgxList.sortFn` factory.
+
+
+#### `interface INgxListResult`
+
+The end product of the list.
+
+- `records: any[]` The records that belong on the current page.
+- `recordCount: number` The number of records that match the current filters.
+- `unfilteredRecordCount: number` The total number of records, before filtering.
+- `pageCount: number` The number of pages.
+- `page: number` The current page. If there are records, this will be between `0` and `pageCount - 1`.
+- `recordsPerPage: number` The value used to page the result.
+- `sort: {key: string, reversed: boolean}` The parameters used to sort the list.
+- `filterValues: {[key: string]: any}` The filter values used to filter the result.
 
 
 

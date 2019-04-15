@@ -1,37 +1,11 @@
 import { Observable } from 'rxjs';
-/**
- * What this library expects a record to look like.
- */
-export interface NgxListRecord {
-  [key: string]: any;
-}
 
 
+export type NgxListColumnValueFn = (record: any) => any;
 
-/**
- * A function that, given a record and a column key,
- * returns the value of the key for purposes of sorting,
- * search or filtering.
- */
-export type NgxListColumnValueFn = (record: NgxListRecord) => any;
+export type NgxListFilterFn = (records: any[], value: any) => any[];
 
-
-/**
- * The signature of a filter functions. The function is passed a set of records
- * and the current `{@link NgxListFilterParams}` object. It should
- * return the records that match.
- *
- * Note that youy can use the `[comparisonFilter]{@link NgxListFilters#comparisonFilter}`
- * and `[searchFilter]{@link NgxListFilters#searchFilter}` factories to create filters,
- * or roll your own using this signature.
- */
-export type NgxListFilterFn = (records: NgxListRecord[], value: any) => NgxListRecord[];
-
-/**
- * The signature of a sorting function.  You can use the [NgxListSort.sortFn]{@link NgxListSort#sortFn}
- * factory to craete this function, or roll your own.
- */
-export type NgxListSortFn = (records: NgxListRecord[], sortKey: string) => NgxListRecord[];
+export type NgxListSortFn = (records: any[], sortKey: string) => any[];
 
 /**
  * Filter comparison types. Used by {@link NgxListFilters}
@@ -65,11 +39,11 @@ export enum NgxListCompare {
 
 
 
-export interface NgxListInit {
+export interface INgxListInit {
   /**
    * Required. An observable of your records.
    */
-  src$: Observable<NgxListRecord[]>;
+  src$: Observable<any[]>;
   /**
    *  Required. The key that should be used as the id for each record.
    */
@@ -113,7 +87,7 @@ export interface NgxListInit {
 
 
 
-export interface NgxListParams {
+export interface INgxListParams {
   /**
    * The current page. Zero-based.
    */
@@ -144,11 +118,11 @@ export interface NgxListParams {
 
 
 
-export interface NgxListResult extends NgxListParams {
+export interface INgxListResult extends INgxListParams {
   /**
    * The records that belong on the current page.
    */
-  records: NgxListRecord[];
+  records: any[];
   /**
    * The number of pages.
    */

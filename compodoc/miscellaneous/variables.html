@@ -27,7 +27,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content miscellaneous-enumerations">
+               <div class="content miscellaneous-variables">
                    <div class="content-data">
 
 
@@ -46,7 +46,7 @@
 
 <ol class="breadcrumb">
   <li>Miscellaneous</li>
-  <li>Enumerations</li>
+  <li>Variables</li>
 </ol>
 
 <section>
@@ -57,7 +57,10 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#NgxListCompare" title="projects/ngx-list/src/lib/shared.ts"><b>NgxListCompare</b>&nbsp;&nbsp;&nbsp;(projects/.../shared.ts)</a>
+                            <a href="#NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS" title="projects/ngx-list/src/lib/bootstrap/options.ts"><b>NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS</b>&nbsp;&nbsp;&nbsp;(projects/.../options.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NGX_LIST_BOOTSTRAP_OPTIONS" title="projects/ngx-list/src/lib/bootstrap/options.ts"><b>NGX_LIST_BOOTSTRAP_OPTIONS</b>&nbsp;&nbsp;&nbsp;(projects/.../options.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -66,57 +69,74 @@
     </table>
 </section>
 
-    <h3>projects/ngx-list/src/lib/shared.ts</h3>
+    <h3>projects/ngx-list/src/lib/bootstrap/options.ts</h3>
     <section>
-        <table class="table table-sm table-bordered">
+    <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="NgxListCompare"></a>
-                        <span class="name"><b>NgxListCompare</b><a href="#NgxListCompare"><span class="icon ion-ios-link"></span></a></span>
+                        <a name="NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS"></a>
+                        <span class="name">
+                            <b>
+                            NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS</b>
+                            <a href="#NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS"><span class="icon ion-ios-link"></span></a>
+                        </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-description"><p>Filter comparison types. Used by <a href="NgxListFilters">NgxListFilters</a></p>
-</div>
+                            <i>Type : </i>        <code><a href="../interfaces/INgxListBoostrapOptions.html" target="_self" >INgxListBoostrapOptions</a></code>
+
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                &nbsp;eq
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <i>Value : </i><code>1</code>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                &nbsp;neq
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                &nbsp;gte
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                &nbsp;gt
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                &nbsp;lt
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                &nbsp;lte
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  firstPageButtonTitle: &#x27;First Page&#x27;,
+  firstPageButtonHTML: &#x27;&amp;larrb;&#x27;,
+  lastPageButtonTitle: &#x27;Last Page&#x27;,
+  lastPageButtonHTML: &#x27;&amp;rarrb;&#x27;,
+  prevPageButtonTitle: &#x27;Previous Page&#x27;,
+  prevPageButtonHTML: &#x27;&amp;larr;&#x27;,
+  nextPageButtonTitle: &#x27;Next Page&#x27;,
+  nextPageButtonHTML: &#x27;&amp;rarr;&#x27;,
+  currentPageTitle: &#x27;Current Page&#x27;,
+  recordsPerPageOptions: [10, 25, 50, 100],
+  recordsPerPageNoPagingLabel: &#x27;No paging&#x27;,
+  recordsPerPageLabel: &#x27; per page&#x27;,
+  sortLabel: &#x27;Sort List&#x27;,
+  sortAscHTML: &#x27;&amp;darr;&#x27;,
+  sortAscLabel: &#x27;sorted in a-z order&#x27;,
+  sortDescHTML: &#x27;&amp;uarr;&#x27;,
+  sortDescLabel: &#x27;sorted in z-a order&#x27;,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="NGX_LIST_BOOTSTRAP_OPTIONS"></a>
+                        <span class="name">
+                            <b>
+                            NGX_LIST_BOOTSTRAP_OPTIONS</b>
+                            <a href="#NGX_LIST_BOOTSTRAP_OPTIONS"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new InjectionToken&lt;INgxListBoostrapOptions&gt;(
+  &#x27;labels znd html for the list components&#x27;
+)</code>
+                        </td>
+                    </tr>
+
+
             </tbody>
         </table>
 </section>
@@ -139,8 +159,8 @@
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-enumerations';
-            var COMPODOC_CURRENT_PAGE_URL = 'enumerations.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

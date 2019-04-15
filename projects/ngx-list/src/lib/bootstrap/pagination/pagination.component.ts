@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NgxList } from '../../list';
-import { NgxListResult } from '../../shared';
+import { INgxListResult } from '../../shared';
 import {
   INgxListBoostrapOptions,
   NGX_LIST_BOOTSTRAP_OPTIONS,
@@ -56,7 +56,7 @@ export class NgxListBoostrapPaginationComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateControl(result: NgxListResult) {
+  updateControl(result: INgxListResult) {
     const pageNumbers: number[] = [];
     for (let n = 0; n < result.pageCount; n++) {
       pageNumbers.push(n);
