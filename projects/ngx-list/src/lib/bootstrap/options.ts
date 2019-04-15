@@ -17,10 +17,6 @@ export interface INgxListBoostrapOptions {
   sortDescLabel?: string;
   sortAscHTML?: string;
   sortAscLabel?: string;
-  searchPlaceholder?: string;
-  clearSearchLabel?: string;
-  clearSearchHTML?: string;
-
 }
 export const NGX_LIST_BOOTSTRAP_OPTIONS = new InjectionToken<INgxListBoostrapOptions>(
   'labels znd html for the list components'
@@ -44,7 +40,4 @@ export const NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS: INgxListBoostrapOptions = {
   sortAscLabel: 'sorted in a-z order',
   sortDescHTML: '&uarr;',
   sortDescLabel: 'sorted in z-a order',
-  searchPlaceholder: 'Search list...',
-  clearSearchLabel: 'Clear',
-  clearSearchHTML: '&times;'
 };

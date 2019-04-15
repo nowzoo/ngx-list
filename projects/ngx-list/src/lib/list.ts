@@ -391,6 +391,7 @@ export class NgxList  {
   setFilterValue(key: string, value: any) {
     const params = Object.assign({}, this._params$.value);
     params.filterValues[key] = value;
+    params.page = 0;
     this._params$.next(params);
   }
 

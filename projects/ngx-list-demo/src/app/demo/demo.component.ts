@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import {
   NgxList,
   NgxListCompare,
@@ -21,10 +23,12 @@ enum ValueOptions {
   templateUrl: './demo.component.html',
   styles: []
 })
-export class DemoComponent implements OnInit {
+export class DemoComponent implements OnInit, OnDestroy {
+  private _ngUnsubscribe: Subject<void> = new Subject();
   id = 'demo-component-';
   list: NgxList;
   result: NgxListResult = null;
+  searchControl: FormControl;
   missingSelect: FormControl;
   purchasePriceSelect: FormControl;
   currentValueSelect: FormControl;
@@ -60,7 +64,6 @@ export class DemoComponent implements OnInit {
     const listInit: NgxListInit = {
       src$: this.dataService.data$,
       idKey: 'id',
-      recordsPerPage: 5,
       sortFn: NgxList.sortFn({
         caseSensitive: false,
         fallbackSortColumn: 'id',
@@ -87,7 +90,13 @@ export class DemoComponent implements OnInit {
       }
     };
     this.list = new NgxList(listInit);
-    this.list.results$.subscribe(result => this.result = result);
+    this.list.results$
+      .pipe(takeUntil(this._ngUnsubscribe))
+      .subscribe(result => this.result = result);
+    this.searchControl = new FormControl('');
+    this.searchControl.valueChanges
+      .pipe(debounceTime(100))
+      .subscribe(v => this.list.setFilterValue('search', v.trim()));
     this.missingSelect = new FormControl('');
     this.missingSelect.valueChanges.subscribe(v => this.list.setFilterValue('missing', v));
     this.purchasePriceSelect = new FormControl('');
@@ -95,6 +104,11 @@ export class DemoComponent implements OnInit {
     this.currentValueSelect = new FormControl('');
     this.currentValueSelect.valueChanges.subscribe(v => this.list.setFilterValue('currentValue', v));
 
+  }
+
+  ngOnDestroy() {
+    this._ngUnsubscribe.next();
+    this._ngUnsubscribe.complete();
   }
 
 

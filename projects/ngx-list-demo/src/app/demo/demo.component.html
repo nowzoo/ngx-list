@@ -1,133 +1,221 @@
 <ng-container *ngIf="result">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="showMissingFilter">Missing...</label>
-        <select class="form-control" [formControl]="missingSelect" id="showMissingFilter">
-          <option value="">All Socks (don't filter by missing)</option>
-          <option value="none">Missing none</option>
-          <option value="left">Missing left</option>
-          <option value="right">Missing right</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="purchasePriceSelect">Filter By Purchase Price</label>
-        <select class="form-control" [formControl]="purchasePriceSelect" id="purchasePriceSelect">
-          <option value="">All Socks (don't filter by price)</option>
-          <option *ngFor="let value of valueOptions">{{value}}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="currentValueSelect">Filter By Current Value</label>
-        <select class="form-control" [formControl]="currentValueSelect" id="currentValueSelect">
-          <option value="">All Socks (don't filter by current value)</option>
-          <option *ngFor="let value of valueOptions">{{value}}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label [attr.for]="id + 'search-1'" class="sr-only">Search</label>
-        <ngx-list-bootstrap-search
-          [list]="list"
-          filterKey="search"
-          [inputId]="id + 'search-1'"
-          placeholder="Search socks..."></ngx-list-bootstrap-search>
-      </div>
-    </div>
-    <div class="col-md-6">
 
+
+  <div class="row">
+    <div class="col-lg-8">
+      <h1>Socks</h1>
+    </div>
+    <div class="col-lg-4 ">
+
+      <ul class="nav nav-tabs" id="filtersTab" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="search-filter-tab"
+            data-toggle="tab"
+            href="#search-filter-pane"
+            role="tab"
+            aria-controls="search-filter-pane"
+            aria-selected="true">
+            Search
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="other-filters-tab"
+            data-toggle="tab"
+            href="#other-filters-pane"
+            role="tab"
+            aria-controls="other-filters-pane"
+            aria-selected="false ">
+            Other Filters
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content m-1">
+        <div
+          class="tab-pane active"
+          id="search-filter-pane"
+          role="tabpanel"
+          aria-labelledby="search-filter-tab">
+          <div class="form-group">
+            <label [attr.for]="id + 'search'">Search</label>
+            <input
+              type="text"
+              [formControl]="searchControl"
+              class="form-control">
+          </div>
+        </div>
+        <div
+          class="tab-pane"
+          id="other-filters-pane"
+          role="tabpanel"
+          aria-labelledby="other-filters-tab">
+          <div class="form-group">
+            <label for="showMissingFilter">Missing</label>
+            <select class="form-control"
+              [formControl]="missingSelect"
+              id="showMissingFilter">
+              <option value="">All Socks (don't filter by missing)</option>
+              <option value="none">Missing none</option>
+              <option value="left">Missing left</option>
+              <option value="right">Missing right</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="purchasePriceSelect">Purchase Price</label>
+            <select class="form-control" [formControl]="purchasePriceSelect" id="purchasePriceSelect">
+              <option value="">All Socks (don't filter by price)</option>
+              <option *ngFor="let value of valueOptions">{{value}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="currentValueSelect">Current Value</label>
+            <select class="form-control" [formControl]="currentValueSelect" id="currentValueSelect">
+              <option value="">All Socks (don't filter by current value)</option>
+              <option *ngFor="let value of valueOptions">{{value}}</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
 
 
-  <div class="row">
-    <div class="col-sm-8">
-      <ngx-list-bootstrap-pagination bootstrapSize="lg" [list]="list"></ngx-list-bootstrap-pagination>
+  <div  *ngIf="result.records.length > 0" class="d-flex justify-content-between align-items-center my-2">
+    <div class="text-muted">
+      Page {{result.page + 1}} of {{result.pageCount}}.
+      Record Count: {{result.recordCount}}.
+      <span *ngIf="result.unfilteredRecordCount > result.recordCount">
+        <em>Some filters were applied.</em>
+        Unfiltered Record Count: {{result.unfilteredRecordCount}}.
+      </span>
     </div>
-    <div class="col-sm-4 col-lg-2">
-      <div class="form-group">
-        <label for="rpp-1" class="sr-only">Socks Per Page</label>
+    <div class="d-flex justify-content-end">
+      <div class="mr-2">
+        <ngx-list-bootstrap-pagination
+          bootstrapSize="sm"
+          [list]="list"></ngx-list-bootstrap-pagination>
+      </div>
+      <div>
         <ngx-list-bootstrap-rpp inputId="rpp-1"
-          [list]="list"
-          [options]="[0, 10, 25, 50, 100]">
+          bootstrapSize="sm"
+          [list]="list">
         </ngx-list-bootstrap-rpp>
       </div>
     </div>
   </div>
+  <p class="text-muted"  *ngIf="result.filterValues.search">
+    Search Filter: <strong>{{result.filterValues.search}}</strong>.
+    <button
+      type="button"
+      class="btn btn-link btn-sm"
+      (click)="searchControl.setValue('')">Clear</button>
+  </p>
+  <p class="text-muted"  *ngIf="result.filterValues.missing">
+    Filtered by Missing: <strong>{{result.filterValues.missing}}</strong>.
+    <button
+      type="button"
+      class="btn btn-link btn-sm"
+      (click)="missingSelect.setValue('')">Clear</button>
+  </p>
+  <p class="text-muted"  *ngIf="result.filterValues.purchasePrice">
+    Filtered by Purchase Price: <strong>{{result.filterValues.purchasePrice}}</strong>.
+    <button
+      type="button"
+      class="btn btn-link btn-sm"
+      (click)="purchasePriceSelect.setValue('')">Clear</button>
+  </p>
+  <p class="text-muted"  *ngIf="result.filterValues.currentValue">
+    Current Value: <strong>{{result.filterValues.currentValue}}</strong>.
+    <button
+      type="button"
+      class="btn btn-link btn-sm"
+      (click)="currentValueSelect.setValue('')">Clear</button>
+  </p>
+  <div *ngIf="result.records.length === 0">
+    No results found!
+  </div>
+  <div *ngIf="result.records.length > 0">
 
-  <div class="table-responsive" *ngIf="result.records.length > 0">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th>
-            <ngx-list-bootstrap-sort [list]="list" key="id">ID</ngx-list-bootstrap-sort>
-          </th>
-          <th>
-            <ngx-list-bootstrap-sort [list]="list" key="name">Sock Name</ngx-list-bootstrap-sort>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>
+              <ngx-list-bootstrap-sort [list]="list" key="id">ID</ngx-list-bootstrap-sort>
+            </th>
+            <th>
+              <ngx-list-bootstrap-sort [list]="list" key="name">Sock Name</ngx-list-bootstrap-sort>
 
-          </th>
+            </th>
 
-          <th>
-            <ngx-list-bootstrap-sort [list]="list" key="color">Color</ngx-list-bootstrap-sort>
-          </th>
-          <th>
-            <ngx-list-bootstrap-sort [list]="list"
-            key="lastWorn">Last Worn</ngx-list-bootstrap-sort>
+            <th>
+              <ngx-list-bootstrap-sort [list]="list" key="color">Color</ngx-list-bootstrap-sort>
+            </th>
+            <th>
+              <ngx-list-bootstrap-sort [list]="list"
+              key="lastWorn">Last Worn</ngx-list-bootstrap-sort>
 
-          </th>
-          <th>
-            <ngx-list-bootstrap-sort [list]="list"
-              key="purchased.date">Purchased</ngx-list-bootstrap-sort>
+            </th>
+            <th>
+              <ngx-list-bootstrap-sort [list]="list"
+                key="purchased.date">Purchased</ngx-list-bootstrap-sort>
 
-          </th>
-          <th>
-            <ngx-list-bootstrap-sort [list]="list"
-              defaultReversed="true"
-              key="purchased.price">Price</ngx-list-bootstrap-sort>
-          </th>
-          <th>
-            <ngx-list-bootstrap-sort
-            [list]="list" key="currentValue"
-            defaultReversed="true">Current Value</ngx-list-bootstrap-sort>
+            </th>
+            <th>
+              <ngx-list-bootstrap-sort [list]="list"
+                defaultReversed="true"
+                key="purchased.price">Price</ngx-list-bootstrap-sort>
+            </th>
+            <th>
+              <ngx-list-bootstrap-sort
+              [list]="list" key="currentValue"
+              defaultReversed="true">Current Value</ngx-list-bootstrap-sort>
 
-          </th>
-          <th>
-            <ngx-list-bootstrap-sort [list]="list" key="missing">Missing</ngx-list-bootstrap-sort>
+            </th>
+            <th>
+              <ngx-list-bootstrap-sort [list]="list" key="missing">Missing</ngx-list-bootstrap-sort>
 
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let record of result.records">
-          <td>
-            {{record.id}}
-          </td>
-          <td>
-            {{record.firstName}} {{record.lastName}}
-          </td>
-          <td>
-            {{record.color}}
-          </td>
-          <td>
-            {{record.lastWorn | amDateFormat:'ll'}}
-          </td>
-          <td>
-            {{record.purchased.date | amDateFormat:'ll'}}
-          </td>
-          <td>
-            ${{record.purchased.price | number:'1.2-2'}}
-          </td>
-          <td>
-            ${{record.currentValue | number:'1.2-2'}}
-          </td>
-          <td>
-            {{record.missing ? record.missing : 'none'}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of result.records">
+            <td>
+              {{record.id}}
+            </td>
+            <td>
+              {{record.firstName}} {{record.lastName}}
+            </td>
+            <td>
+              {{record.color}}
+            </td>
+            <td>
+              {{record.lastWorn | amDateFormat:'ll'}}
+            </td>
+            <td>
+              {{record.purchased.date | amDateFormat:'ll'}}
+            </td>
+            <td>
+              ${{record.purchased.price | number:'1.2-2'}}
+            </td>
+            <td>
+              ${{record.currentValue | number:'1.2-2'}}
+            </td>
+            <td>
+              {{record.missing ? record.missing : 'none'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <p *ngIf="result.records.length === 0" class="text-muted">No results found.</p>
+
+
 
 </ng-container>
