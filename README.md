@@ -1,6 +1,6 @@
 # @nowzoo/ngx-list
 
-Paginated, sorted and filtered lists from observables. The base library is agnostic as to styling and controls; a full set of Bootstrap 4 controls is available as a separate module.
+Paginated, sorted and filtered lists from observables. The base library is agnostic as to styling and controls; a  set of Bootstrap 4 controls is available as a separate module.
 
 
 
@@ -90,36 +90,69 @@ It's up to you to layout the records, for example in a table...
 </table>
 ```
 
-#### Setting list params
+### Bootstrap Components
 
-Note: In the real world you'll probably want to hook the list parameters up to form controls, or use the Bootstrap components.
+The library provides a set of Bootstrap themed components for sorting and pagination.
 
-Set `page`...
+- `NgxListBoostrapPaginationComponent`: An input group with prev/next and first/last buttons, and a dropdown with page numbers.
+- `NgxListBoostrapRppComponent`: A dropdown to set the `recordsPerPage` property of a list.
+- `NgxListBootstrapSortComponent`: Sort a list by a key.
+
+To use these components import the module:
+
 ```ts
-// Go to the second page (page is zero-based.)
-this.list.setPage(1);
+import { NgxListBootstrapModule } from '@nowzoo/ngx-list';
+@NgModule({
+  imports: [
+    NgxListBootstrapModule,
+  ]
+})
+export class MyModule { }
 ```
 
-Set `recordsPerPage`...
+#### Component Usage
 ```ts
-this.list.setRecordsPerPage(20);
-// show all the records, with no paging...
-this.list.setRecordsPerPage(0);
+// component...
+ngOnInit() {
+  this.list = new NgxList({src$: mySource, idKey: 'id'})
+}
+```
+```html
+
+<!-- pagination... -->
+<ngx-list-bootstrap-pagination
+  [list]="list"></ngx-list-bootstrap-pagination>
+
+<!-- rpp... -->
+<ngx-list-bootstrap-rpp
+  [list]="list"></ngx-list-bootstrap-rpp>
+
+
+<!-- sort components as table headers... -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        <ngx-list-bootstrap-sort
+          [list]="list"
+          key="id">ID</ngx-list-bootstrap-sort>
+      </th>
+      <th>
+        <ngx-list-bootstrap-sort
+        [list]="list"
+        key="name">Name</ngx-list-bootstrap-sort>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of list.records">
+      ...
+    </tr>
+  </tbody>
+</table>
 ```
 
-Set `sort`...
-```ts
-this.list.setSort({key: 'firstName', reversed: false});
-```
-
-Set a filter value.  Note that you have to actually set up the filter when you instantiate the list. See below.
-```ts
-this.list.setFilterValue('search' 'foo');
-```
-
-
-
-
+See the [Bootstrap Components API](#bootstrap-components-api) for more options.
 
 ## API
 
@@ -301,7 +334,13 @@ The end product of the list.
 - `filterValues: {[key: string]: any}` The filter values used to filter the result.
 
 
+### Bootstrap Components API
 
+#### NgxListBoostrapPaginationComponent
+
+##### Inputs
+ - `list: NgxList` Required. The list.
+ - `selectId` Required. The id you want to be attached to the page dropdown.
 
 
 
