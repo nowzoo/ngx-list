@@ -231,13 +231,17 @@ const list = new NgxList({
 
 ----
 
-#### `type NgxListColumnValueFn = (record: any) => any`
+#### type NgxListColumnValueFn
+
+`type NgxListColumnValueFn = (record: any) => any`
 
 A function that, given a record, returns a value for purposes of sorting, search or filtering. Used by the factory functions.
 
 ----
 
-#### `type NgxListFilterFn = (records: any[], value: any) => any[]`
+#### type NgxListFilterFn
+
+`type NgxListFilterFn = (records: any[], value: any) => any[]`
 
 The signature of a filter function. You should return a new array of records that match your filter logic. (Don't mutate the array passed in the parameter.)
 
@@ -246,9 +250,11 @@ The signature of a filter function. You should return a new array of records tha
 
 -----
 
-#### `type NgxListSortFn = (records: any[], key: string) => any[]`
+#### type NgxListSortFn  
 
 The signature of a sort function. You should return a separate array sorted by your logic. (Don't mutate the array passed in the parameter.)
+
+`type NgxListSortFn = (records: any[], key: string) => any[]`
 
 - `records` are the unsorted records.
 - `key` is the sort key.
@@ -257,9 +263,11 @@ Note that reversing the list, if necessary, happens separately.
 
 -----
 
-#### `enum NgxListCompare`
+#### enum NgxListCompare
 
 Used by the `NgxList.comparisonFilter` factory.
+
+`enum NgxListCompare`
 - `eq` Use `===`  to compare values.
 - `neq` Use `!==`  to compare values.
 - `gte` Use `>=`  to compare values.
@@ -269,9 +277,11 @@ Used by the `NgxList.comparisonFilter` factory.
 
 
 ----
-#### `interface INgxListResult`
+#### interface INgxListResult
 
 The end product of the list.
+
+`interface INgxListResult`
 
 - `records: any[]` The records that belong on the current page.
 - `recordCount: number` The number of records that match the current filters.
