@@ -2,7 +2,7 @@
 
 Paginated, sorted and filtered lists from observables for Angular. The base library is agnostic as to styling and controls; a  set of Bootstrap 4 controls is available as a separately imported module.
 
-
+[Demo](https://nowzoo.github.io/ngx-list/) | [Demo Code](https://github.com/nowzoo/ngx-list/tree/master/projects/ngx-list-demo/src/app/demo)
 
 ## Quick Start
 
