@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "bundle-report": "webpack-bundle-analyzer docs/stats.json",
-    "compodoc": "compodoc -p ./projects/ngx-list/tsconfig.lib.json --output ./compodoc -s -w --disablePrivate"
+    "compodoc": "compodoc -p ./projects/ngx-list/tsconfig.lib.json --output ./compodoc -s -w --disablePrivate --disableProtected "
   },
   "private": true,
   "dependencies": {
@@ -37,6 +37,7 @@
     "@angular/cli": "^7.3.8",
     "@angular/compiler-cli": "^7.2.13",
     "@angular/language-service": "^7.2.13",
+    "@compodoc/compodoc": "^1.1.9",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash": "^4.14.123",

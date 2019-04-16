@@ -1,6 +1,14 @@
 import { Observable } from 'rxjs';
 
+export interface INgxList {
+  readonly result$: Observable<INgxListResult>;
+  readonly result: INgxListResult;
+= }
 
+/**
+ * A function that, given a record, returns a value for purposes of
+ * sorting, search or filtering. Used by the factory functions.
+ */
 export type NgxListColumnValueFn = (record: any) => any;
 
 export type NgxListFilterFn = (records: any[], value: any) => any[];
@@ -8,7 +16,7 @@ export type NgxListFilterFn = (records: any[], value: any) => any[];
 export type NgxListSortFn = (records: any[], sortKey: string) => any[];
 
 /**
- * Filter comparison types. Used by {@link NgxListFilters}
+ * Filter comparison types.
  */
 export enum NgxListCompare {
   /**
@@ -117,6 +125,9 @@ export interface INgxListParams {
 }
 
 
+/**
+ * The end product of a list.
+ */
 
 export interface INgxListResult extends INgxListParams {
   /**

@@ -28,7 +28,7 @@ export class NgxListBootstrapSortComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.list.results$
+    this.list.result$
       .pipe(takeUntil(this._ngUnsubscribe))
       .subscribe(result => this.updateControl(result));
   }

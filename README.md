@@ -117,29 +117,127 @@ Set a filter value.  Note that you have to actually set up the filter when you i
 this.list.setFilterValue('search' 'foo');
 ```
 
-#### Constructor options
 
-The `NgxList` constructor takes an object. The only required properties are:
 
-- `src$: Observable<NgxListRecord[]>` The records from your data source.
-- `idKey: string` The key of some unique record identifier. This is used as the fallback sort key.
-
-Optional properties:
-
-- `page: number`
-- `recordsPerPage: number`
-- `sort: {key: string, reversed: boolean}`
-- `filterValues: {[filterKey: string]: any}` The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
-- `filters: {[filterKey: string]: NgxListFilterFn}` Your filter functions. You can roll your own or use the `NgxList` factories, `NgxList.searchFilter` (for text searches) and `NgxList.comparisonFilter`.
-- `sortFn: NgxListSortFn` You can roll your own function here, use the `NgxList.sortFn` factory. If nothing is passed, the list creates a sort function with some sensible defaults.
 
 
 ## API
+
+
+----
+#### `class NgxList`
+
+The main class.
+
+##### Constructor
+```ts
+const list = new NgxList(init);
+```
+
+The `NgxList` constructor takes an initializing object. The only required properties of this object are `src$` and `idKey`. All other properties are optional.
+
+- `src$: Observable<any[]>` **Required**. An observable of records from your data source.
+- `idKey: string` **Required**. The key of some unique record identifier. This is used as the fallback sort key.
+- `page?: number` Optional. The initial page. Default `0`.
+- `recordsPerPage?: number` Optional. The initial recordsPerPage. Default `10`.
+- `sort?: {key?: string, reversed?: boolean}` Optional. The initial sort params.
+  - `key` defaults to whatever you passed as `idKey` (see above)
+  - `reversed` defaults to `false`
+- `filterValues?: {[filterKey: string]: any}` Optional. The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
+- `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. Your filter functions. You can roll your own filter functions or use the factories:
+ - `NgxListFnFactory.searchFilter`
+ - `NgxListFnFactory.comparisonFilter`.
+- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the `NgxListFnFactory.sortFn` factory.
+
+
+##### Properties
+- `result$:  Observable<INgxListResult>` The list result as an observable.
+- `result: INgxListResult` The latest list result.
+
+Additionally, the class exposes the individual properties of the latest result:
+
+- `records: any[]` The records that belong on the current page.
+- `recordCount: number` The number of records that match the current filters.
+- `unfilteredRecordCount: number` The total number of records, before filtering.
+- `pageCount: number` The number of pages.
+- `page: number` The current page. If there are records, this will be between `0` and `pageCount - 1`.
+- `recordsPerPage: number` The value used to page the result.
+- `sort: {key: string, reversed: boolean}` The parameters used to sort the list.
+- `filterValues: {[key: string]: any}` The filter values used to filter the result.
+
+
+##### Methods
+- `setPage(page: number): void` Set the page number. Note that whatever you pass here will be eventually be constrained to between `0` and `pageCount - 1`.
+- `setRecordsPerPage(recordsPerPage: number): void` Pass `0` for no paging.
+- `setSort(sort: {key: string, reversed: boolean}): void` Set the sort params. `key` can use dot notation to access nested properties of your records. If `reversed` is true, then the list will be sorted in descending (z-a) order.
+- `setFilterValue(key: string, value: any): void` Set the value of a particular filter, e.g. `list.setFilterValue('search', 'foo bar')`
+
+----
+
+#### `class NgxListFnFactory`
+
+A class with static methods for creating filter and sort functions.  
+
+##### `static sortFn(options?): NgxListSortFn`
+
+Creates a sort function. `NgxList` uses this to create the default sort function. You can use this factory to replace the default sort function, or roll your own.
+
+`options` can be an object with the following properties:
+
+- `fallbackSortColumn?: string` Optional. The key to sort by if two records are the same by the current sort key.
+- `caseSensitive?: boolean` Optional. Default `false`. If true, record keys containing strings will be sorted case-sensitively.
+- `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values for sorting, or add a sort key that does not exist in your raw records.
+
+##### `static searchFilter(options?): NgxListFilterFn`
+Creates a filter to match records by text. Use this to create a search filter top pass to `NgxList`:
+
+```ts
+const list = new NgxList({
+  src$: myDataSrc$,
+  idKey: 'id',
+  filters: {
+    // using the default options...
+    search: NgxListFnFactory.searchFilter()
+  }
+});
+```
+
+`options` can be an object with the following properties:
+
+- `caseSensitive?: boolean` Optional. Default `false`. Set to `true` if you want to match string values  case-sensitively.
+- `ignoredKeys?: string[]` Optional. By default the function will search all of the scalar keys in an object, including deeply nested ones. Pass an array of dot-notated keys to ignore single or multiple paths. Note that this is hierarchical: if you pass `['id', 'profile']`, all the keys under profile (e.g. `profile.firstName`) will be ignored as well.
+- `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values before searching (e.g. formatting dates to provide something more meaningful).
+
+##### `static comparisonFilter(options): NgxListFilterFn`
+
+Create a generic filter function to pass to `NgxList`.
+
+```ts
+const list = new NgxList({
+  src$: myDataSrc$,
+  idKey: 'id',
+  filters: {
+    verified: NgxListFnFactory.comparisonFilter({
+      value: (rec) => rec.verified === true
+    })
+  }
+});
+```
+
+`options` is an object with the following properties:
+
+- `value: string | NgxListColumnValueFn` **Required**. A dot-notated key pointing to a record value, or (recommended) a function that, given a record, returns a value.
+- `compare?: NgxListCompare` Optional. What comparison operator to use. Default `NgxListCompare.eq`.
+- `ignoreFilterWhen?: (filterValue: any) => boolean` Optional. By default, the filter will be ignored when the filter value is `null`, `undefined` or an empty string (`''`). If this logic doesn't suit pass your own function here.
+
+
+----
 
 #### `type NgxListColumnValueFn = (record: any) => any`
 
 A function that, given a record, returns a value for purposes of sorting, search or filtering. Used by the factory functions.
 
+----
 
 #### `type NgxListFilterFn = (records: any[], value: any) => any[]`
 
@@ -147,6 +245,8 @@ The signature of a filter function. You should return a new array of records tha
 
 - `records` contains the unfiltered records.
 - `value` is the current filter value.
+
+-----
 
 #### `type NgxListSortFn = (records: any[], key: string) => any[]`
 
@@ -157,6 +257,7 @@ The signature of a sort function. You should return a separate array sorted by y
 
 Note that reversing the list, if necessary, happens separately.
 
+-----
 
 #### `enum NgxListCompare`
 
@@ -169,20 +270,7 @@ Used by the `NgxList.comparisonFilter` factory.
 - `lt` Use `<` to compare values.
 
 
-#### `interface INgxListInit`
-
-Options passed to the `NgxList` constructor.
-
-- `src$: Observable<any[]>` Required. The records from your data source.
-- `idKey: string` Required The key of some unique record identifier. This is used as the fallback sort key.
-- `page?: number` Optional. The initial page. Default `0`.
-- `recordsPerPage?: number` Optional. The initial recordsPerPage. Default `10`.
-- `sort?: {key?: string, reversed?: boolean}` Optional. The initial sort. Defaults to `{key: THE_ID_KEY_PASSED_ABOVE,  reversed: false}`
-- `filterValues?: {[filterKey: string]: any}` Optional. The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
-- `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. Your filter functions. You can roll your own or use the `NgxList` factories, `NgxList.searchFilter` (for text searches) and `NgxList.comparisonFilter`.
-- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the `NgxList.sortFn` factory.
-
-
+----
 #### `interface INgxListResult`
 
 The end product of the list.
@@ -199,6 +287,8 @@ The end product of the list.
 
 
 
+
+
 ## Notes
 
 ###### About the Lodash dependency
@@ -206,7 +296,7 @@ Yeah, yeah, I know you can do everything Lodash does natively. But you can't do 
 
 The library uses a minimal set of Lodash functions, which will add about 7.5kB to the payload of your app, if you don't use other Lodash functions elsewhere. If you do use it elsewhere, make sure to use the following tree-shakeable import syntax:
 
-```ts
+~~~ts
 // good
 import chunk from 'lodash/chunk';
 import sortBy from 'lodash/sortBy';
@@ -214,6 +304,6 @@ import sortBy from 'lodash/sortBy';
 // import * as _ from 'lodash';
 // just as bad...
 // import { chunk, sortBy } from 'lodash';
-```
+~~~
 
 To make this compile for your code, you will probably have to add `"esModuleInterop": true, "allowSyntheticDefaultImports": true`  to `compilerOptions` in `tsconfig.json`. (You don't need to add it if you are not using Lodash elsewhere, only using the `ngx-list` library.)

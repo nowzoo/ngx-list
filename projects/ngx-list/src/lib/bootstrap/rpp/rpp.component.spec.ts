@@ -69,7 +69,7 @@ describe('NgxListBoostrapRppComponent', () => {
   describe('ngOnInit and ngOnDestroy', () => {
     it('should sub and unsub', () => {
       const subj$ = new BehaviorSubject({} as any);
-      spyOnProperty(component.list, 'results$').and.returnValue(subj$.asObservable());
+      spyOnProperty(component.list, 'result$').and.returnValue(subj$.asObservable());
       expect(subj$.observers.length).toBe(0);
       component.ngOnInit();
       expect(subj$.observers.length).toBe(1);

@@ -36,8 +36,8 @@ export class NgxListBoostrapPaginationComponent implements OnInit, OnDestroy {
     this.control.valueChanges
       .pipe(takeUntil(this._ngUnsubscribe))
       .subscribe(val => this.list.setPage(val));
-    this.updateControl(this.list.currentResult);
-    this.list.results$
+    this.updateControl(this.list.result);
+    this.list.result$
       .pipe(takeUntil(this._ngUnsubscribe))
       .subscribe(result => this.updateControl(result));
   }
