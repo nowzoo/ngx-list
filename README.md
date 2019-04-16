@@ -340,9 +340,10 @@ The end product of the list.
 
 ##### Inputs
  - `list: NgxList` Required. The list.
- - `selectId` Required. The id you want to be attached to the page dropdown.
-
-
+ - `selectId: string` Required. The id you want to be attached to the page dropdown.
+ - `buttonClass: string` Optional. The Boostrap button class. Default: `'btn btn-outline-secondary'`.
+ - `bootstrapSize: 'sm' | 'lg'` Optional the Bootstrap size for the input group. Default: `null`.
+ - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass a options for this instance. Will overide whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
 ## Notes
 
