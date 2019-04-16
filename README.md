@@ -123,8 +123,6 @@ this.list.setFilterValue('search' 'foo');
 
 ## API
 
-
-----
 #### `class NgxList`
 
 The main class.
@@ -147,7 +145,7 @@ The `NgxList` constructor takes an initializing object. The only required proper
 - `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. Your filter functions. You can roll your own filter functions or use the factories:
    - `NgxListFnFactory.searchFilter`
    - `NgxListFnFactory.comparisonFilter`.
-- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the `NgxListFnFactory.sortFn` factory.
+- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the [`NgxListFnFactory.sortFn`](#static-sortfnoptions-ngxlistsortfn) factory.
 
 
 ##### Properties
