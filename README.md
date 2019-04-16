@@ -143,8 +143,8 @@ The `NgxList` constructor takes an initializing object. The only required proper
   - `reversed` defaults to `false`
 - `filterValues?: {[filterKey: string]: any}` Optional. The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
 - `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. Your filter functions. You can roll your own filter functions or use the factories:
-   - `NgxListFnFactory.searchFilter`
-   - `NgxListFnFactory.comparisonFilter`.
+   - [`NgxListFnFactory.searchFilter`](#static-searchfilteroptions-ngxlistfilterfn)
+   - [`NgxListFnFactory.comparisonFilter`](#static-comparisonfilteroptions-ngxlistfilterfn).
 - `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the [`NgxListFnFactory.sortFn`](#static-sortfnoptions-ngxlistsortfn) factory.
 
 
