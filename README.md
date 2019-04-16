@@ -160,16 +160,13 @@ See the [Bootstrap Components API](#bootstrap-components-api) for more options.
 
 The main class.
 
-##### NgxList Constructor
 ```ts
 const list = new NgxList(init);
 ```
 
-The `NgxList` constructor takes an initializing object in the shape of `INgxListInit`.
+The `NgxList` constructor takes an initializing object in the shape of `INgxListInit`. The only required properties are `src$` and `idKey`. All other properties are optional.
 
-###### Interface INgxListInit
-
-The only required properties are `src$` and `idKey`. All other properties are optional.
+##### Interface INgxListInit
 
 - `src$: Observable<any[]>` **Required**. An observable of records from your data source.
 - `idKey: string` **Required**. The key of some unique record identifier. This is used as the fallback sort key.
