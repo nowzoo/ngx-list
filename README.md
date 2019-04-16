@@ -382,7 +382,8 @@ A sort link with indicators, sutable for use in table headers.
 
 #### interface INgxListBoostrapOptions
 
-Options to control language, markup, etc. for the bootstrap components. All keys are optional.
+Options to control language, markup, etc. for the bootstrap components. Pass them directly to the components as inputs, or use the [`NGX_LIST_BOOTSTRAP_OPTIONS` token](#const-ngx_list_bootstrap_options) to provide your default options.
+
 
 - `firstPageButtonTitle?: string` Optional. Default: `'First Page'`. Used for `title` and `aria-label`.
 - `firstPageButtonHTML?: string` Optional. Default: &larrb; (`'&larrb;'`). The `innerHTML` of the button.
