@@ -149,8 +149,8 @@ The `NgxList` constructor takes an initializing object. The only required proper
 
 
 ##### Properties
-- `result$:  Observable<INgxListResult>` The list result as an observable.
-- `result: INgxListResult` The latest list result.
+- `result$:  Observable<INgxListResult>` The list result as an observable. See [INgxListResult](#interface-ingxlistresult).
+- `result: INgxListResult` The latest list result. See [INgxListResult](#interface-ingxlistresult).
 
 Additionally, the class exposes the individual properties of the latest result:
 
