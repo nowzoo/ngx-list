@@ -178,7 +178,7 @@ A class with static methods for creating filter and sort functions.
 
 ##### NgxListFnFactory.sortFn
 
-Creates a sort function. `NgxList` uses this to create the default sort function. You can use this factory to replace the default sort function, or roll your own.
+Static method to create a sort function of type [NgxListSortFn](#type-ngxlistsortfn). `NgxList` uses this to create the default sort function. You can use this factory to replace the default sort function, or roll your own.
 
 `static sortFn(options?): NgxListSortFn`
 
@@ -190,7 +190,7 @@ Creates a sort function. `NgxList` uses this to create the default sort function
 
 ##### NgxListFnFactory.searchFilter
 
-Static method that creates a filter to match records by text. Use this to create a search filter top pass to `NgxList`:
+Static method to create a search filter of type [NgxListFilterFn](#type-ngxlistfilterfn). Use this to create a search filter top pass to `NgxList`:
 
 ```ts
 const list = new NgxList({
@@ -208,11 +208,11 @@ const list = new NgxList({
 
 - `caseSensitive?: boolean` Optional. Default `false`. Set to `true` if you want to match string values  case-sensitively.
 - `ignoredKeys?: string[]` Optional. By default the function will search all of the scalar keys in an object, including deeply nested ones. Pass an array of dot-notated keys to ignore single or multiple paths. Note that this is hierarchical: if you pass `['id', 'profile']`, all the keys under profile (e.g. `profile.firstName`) will be ignored as well.
-- `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values before searching (e.g. formatting dates to provide something more meaningful).
+- `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values before searching (e.g. formatting dates to provide something more meaningful). Pass a map from dot-notated key to [NgxListColumnValueFn](#type-ngxlistcolumnvaluefn)
 
 ##### NgxListFnFactory.comparisonFilter
 
-Create a generic filter function to pass to `NgxList`.
+Create a generic filter function of type [NgxListFilterFn](#type-ngxlistfilterfn)
 
 ```ts
 const list = new NgxList({
