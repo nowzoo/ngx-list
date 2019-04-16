@@ -123,11 +123,11 @@ this.list.setFilterValue('search' 'foo');
 
 ## API
 
-#### `class NgxList`
+#### NgxList
 
 The main class.
 
-##### Constructor
+##### NgxList Constructor
 ```ts
 const list = new NgxList(init);
 ```
@@ -142,15 +142,15 @@ The `NgxList` constructor takes an initializing object. The only required proper
   - `key` defaults to whatever you passed as `idKey` (see above)
   - `reversed` defaults to `false`
 - `filterValues?: {[filterKey: string]: any}` Optional. The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
-- `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. Your filter functions. You can roll your own filter functions or use the factories:
+- `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. A map of filter functions. You can roll your own [NgxListFilterFn](#type-ngxlistfilterfn) or use the factories:
    - [`NgxListFnFactory.searchFilter`](#static-searchfilteroptions-ngxlistfilterfn)
    - [`NgxListFnFactory.comparisonFilter`](#static-comparisonfilteroptions-ngxlistfilterfn).
-- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own sort function, use the [`NgxListFnFactory.sortFn`](#static-sortfnoptions-ngxlistsortfn) factory.
+- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own function of type [NgxListSortFn](#type-ngxlistsortfn), use the [`NgxListFnFactory.sortFn`](#static-sortfnoptions-ngxlistsortfn) factory.
 
 
-##### Properties
+##### NgxList Properties
 - `result$:  Observable<INgxListResult>` The list result as an observable. See [INgxListResult](#interface-ingxlistresult).
-- `result: INgxListResult` The latest list result. See [INgxListResult](#interface-ingxlistresult).
+- `result: INgxListResult` The latest list result. 
 
 Additionally, the class exposes the individual properties of the latest result:
 
@@ -164,7 +164,7 @@ Additionally, the class exposes the individual properties of the latest result:
 - `filterValues: {[key: string]: any}` The filter values used to filter the result.
 
 
-##### Methods
+##### NgxList Methods
 - `setPage(page: number): void` Set the page number. Note that whatever you pass here will be eventually be constrained to between `0` and `pageCount - 1`.
 - `setRecordsPerPage(recordsPerPage: number): void` Pass `0` for no paging.
 - `setSort(sort: {key: string, reversed: boolean}): void` Set the sort params. `key` can use dot notation to access nested properties of your records. If `reversed` is true, then the list will be sorted in descending (z-a) order.
@@ -172,13 +172,15 @@ Additionally, the class exposes the individual properties of the latest result:
 
 ----
 
-#### `class NgxListFnFactory`
+#### NgxListFnFactory
 
 A class with static methods for creating filter and sort functions.  
 
-##### `static sortFn(options?): NgxListSortFn`
+##### NgxListFnFactory.sortFn
 
 Creates a sort function. `NgxList` uses this to create the default sort function. You can use this factory to replace the default sort function, or roll your own.
+
+`static sortFn(options?): NgxListSortFn`
 
 `options` can be an object with the following properties:
 
@@ -186,8 +188,9 @@ Creates a sort function. `NgxList` uses this to create the default sort function
 - `caseSensitive?: boolean` Optional. Default `false`. If true, record keys containing strings will be sorted case-sensitively.
 - `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values for sorting, or add a sort key that does not exist in your raw records.
 
-##### `static searchFilter(options?): NgxListFilterFn`
-Creates a filter to match records by text. Use this to create a search filter top pass to `NgxList`:
+##### NgxListFnFactory.searchFilter
+
+Static method that creates a filter to match records by text. Use this to create a search filter top pass to `NgxList`:
 
 ```ts
 const list = new NgxList({
@@ -199,6 +202,7 @@ const list = new NgxList({
   }
 });
 ```
+`static searchFilter(options?): NgxListFilterFn`
 
 `options` can be an object with the following properties:
 
@@ -206,7 +210,7 @@ const list = new NgxList({
 - `ignoredKeys?: string[]` Optional. By default the function will search all of the scalar keys in an object, including deeply nested ones. Pass an array of dot-notated keys to ignore single or multiple paths. Note that this is hierarchical: if you pass `['id', 'profile']`, all the keys under profile (e.g. `profile.firstName`) will be ignored as well.
 - `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values before searching (e.g. formatting dates to provide something more meaningful).
 
-##### `static comparisonFilter(options): NgxListFilterFn`
+##### NgxListFnFactory.comparisonFilter
 
 Create a generic filter function to pass to `NgxList`.
 
@@ -221,6 +225,8 @@ const list = new NgxList({
   }
 });
 ```
+
+`static comparisonFilter(options): NgxListFilterFn`
 
 `options` is an object with the following properties:
 
@@ -268,6 +274,7 @@ Note that reversing the list, if necessary, happens separately.
 Used by the `NgxList.comparisonFilter` factory.
 
 `enum NgxListCompare`
+
 - `eq` Use `===`  to compare values.
 - `neq` Use `!==`  to compare values.
 - `gte` Use `>=`  to compare values.
