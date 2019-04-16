@@ -1,9 +1,6 @@
 import { Observable } from 'rxjs';
 
-export interface INgxList {
-  readonly result$: Observable<INgxListResult>;
-  readonly result: INgxListResult;
-= }
+
 
 /**
  * A function that, given a record, returns a value for purposes of
@@ -19,30 +16,12 @@ export type NgxListSortFn = (records: any[], sortKey: string) => any[];
  * Filter comparison types.
  */
 export enum NgxListCompare {
-  /**
-   * Equals. `===`
-   */
-  eq = 1,
-  /**
-   * Not equal to. `!==`
-   */
-  neq,
-  /**
-   * Greater than or equal to.  `>=`
-   */
-  gte,
-  /**
-   * Greater than. `>`
-   */
-  gt,
-  /**
-   * Less than. `<`
-   */
-  lt,
-  /**
-   * Less than or equal to.  `<=`
-   */
-  lte
+  eq = 1, // Use === for comparison.
+  neq, // Use !== for comparison.
+  gte, // Use >= for comparison.
+  gt, // Use > for comparison.
+  lt, // Use < for comparison.
+  lte // Use =< for comparison.
 }
 
 

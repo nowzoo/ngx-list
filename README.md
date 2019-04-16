@@ -226,12 +226,12 @@ const list = new NgxList({
 });
 ```
 
-`static comparisonFilter(options): NgxListFilterFn`
+`static comparisonFilter(options): NgxListFilterFn`.
 
 `options` is an object with the following properties:
 
 - `value: string | NgxListColumnValueFn` **Required**. A dot-notated key pointing to a record value, or (recommended) a function that, given a record, returns a value.
-- `compare?: NgxListCompare` Optional. What comparison operator to use. Default `NgxListCompare.eq`.
+- `compare?: NgxListCompare` Optional. See [NgxListCompare](#enum-ngxlistcompare).What comparison operator to use. Default `NgxListCompare.eq`.
 - `ignoreFilterWhen?: (filterValue: any) => boolean` Optional. By default, the filter will be ignored when the filter value is `null`, `undefined` or an empty string (`''`). If this logic doesn't suit pass your own function here.
 
 
@@ -271,7 +271,8 @@ Note that reversing the list, if necessary, happens separately.
 
 #### enum NgxListCompare
 
-Used by the `NgxList.comparisonFilter` factory.
+Used by the [`NgxList.comparisonFilter`](#ngxlistfnfactorycomparisonfilter) factory.
+
 
 `enum NgxListCompare`
 
