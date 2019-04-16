@@ -204,7 +204,6 @@ Additionally, the class exposes the individual properties of the latest result:
 - `setSort(sort: {key: string, reversed: boolean}): void` Set the sort params. `key` can use dot notation to access nested properties of your records. If `reversed` is true, then the list will be sorted in descending (z-a) order.
 - `setFilterValue(key: string, value: any): void` Set the value of a particular filter, e.g. `list.setFilterValue('search', 'foo bar')`
 
-----
 
 ### NgxListFnFactory
 
@@ -269,7 +268,6 @@ const list = new NgxList({
 - `ignoreFilterWhen?: (filterValue: any) => boolean` Optional. By default, the filter will be ignored when the filter value is `null`, `undefined` or an empty string (`''`). If this logic doesn't suit pass your own function here.
 
 
-----
 
 ### type NgxListColumnValueFn
 
@@ -277,7 +275,6 @@ const list = new NgxList({
 
 A function that, given a record, returns a value for purposes of sorting, search or filtering. Used by the factory functions.
 
-----
 
 ### type NgxListFilterFn
 
@@ -288,7 +285,6 @@ The signature of a filter function. You should return a new array of records tha
 - `records` contains the unfiltered records.
 - `value` is the current filter value.
 
------
 
 ### type NgxListSortFn  
 
@@ -301,7 +297,6 @@ The signature of a sort function. You should return a separate array sorted by y
 
 Note that reversing the list, if necessary, happens separately.
 
------
 
 ### enum NgxListCompare
 
@@ -318,7 +313,7 @@ Used by the [`NgxList.comparisonFilter`](#ngxlistfnfactorycomparisonfilter) fact
 - `lt` Use `<` to compare values.
 
 
-----
+
 ### interface INgxListResult
 
 The end product of the list.
@@ -334,7 +329,6 @@ The end product of the list.
 - `sort: {key: string, reversed: boolean}` The parameters used to sort the list.
 - `filterValues: {[key: string]: any}` The filter values used to filter the result.
 
-----
 
 ## Bootstrap Components API
 
@@ -345,7 +339,7 @@ The end product of the list.
  - [NgxListBoostrapRppComponent](#NgxListBoostrapRppComponent)
  - [NgxListBootstrapSortComponent](#NgxListBootstrapSortComponent)
 
------
+
 ### NgxListBoostrapPaginationComponent
 An input group with prev/next and first/last buttons, and a dropdown with page numbers.
 
@@ -358,7 +352,6 @@ An input group with prev/next and first/last buttons, and a dropdown with page n
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the input group. Default: `null`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
-----
 
 ### NgxListBoostrapRppComponent
 
@@ -372,7 +365,6 @@ A dropdown to set the `recordsPerPage` of a list.
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the select. Default: `null`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component. See [INgxListBoostrapOptions](#interface-ingxlistboostrapoptions)
 
-----
 
 ### NgxListBoostrapSortComponent
 
@@ -386,7 +378,6 @@ A sort link with indicators, sutable for use in table headers.
  - `defaultReversed: boolean` Optional. Whether the sort should be in reverse order when the key is selected. (Note that selecting the key when it is already selected toggles `reversed`.  Default: `false`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
-----
 
 ### interface INgxListBoostrapOptions
 
@@ -411,7 +402,6 @@ Options to control language, markup, etc. for the bootstrap components. Pass the
 - `sortAscHTML?: string` Optional. Default:  &darr; (`'&darr;'`). The html to be used as the indicator when the sort component is selected and the the list is sorted in ascending order (not reversed).
 - `sortAscLabel?: string`  Optional. Default:  `'sorted in a-z order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in ascending order (not reversed).
 
-----
 
 ### const NGX_LIST_BOOTSTRAP_OPTIONS
 
@@ -445,9 +435,7 @@ const myOptions: INgxListBoostrapOptions = {
   ]
 })
 export class MyModule { }
-
 ```
------
 
 ## Notes
 
