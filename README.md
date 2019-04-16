@@ -1,6 +1,6 @@
 # @nowzoo/ngx-list
 
-Paginated, sorted and filtered lists from observables. The base library is agnostic as to styling and controls; a  set of Bootstrap 4 controls is available as a separately imported module.
+Paginated, sorted and filtered lists from observables for Angular. The base library is agnostic as to styling and controls; a  set of Bootstrap 4 controls is available as a separately imported module.
 
 
 

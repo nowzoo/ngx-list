@@ -9,7 +9,27 @@ gulp.task('build:lib', (cb) => {
     console.log(stderr);
     cb(err);
   });
-})
+});
+
+gulp.task('build:demo', (cb) => {
+  const exec = require('child_process').exec;
+  exec('ng build ngx-list-demo --aot --prod --base-href /ngx-list/', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
+});
+
+gulp.task('build:copy', (cb) => {
+  const exec = require('child_process').exec;
+  exec('cp LICENSE README.md dist/ngx-list/', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
+});
+
+
 
 gulp.task('demodata', (cb) => {
   const md5 = require('md5');
