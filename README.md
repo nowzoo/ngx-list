@@ -156,7 +156,7 @@ See the [Bootstrap Components API](#bootstrap-components-api) for more options.
 
 ## API
 
-#### NgxList
+### NgxList
 
 The main class.
 
@@ -166,7 +166,7 @@ const list = new NgxList(init);
 
 The `NgxList` constructor takes an initializing object in the shape of `INgxListInit`. The only required properties are `src$` and `idKey`. All other properties are optional.
 
-##### Interface INgxListInit
+#### Interface INgxListInit
 
 - `src$: Observable<any[]>` **Required**. An observable of records from your data source.
 - `idKey: string` **Required**. The key of some unique record identifier. This is used as the fallback sort key.
@@ -182,7 +182,7 @@ The `NgxList` constructor takes an initializing object in the shape of `INgxList
 - `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own function of type [NgxListSortFn](#type-ngxlistsortfn), use the [`NgxListFnFactory.sortFn`](#ngxlistfnfactorysortfn) factory.
 
 
-##### NgxList Properties
+#### NgxList Properties
 - `result$:  Observable<INgxListResult>` The list result as an observable. See [INgxListResult](#interface-ingxlistresult).
 - `result: INgxListResult` The latest list result.
 
@@ -198,7 +198,7 @@ Additionally, the class exposes the individual properties of the latest result:
 - `filterValues: {[key: string]: any}` The filter values used to filter the result.
 
 
-##### NgxList Methods
+#### NgxList Methods
 - `setPage(page: number): void` Set the page number. Note that whatever you pass here will be eventually be constrained to between `0` and `pageCount - 1`.
 - `setRecordsPerPage(recordsPerPage: number): void` Pass `0` for no paging.
 - `setSort(sort: {key: string, reversed: boolean}): void` Set the sort params. `key` can use dot notation to access nested properties of your records. If `reversed` is true, then the list will be sorted in descending (z-a) order.
@@ -206,11 +206,11 @@ Additionally, the class exposes the individual properties of the latest result:
 
 ----
 
-#### NgxListFnFactory
+### NgxListFnFactory
 
 A class with static methods for creating filter and sort functions.  
 
-##### NgxListFnFactory.sortFn
+#### NgxListFnFactory.sortFn
 
 Static method to create a sort function of type [NgxListSortFn](#type-ngxlistsortfn). `NgxList` uses this to create the default sort function. You can use this factory to replace the default sort function, or roll your own.
 
@@ -222,7 +222,7 @@ Static method to create a sort function of type [NgxListSortFn](#type-ngxlistsor
 - `caseSensitive?: boolean` Optional. Default `false`. If true, record keys containing strings will be sorted case-sensitively.
 - `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values for sorting, or add a sort key that does not exist in your raw records.
 
-##### NgxListFnFactory.searchFilter
+#### NgxListFnFactory.searchFilter
 
 Static method to create a search filter of type [NgxListFilterFn](#type-ngxlistfilterfn). Use this to create a search filter top pass to `NgxList`:
 
@@ -244,7 +244,7 @@ const list = new NgxList({
 - `ignoredKeys?: string[]` Optional. By default the function will search all of the scalar keys in an object, including deeply nested ones. Pass an array of dot-notated keys to ignore single or multiple paths. Note that this is hierarchical: if you pass `['id', 'profile']`, all the keys under profile (e.g. `profile.firstName`) will be ignored as well.
 - `valueFns?: {[key: string]: NgxListColumnValueFn}` Optional. Use this if you want to mess with the values before searching (e.g. formatting dates to provide something more meaningful). Pass a map from dot-notated key to [NgxListColumnValueFn](#type-ngxlistcolumnvaluefn)
 
-##### NgxListFnFactory.comparisonFilter
+#### NgxListFnFactory.comparisonFilter
 
 Create a generic filter function of type [NgxListFilterFn](#type-ngxlistfilterfn)
 
@@ -271,7 +271,7 @@ const list = new NgxList({
 
 ----
 
-#### type NgxListColumnValueFn
+### type NgxListColumnValueFn
 
 `type NgxListColumnValueFn = (record: any) => any`
 
@@ -279,7 +279,7 @@ A function that, given a record, returns a value for purposes of sorting, search
 
 ----
 
-#### type NgxListFilterFn
+### type NgxListFilterFn
 
 `type NgxListFilterFn = (records: any[], value: any) => any[]`
 
@@ -290,7 +290,7 @@ The signature of a filter function. You should return a new array of records tha
 
 -----
 
-#### type NgxListSortFn  
+### type NgxListSortFn  
 
 The signature of a sort function. You should return a separate array sorted by your logic. (Don't mutate the array passed in the parameter.)
 
@@ -303,7 +303,7 @@ Note that reversing the list, if necessary, happens separately.
 
 -----
 
-#### enum NgxListCompare
+### enum NgxListCompare
 
 Used by the [`NgxList.comparisonFilter`](#ngxlistfnfactorycomparisonfilter) factory.
 
@@ -319,7 +319,7 @@ Used by the [`NgxList.comparisonFilter`](#ngxlistfnfactorycomparisonfilter) fact
 
 
 ----
-#### interface INgxListResult
+### interface INgxListResult
 
 The end product of the list.
 
@@ -334,6 +334,7 @@ The end product of the list.
 - `sort: {key: string, reversed: boolean}` The parameters used to sort the list.
 - `filterValues: {[key: string]: any}` The filter values used to filter the result.
 
+----
 
 ### Bootstrap Components API
 
@@ -345,7 +346,7 @@ The end product of the list.
  - [NgxListBootstrapSortComponent](#NgxListBootstrapSortComponent)
 
 
-#### NgxListBoostrapPaginationComponent
+### NgxListBoostrapPaginationComponent
 An input group with prev/next and first/last buttons, and a dropdown with page numbers.
 
 `selector: 'ngx-list-bootstrap-pagination'`
@@ -357,31 +358,31 @@ An input group with prev/next and first/last buttons, and a dropdown with page n
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the input group. Default: `null`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
-#### NgxListBoostrapRppComponent
+### NgxListBoostrapRppComponent
 
 A dropdown to set the `recordsPerPage` of a list.
 
 `selector: 'ngx-list-bootstrap-rpp'`
 
-##### Inputs
+#### Inputs
  - `list: NgxList` Required. The list.
  - `selectId: string` Required. The id you want to be attached to the dropdown.
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the select. Default: `null`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component. See [INgxListBoostrapOptions](#interface-ingxlistboostrapoptions)
 
-#### NgxListBoostrapSortComponent
+### NgxListBoostrapSortComponent
 
 A sort link with indicators, sutable for use in table headers.
 
 `selector: 'ngx-list-bootstrap-sort'`
 
-##### Inputs
+#### Inputs
  - `list: NgxList` Required. The list.
  - `key: string` Required. The dot-notated key of the column to sort by.
  - `defaultReversed: boolean` Optional. Whether the sort should be in reverse order when the key is selected. (Note that selecting the key when it is already selected toggles `reversed`.  Default: `false`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
-#### interface INgxListBoostrapOptions
+### interface INgxListBoostrapOptions
 
 Options to control language, markup, etc. for the bootstrap components. Pass them directly to the components as inputs, or use the [`NGX_LIST_BOOTSTRAP_OPTIONS` token](#const-ngx_list_bootstrap_options) to provide your default options.
 
@@ -404,7 +405,7 @@ Options to control language, markup, etc. for the bootstrap components. Pass the
 - `sortAscHTML?: string` Optional. Default:  &darr; (`'&darr;'`). The html to be used as the indicator when the sort component is selected and the the list is sorted in ascending order (not reversed).
 - `sortAscLabel?: string`  Optional. Default:  `'sorted in a-z order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in ascending order (not reversed).
 
-#### const NGX_LIST_BOOTSTRAP_OPTIONS
+### const NGX_LIST_BOOTSTRAP_OPTIONS
 
 `const NGX_LIST_BOOTSTRAP_OPTIONS: InjectionToken<INgxListBoostrapOptions>`
 
@@ -442,7 +443,7 @@ export class MyModule { }
 
 ## Notes
 
-###### About the Lodash dependency
+### About the Lodash dependency
 Yeah, yeah, I know you can do everything Lodash does natively. But you can't do it as well or as consistently. So, Lodash.
 
 The library uses a minimal set of Lodash functions, which will add about 7.5kB to the payload of your app, if you don't use other Lodash functions elsewhere. If you do use it elsewhere, make sure to use the following tree-shakeable import syntax:
