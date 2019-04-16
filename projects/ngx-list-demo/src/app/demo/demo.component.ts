@@ -4,9 +4,9 @@ import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import {
   NgxList,
+  NgxListFnFactory,
   NgxListCompare,
-  NgxListInit,
-  NgxListResult
+  INgxListResult
  } from '@nowzoo/ngx-list';
 import { DataService } from '../data.service';
 import moment from 'moment';
@@ -27,7 +27,7 @@ export class DemoComponent implements OnInit, OnDestroy {
   private _ngUnsubscribe: Subject<void> = new Subject();
   id = 'demo-component-';
   list: NgxList;
-  result: NgxListResult = null;
+  result: INgxListResult = null;
   searchControl: FormControl;
   missingSelect: FormControl;
   purchasePriceSelect: FormControl;
@@ -61,36 +61,36 @@ export class DemoComponent implements OnInit, OnDestroy {
 
 
 
-    const listInit: NgxListInit = {
+    const listInit = {
       src$: this.dataService.data$,
       idKey: 'id',
-      sortFn: NgxList.sortFn({
+      sortFn: NgxListFnFactory.sortFn({
         caseSensitive: false,
         fallbackSortColumn: 'id',
         valueFns: {name: (rec: any) => `${rec.lastName} ${rec.firstName}`}
       }),
       filters: {
-        search: NgxList.searchFilter({
+        search: NgxListFnFactory.searchFilter({
           ignoredKeys: ['id'],
           valueFns: {
             'purchased.date': (rec) => moment(rec.purchased.date).format('LLLL'),
             lastWorn: (rec) => moment(rec.lastWorn).format('LLLL'),
           }
         }),
-        missing: NgxList.comparisonFilter({
+        missing: NgxListFnFactory.comparisonFilter({
           value: (rec) => rec.missing ? rec.missing : 'none'
         }),
-        purchasePrice:   NgxList.comparisonFilter({
+        purchasePrice:   NgxListFnFactory.comparisonFilter({
           value: (rec) => dollarValue(rec.purchased.price)
         }),
-        currentValue: NgxList.comparisonFilter({
+        currentValue: NgxListFnFactory.comparisonFilter({
           value: (rec) => dollarValue(rec.currentValue)
         }),
 
       }
     };
     this.list = new NgxList(listInit);
-    this.list.results$
+    this.list.result$
       .pipe(takeUntil(this._ngUnsubscribe))
       .subscribe(result => this.result = result);
     this.searchControl = new FormControl('');

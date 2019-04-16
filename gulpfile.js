@@ -29,6 +29,8 @@ gulp.task('build:copy', (cb) => {
   });
 });
 
+gulp.task('build', gulp.series('build:lib', 'build:copy'));
+
 
 
 gulp.task('demodata', (cb) => {

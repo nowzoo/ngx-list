@@ -165,7 +165,11 @@ The main class.
 const list = new NgxList(init);
 ```
 
-The `NgxList` constructor takes an initializing object. The only required properties of this object are `src$` and `idKey`. All other properties are optional.
+The `NgxList` constructor takes an initializing object in the shape of `INgxListInit`.
+
+###### Interface INgxListInit
+
+The only required properties are `src$` and `idKey`. All other properties are optional.
 
 - `src$: Observable<any[]>` **Required**. An observable of records from your data source.
 - `idKey: string` **Required**. The key of some unique record identifier. This is used as the fallback sort key.
