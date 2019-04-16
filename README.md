@@ -336,16 +336,16 @@ The end product of the list.
 
 ----
 
-### Bootstrap Components API
+## Bootstrap Components API
 
-#### NgxListBootstrapModule
+### NgxListBootstrapModule
 
-##### Exports
+#### Exports
  - [NgxListBoostrapPaginationComponent](#NgxListBoostrapPaginationComponent)
  - [NgxListBoostrapRppComponent](#NgxListBoostrapRppComponent)
  - [NgxListBootstrapSortComponent](#NgxListBootstrapSortComponent)
 
-
+-----
 ### NgxListBoostrapPaginationComponent
 An input group with prev/next and first/last buttons, and a dropdown with page numbers.
 
@@ -357,6 +357,8 @@ An input group with prev/next and first/last buttons, and a dropdown with page n
  - `buttonClass: string` Optional. The Boostrap button class. Default: `'btn btn-outline-secondary'`.
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the input group. Default: `null`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+
+----
 
 ### NgxListBoostrapRppComponent
 
@@ -370,6 +372,8 @@ A dropdown to set the `recordsPerPage` of a list.
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the select. Default: `null`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component. See [INgxListBoostrapOptions](#interface-ingxlistboostrapoptions)
 
+----
+
 ### NgxListBoostrapSortComponent
 
 A sort link with indicators, sutable for use in table headers.
@@ -381,6 +385,8 @@ A sort link with indicators, sutable for use in table headers.
  - `key: string` Required. The dot-notated key of the column to sort by.
  - `defaultReversed: boolean` Optional. Whether the sort should be in reverse order when the key is selected. (Note that selecting the key when it is already selected toggles `reversed`.  Default: `false`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+
+----
 
 ### interface INgxListBoostrapOptions
 
@@ -404,6 +410,8 @@ Options to control language, markup, etc. for the bootstrap components. Pass the
 - `sortDescLabel?: string`  Optional. Default:  `'sorted in z-a order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in descending order (reversed).
 - `sortAscHTML?: string` Optional. Default:  &darr; (`'&darr;'`). The html to be used as the indicator when the sort component is selected and the the list is sorted in ascending order (not reversed).
 - `sortAscLabel?: string`  Optional. Default:  `'sorted in a-z order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in ascending order (not reversed).
+
+----
 
 ### const NGX_LIST_BOOTSTRAP_OPTIONS
 
