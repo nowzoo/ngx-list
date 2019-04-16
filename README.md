@@ -143,14 +143,14 @@ The `NgxList` constructor takes an initializing object. The only required proper
   - `reversed` defaults to `false`
 - `filterValues?: {[filterKey: string]: any}` Optional. The initial values for the filters. For example, you could pass `{search: 'foo'}` if initializing the list from a query param.
 - `filters?: {[filterKey: string]: NgxListFilterFn}` Optional. A map of filter functions. You can roll your own [NgxListFilterFn](#type-ngxlistfilterfn) or use the factories:
-   - [`NgxListFnFactory.searchFilter`](#static-searchfilteroptions-ngxlistfilterfn)
-   - [`NgxListFnFactory.comparisonFilter`](#static-comparisonfilteroptions-ngxlistfilterfn).
-- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own function of type [NgxListSortFn](#type-ngxlistsortfn), use the [`NgxListFnFactory.sortFn`](#static-sortfnoptions-ngxlistsortfn) factory.
+   - [`NgxListFnFactory.searchFilter`](#ngxlistfnfactorysearchfilter)
+   - [`NgxListFnFactory.comparisonFilter`](#ngxlistfnfactorycomparisonfilter).
+- `sortFn?: NgxListSortFn` Optional. If nothing is passed, the list creates a sort function with some sensible defaults. You can roll your own function of type [NgxListSortFn](#type-ngxlistsortfn), use the [`NgxListFnFactory.sortFn`](#ngxlistfnfactorysortfn) factory.
 
 
 ##### NgxList Properties
 - `result$:  Observable<INgxListResult>` The list result as an observable. See [INgxListResult](#interface-ingxlistresult).
-- `result: INgxListResult` The latest list result. 
+- `result: INgxListResult` The latest list result.
 
 Additionally, the class exposes the individual properties of the latest result:
 
