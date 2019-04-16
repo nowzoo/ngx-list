@@ -406,7 +406,7 @@ Options to control language, markup, etc. for the bootstrap components. All keys
 
 `const NGX_LIST_BOOTSTRAP_OPTIONS: InjectionToken<INgxListBoostrapOptions>`
 
-Use this to set some or all of the component options, either in a module or in a component. Example:
+Use this to set some or all of the component options, either in a module or in a component. You don't have to provide all the options; the options you provide will override the defaults. Example:
 
 ```ts
 import {
@@ -423,14 +423,14 @@ const myOptions: INgxListBoostrapOptions = {
   nextPageButtonHTML: '<i class="fas fa-arrow-right"></i>',
   sortAscHTML: '<i class="fas fa-arrow-down"></i>',
   sortDescHTML: '<i class="fas fa-arrow-up"></i>',
+};
 
-}
 @NgModule({
   imports: [
     NgxListBootstrapModule,
   ],
   providers: [
-
+    {provide: NGX_LIST_BOOTSTRAP_OPTIONS, useValue: myOptions}
   ]
 })
 export class MyModule { }
