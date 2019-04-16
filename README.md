@@ -338,6 +338,11 @@ The end product of the list.
 
 #### NgxListBootstrapModule
 
+##### Exports
+ - [NgxListBoostrapPaginationComponent](NgxListBoostrapPaginationComponent)
+ - [NgxListBoostrapRppComponent](NgxListBoostrapRppComponent)
+ - [NgxListBootstrapSortComponent](NgxListBootstrapSortComponent)
+
 
 #### NgxListBoostrapPaginationComponent
 An input group with prev/next and first/last buttons, and a dropdown with page numbers.
@@ -349,7 +354,7 @@ An input group with prev/next and first/last buttons, and a dropdown with page n
  - `selectId: string` Required. The id you want to be attached to the page dropdown.
  - `buttonClass: string` Optional. The Boostrap button class. Default: `'btn btn-outline-secondary'`.
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the input group. Default: `null`.
- - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass a options for this instance. Will overide whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+ - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
 #### NgxListBoostrapRppComponent
 
@@ -361,7 +366,7 @@ A dropdown to set the `recordsPerPage` of a list.
  - `list: NgxList` Required. The list.
  - `selectId: string` Required. The id you want to be attached to the dropdown.
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the select. Default: `null`.
- - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass a options for this instance. Will overide whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+ - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
 #### NgxListBoostrapSortComponent
 
@@ -373,8 +378,30 @@ A sort link with indicators, sutable for use in table headers.
  - `list: NgxList` Required. The list.
  - `key: string` Required. The dot-notated key of the column to sort by.
  - `defaultReversed: boolean` Optional. Whether the sort should be in reverse order when the key is selected. (Note that selecting the key when it is already selected toggles `reversed`.  Default: `false`.
- - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass a options for this instance. Will overide whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
- 
+ - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+
+#### interface INgxListBoostrapOptions
+
+Options to control language, markup, etc. for the bootstrap components. All keys are optional.
+
+- `firstPageButtonTitle?: string` Optional. Default: `'First Page'`. Used for `title` and `aria-label`.
+- `firstPageButtonHTML?: string` Optional. Default: `'&larrb;'` &larrb;. The `innerHTML` of the button.
+- `lastPageButtonTitle?: string` Optional. Default: `'Last Page'`. Used for `title` and `aria-label`.
+- `lastPageButtonHTML?: string`  Optional. Default: `'&rarrb;'` &rarrb;. The `innerHTML` of the button.
+- `prevPageButtonTitle?: string`  Optional. Default: `'Previous Page'`. Used for `title` and `aria-label`.
+- `prevPageButtonHTML?: string`  Optional. Default: `'&larr;'` &larr;. The `innerHTML` of the button.
+- `nextPageButtonTitle?: string` Optional. Default: `'Next Page'`. Used for `title` and `aria-label`.
+- `nextPageButtonHTML?: string` Optional. Default: `'&rarr;'` &rarr;. The `innerHTML` of the button.
+- `currentPageTitle?: string` Optional. Default: `'Current Page'`. Used as the `title` and `aria-label` of the pagination dropdown.
+- `recordsPerPageOptions?: number[]` Optional. The options for the rpp component. Default: `[10, 25, 50, 100]`
+- `recordsPerPageNoPagingLabel?: string` Optional. The label for the 'no paging option'. Default: `'No paging'`. Note that this will only have effect if you pass `0` as one of the `recordsPerPageOptions`.
+- `recordsPerPageLabel?: string` Optional. Default: `' per page'`. Inserted after the number in each option of the recordsPerPage dropdown.
+- `sortLabel?: string` Optional. Default: `'Sort List'`. Used as the `title` and `aria-label` for sort components.
+- `sortDescHTML?: string` Optional. Default:  &uarr; (`'&uarr;'`). The html to be used as the indicator when the sort component is selected and the the list is sorted in descending order (reversed).
+- `sortDescLabel?: string`  Optional. Default:  `'sorted in z-a order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in descending order (reversed).
+- `sortAscHTML?: string` Optional. Default:  &darr; (`'&darr;'`). The html to be used as the indicator when the sort component is selected and the the list is sorted in ascending order (not reversed).
+- `sortAscLabel?: string`  Optional. Default:  `'sorted in a-z order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in ascending order (not reversed).
+
 ## Notes
 
 ###### About the Lodash dependency

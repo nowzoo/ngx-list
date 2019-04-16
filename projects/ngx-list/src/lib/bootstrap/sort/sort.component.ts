@@ -19,7 +19,6 @@ export class NgxListBootstrapSortComponent implements OnInit, OnDestroy {
   @Input() list: NgxList;
   @Input() key: string;
   @Input() defaultReversed = false;
-  @Input() buttonClass = 'btn btn-link btn-sm';
   @Input() options: INgxListBoostrapOptions = null;
   selected = false;
   reversed = false;

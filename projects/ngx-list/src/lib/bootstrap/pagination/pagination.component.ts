@@ -21,7 +21,7 @@ export class NgxListBoostrapPaginationComponent implements OnInit, OnDestroy {
   @Input() list: NgxList;
   @Input() buttonClass = 'btn btn-outline-secondary';
   @Input() bootstrapSize: 'sm' | 'lg' = null;
-  @Input() labels: INgxListBoostrapOptions = null;
+  @Input() options: INgxListBoostrapOptions = null;
   control: FormControl;
   pageNumbers: number[] = [];
   prevDisabled = true;
@@ -52,7 +52,7 @@ export class NgxListBoostrapPaginationComponent implements OnInit, OnDestroy {
       {},
       NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS,
       this.defaultOptions || {},
-      this.labels || {}
+      this.options || {}
     );
   }
 
