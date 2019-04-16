@@ -339,9 +339,9 @@ The end product of the list.
 #### NgxListBootstrapModule
 
 ##### Exports
- - [NgxListBoostrapPaginationComponent](NgxListBoostrapPaginationComponent)
- - [NgxListBoostrapRppComponent](NgxListBoostrapRppComponent)
- - [NgxListBootstrapSortComponent](NgxListBootstrapSortComponent)
+ - [NgxListBoostrapPaginationComponent](#NgxListBoostrapPaginationComponent)
+ - [NgxListBoostrapRppComponent](#NgxListBoostrapRppComponent)
+ - [NgxListBootstrapSortComponent](#NgxListBootstrapSortComponent)
 
 
 #### NgxListBoostrapPaginationComponent
