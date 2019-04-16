@@ -385,13 +385,13 @@ A sort link with indicators, sutable for use in table headers.
 Options to control language, markup, etc. for the bootstrap components. All keys are optional.
 
 - `firstPageButtonTitle?: string` Optional. Default: `'First Page'`. Used for `title` and `aria-label`.
-- `firstPageButtonHTML?: string` Optional. Default: `'&larrb;'` &larrb;. The `innerHTML` of the button.
+- `firstPageButtonHTML?: string` Optional. Default: &larrb; (`'&larrb;'`). The `innerHTML` of the button.
 - `lastPageButtonTitle?: string` Optional. Default: `'Last Page'`. Used for `title` and `aria-label`.
-- `lastPageButtonHTML?: string`  Optional. Default: `'&rarrb;'` &rarrb;. The `innerHTML` of the button.
+- `lastPageButtonHTML?: string`  Optional. Default: &rarrb; (`'&rarrb;'`). The `innerHTML` of the button.
 - `prevPageButtonTitle?: string`  Optional. Default: `'Previous Page'`. Used for `title` and `aria-label`.
-- `prevPageButtonHTML?: string`  Optional. Default: `'&larr;'` &larr;. The `innerHTML` of the button.
+- `prevPageButtonHTML?: string`  Optional. Default: &larr; (`'&larr;'`). The `innerHTML` of the button.
 - `nextPageButtonTitle?: string` Optional. Default: `'Next Page'`. Used for `title` and `aria-label`.
-- `nextPageButtonHTML?: string` Optional. Default: `'&rarr;'` &rarr;. The `innerHTML` of the button.
+- `nextPageButtonHTML?: string` Optional. Default: &rarr; (`'&rarr;'`). The `innerHTML` of the button.
 - `currentPageTitle?: string` Optional. Default: `'Current Page'`. Used as the `title` and `aria-label` of the pagination dropdown.
 - `recordsPerPageOptions?: number[]` Optional. The options for the rpp component. Default: `[10, 25, 50, 100]`
 - `recordsPerPageNoPagingLabel?: string` Optional. The label for the 'no paging option'. Default: `'No paging'`. Note that this will only have effect if you pass `0` as one of the `recordsPerPageOptions`.
