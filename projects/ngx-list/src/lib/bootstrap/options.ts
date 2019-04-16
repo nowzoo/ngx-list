@@ -18,9 +18,10 @@ export interface INgxListBoostrapOptions {
   sortAscHTML?: string;
   sortAscLabel?: string;
 }
-export const NGX_LIST_BOOTSTRAP_OPTIONS = new InjectionToken<INgxListBoostrapOptions>(
-  'labels znd html for the list components'
-);
+export const NGX_LIST_BOOTSTRAP_OPTIONS: InjectionToken<INgxListBoostrapOptions> =
+  new InjectionToken<INgxListBoostrapOptions>(
+    'labels znd html for the list components'
+  );
 
 export const NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS: INgxListBoostrapOptions = {
   firstPageButtonTitle: 'First Page',

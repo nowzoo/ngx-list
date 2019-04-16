@@ -366,7 +366,7 @@ A dropdown to set the `recordsPerPage` of a list.
  - `list: NgxList` Required. The list.
  - `selectId: string` Required. The id you want to be attached to the dropdown.
  - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the select. Default: `null`.
- - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+ - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass options for this instance. Will override whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component. See [INgxListBoostrapOptions](#interface-ingxlistboostrapoptions)
 
 #### NgxListBoostrapSortComponent
 
@@ -401,6 +401,42 @@ Options to control language, markup, etc. for the bootstrap components. All keys
 - `sortDescLabel?: string`  Optional. Default:  `'sorted in z-a order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in descending order (reversed).
 - `sortAscHTML?: string` Optional. Default:  &darr; (`'&darr;'`). The html to be used as the indicator when the sort component is selected and the the list is sorted in ascending order (not reversed).
 - `sortAscLabel?: string`  Optional. Default:  `'sorted in a-z order'`. Screen reader text to be used when the sort component is selected and the the list is sorted in ascending order (not reversed).
+
+#### const NGX_LIST_BOOTSTRAP_OPTIONS
+
+`const NGX_LIST_BOOTSTRAP_OPTIONS: InjectionToken<INgxListBoostrapOptions>`
+
+Use this to set some or all of the component options, either in a module or in a component. Example:
+
+```ts
+import {
+  NgxListBootstrapModule,
+  NGX_LIST_BOOTSTRAP_OPTIONS,
+  INgxListBoostrapOptions
+} from '@nowzoo/ngx-list';
+
+// let's  use font awesome icons
+const myOptions: INgxListBoostrapOptions = {
+  firstPageButtonHTML: '<i class="fas fa-arrow-to-left"></i>',
+  lastPageButtonHTML: '<i class="fas fa-arrow-to-right"></i>',
+  prevPageButtonHTML: '<i class="fas fa-arrow-left"></i>',
+  nextPageButtonHTML: '<i class="fas fa-arrow-right"></i>',
+  sortAscHTML: '<i class="fas fa-arrow-down"></i>',
+  sortDescHTML: '<i class="fas fa-arrow-up"></i>',
+
+}
+@NgModule({
+  imports: [
+    NgxListBootstrapModule,
+  ],
+  providers: [
+
+  ]
+})
+export class MyModule { }
+
+```
+
 
 ## Notes
 
