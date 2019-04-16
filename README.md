@@ -440,11 +440,11 @@ export class MyModule { }
 ## Notes
 
 ### About the Lodash dependency
-Yeah, yeah, I know you can do everything Lodash does natively. But you can't do it as well or as consistently. So, Lodash.
+Yeah, I know I can do everything Lodash does natively. But I can't do it as well or as consistently. So, Lodash.
 
-The library uses a minimal set of Lodash functions, which will add about 7.5kB to the payload of your app, if you don't use other Lodash functions elsewhere. If you do use it elsewhere, make sure to use the following tree-shakeable import syntax:
+The library uses a minimal set of Lodash functions, which will add about 25kB (7.6kB gzipped) to the payload of your app, if you don't use other Lodash functions elsewhere. If you do use it elsewhere, make sure to use the following tree-shakeable import syntax:
 
-~~~ts
+```ts
 // good
 import chunk from 'lodash/chunk';
 import sortBy from 'lodash/sortBy';
@@ -452,6 +452,35 @@ import sortBy from 'lodash/sortBy';
 // import * as _ from 'lodash';
 // just as bad...
 // import { chunk, sortBy } from 'lodash';
-~~~
+```
 
 To make this compile for your code, you will probably have to add `"esModuleInterop": true, "allowSyntheticDefaultImports": true`  to `compilerOptions` in `tsconfig.json`. (You don't need to add it if you are not using Lodash elsewhere, only using the `ngx-list` library.)
+
+
+## Contributing
+
+Contributions and suggestions are welcome.
+
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+
+The code for the library itself is in `projects/ngx-list/src`.
+
+The demo app code is in `projects/ngx-list-demo/src`.
+
+```bash
+# clone the library...
+git clone https://github.com/nowzoo/ngx-list.git
+
+# install deps...
+npm i
+
+# build the library...
+ng build ngx-list
+
+# unit tests...
+ng test ngx-list
+# note there's also a wallaby.js config at projects/ngx-list/wallaby.js
+
+# serve the demo app ...
+ng serve ngx-list-demo
+```

@@ -3,11 +3,8 @@ import { NgxListBootstrapSortComponent } from './sort.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { NgxList } from '../../list';
-import { INgxListResult } from '../../shared';
 import {
-  INgxListBoostrapOptions,
   NGX_LIST_BOOTSTRAP_OPTIONS,
-  NGX_LIST_BOOTSTRAP_DEFAULT_OPTIONS
 } from '../options';
 
 
@@ -24,7 +21,7 @@ describe('from provider', () => {
       imports: [ReactiveFormsModule],
       providers: [
         {provide: NGX_LIST_BOOTSTRAP_OPTIONS, useValue: {
-          searchPlaceholder: 'foo'
+          currentPageTitle: 'foo'
         }}
       ]
     })
@@ -34,7 +31,7 @@ describe('from provider', () => {
     component.list = list;
   });
   it('should pick up the options from provider', () => {
-    expect(component.normalizedOptions.searchPlaceholder).toBe('foo');
+    expect(component.normalizedOptions.currentPageTitle).toBe('foo');
   });
 });
 describe('NgxListBootstrapSortComponent', () => {

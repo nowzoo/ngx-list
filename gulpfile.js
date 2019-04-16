@@ -13,7 +13,7 @@ gulp.task('build:lib', (cb) => {
 
 gulp.task('build:demo', (cb) => {
   const exec = require('child_process').exec;
-  exec('ng build ngx-list-demo --aot --prod --base-href /ngx-list/', function (err, stdout, stderr) {
+  exec('ng build ngx-list-demo --aot --prod --base-href /ngx-list/ --stats-json', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
@@ -29,7 +29,7 @@ gulp.task('build:copy', (cb) => {
   });
 });
 
-gulp.task('build', gulp.series('build:lib', 'build:copy'));
+gulp.task('build', gulp.series('build:lib', 'build:copy', 'build:demo'));
 
 
 
