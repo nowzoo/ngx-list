@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import {
   NgxList,
   NgxListFnFactory,
-  NgxListCompare,
   INgxListResult
  } from '@nowzoo/ngx-list';
 import { DataService } from '../data.service';
@@ -36,8 +35,7 @@ export class DemoComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private dataService: DataService,
-    private fb: FormBuilder
+    private dataService: DataService
   ) { }
 
   ngOnInit() {

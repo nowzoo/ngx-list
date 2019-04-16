@@ -4,6 +4,7 @@
 
 export * from './lib/shared';
 export * from './lib/list';
+export * from './lib/fn-factory';
 
 export * from './lib/bootstrap/pagination/pagination.component';
 export * from './lib/bootstrap/sort/sort.component';
