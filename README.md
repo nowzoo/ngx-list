@@ -1,6 +1,6 @@
 # @nowzoo/ngx-list
 
-Paginated, sorted and filtered lists from observables. The base library is agnostic as to styling and controls; a  set of Bootstrap 4 controls is available as a separate module.
+Paginated, sorted and filtered lists from observables. The base library is agnostic as to styling and controls; a  set of Bootstrap 4 controls is available as a separately imported module.
 
 
 
@@ -336,15 +336,45 @@ The end product of the list.
 
 ### Bootstrap Components API
 
+#### NgxListBootstrapModule
+
+
 #### NgxListBoostrapPaginationComponent
+An input group with prev/next and first/last buttons, and a dropdown with page numbers.
+
+`selector: 'ngx-list-bootstrap-pagination'`
 
 ##### Inputs
  - `list: NgxList` Required. The list.
  - `selectId: string` Required. The id you want to be attached to the page dropdown.
  - `buttonClass: string` Optional. The Boostrap button class. Default: `'btn btn-outline-secondary'`.
- - `bootstrapSize: 'sm' | 'lg'` Optional the Bootstrap size for the input group. Default: `null`.
+ - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the input group. Default: `null`.
  - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass a options for this instance. Will overide whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
 
+#### NgxListBoostrapRppComponent
+
+A dropdown to set the `recordsPerPage` of a list.
+
+`selector: 'ngx-list-bootstrap-rpp'`
+
+##### Inputs
+ - `list: NgxList` Required. The list.
+ - `selectId: string` Required. The id you want to be attached to the dropdown.
+ - `bootstrapSize: 'sm' | 'lg'` Optional. The Bootstrap size for the select. Default: `null`.
+ - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass a options for this instance. Will overide whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+
+#### NgxListBoostrapSortComponent
+
+A sort link with indicators, sutable for use in table headers.
+
+`selector: 'ngx-list-bootstrap-sort'`
+
+##### Inputs
+ - `list: NgxList` Required. The list.
+ - `key: string` Required. The dot-notated key of the column to sort by.
+ - `defaultReversed: boolean` Optional. Whether the sort should be in reverse order when the key is selected. (Note that selecting the key when it is already selected toggles `reversed`.  Default: `false`.
+ - `options: INgxListBoostrapOptions` Optional. Default: `null`. Pass a options for this instance. Will overide whatever was `provide`d for `NGX_LIST_BOOTSTRAP_OPTIONS` in the module or component.
+ 
 ## Notes
 
 ###### About the Lodash dependency
