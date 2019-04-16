@@ -447,7 +447,7 @@ const myOptions: INgxListBoostrapOptions = {
 export class MyModule { }
 
 ```
-
+-----
 
 ## Notes
 
