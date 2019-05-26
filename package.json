@@ -10,7 +10,7 @@
     "bundle-report": "webpack-bundle-analyzer docs/stats.json",
     "compodoc": "compodoc -p ./projects/ngx-list/tsconfig.lib.json --output ./docs/docs  --disablePrivate --disableProtected",
     "buildlib": "ng build ngx-list",
-    "builddemo": "ng build ngx-list-demo --aot --prod --base-href /ngx-list --output-path docs",
+    "builddemo": "ng build ngx-list-demo --aot --prod --base-href /ngx-list/ --output-path docs",
     "copyfiles": "cp README.md LICENSE dist/ngx-list",
     "build": "run-s buildlib copyfiles builddemo compodoc"
   },
