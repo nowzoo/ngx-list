@@ -1,0 +1,1172 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-list documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ngx-list documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>NgxList</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/ngx-list/src/lib/list.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#destroy">destroy</a>
+                            </li>
+                            <li>
+                                <a href="#setFilterValue">setFilterValue</a>
+                            </li>
+                            <li>
+                                <a href="#setPage">setPage</a>
+                            </li>
+                            <li>
+                                <a href="#setRecordsPerPage">setRecordsPerPage</a>
+                            </li>
+                            <li>
+                                <a href="#setSort">setSort</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#result$">result$</a>
+                                </li>
+                                <li>
+                                    <a href="#result">result</a>
+                                </li>
+                                <li>
+                                    <a href="#records">records</a>
+                                </li>
+                                <li>
+                                    <a href="#page">page</a>
+                                </li>
+                                <li>
+                                    <a href="#recordsPerPage">recordsPerPage</a>
+                                </li>
+                                <li>
+                                    <a href="#sort">sort</a>
+                                </li>
+                                <li>
+                                    <a href="#filterValues">filterValues</a>
+                                </li>
+                                <li>
+                                    <a href="#pageCount">pageCount</a>
+                                </li>
+                                <li>
+                                    <a href="#recordCount">recordCount</a>
+                                </li>
+                                <li>
+                                    <a href="#unfilteredRecordCount">unfilteredRecordCount</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(options: <a href="../interfaces/INgxListInit.html">INgxListInit</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/ngx-list/src/lib/list.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Create a list.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>options</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/INgxListInit.html" target="_self" >INgxListInit</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroy"></a>
+                    <span class="name">
+                        <b>
+                            destroy
+                        </b>
+                        <a href="#destroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>destroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="139"
+                            class="link-to-prism">projects/ngx-list/src/lib/list.ts:139</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Unsubscribes from the list source and cleans up.
+Make sure to call this in your component&#39;s <code>ngOnDestroy</code> method.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setFilterValue"></a>
+                    <span class="name">
+                        <b>
+                            setFilterValue
+                        </b>
+                        <a href="#setFilterValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setFilterValue(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="175"
+                            class="link-to-prism">projects/ngx-list/src/lib/list.ts:175</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Set a filter value.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setPage"></a>
+                    <span class="name">
+                        <b>
+                            setPage
+                        </b>
+                        <a href="#setPage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setPage(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="150"
+                            class="link-to-prism">projects/ngx-list/src/lib/list.ts:150</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Set the page to be displayed. Zero-based.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setRecordsPerPage"></a>
+                    <span class="name">
+                        <b>
+                            setRecordsPerPage
+                        </b>
+                        <a href="#setRecordsPerPage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setRecordsPerPage(recordsPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="159"
+                            class="link-to-prism">projects/ngx-list/src/lib/list.ts:159</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Set the recordsPerPage.
+Pass <code>0</code> for unpaged (all records appear one page.)</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>recordsPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setSort"></a>
+                    <span class="name">
+                        <b>
+                            setSort
+                        </b>
+                        <a href="#setSort"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setSort(sort: literal type)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="168"
+                            class="link-to-prism">projects/ngx-list/src/lib/list.ts:168</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Set the sort key and whether the list should be reversed.
+Pass true for reversed if you want the list to be sorted in descending (z-a) order</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>sort</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+            <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="result$"></a>
+                        <span class="name"><b>result$</b><a href="#result$"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>result$()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/ngx-list/src/lib/list.ts:64</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>An observable of <a href="../interfaces/INgxListResult.html">INgxListResult</a>.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/INgxListResult.html" target="_self" >Observable&lt;INgxListResult&gt;</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="result"></a>
+                        <span class="name"><b>result</b><a href="#result"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>result()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/ngx-list/src/lib/list.ts:71</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The latest <a href="../interfaces/INgxListResult.html">INgxListResult</a>.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/INgxListResult.html" target="_self" >INgxListResult</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="records"></a>
+                        <span class="name"><b>records</b><a href="#records"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>records()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">projects/ngx-list/src/lib/list.ts:78</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The records that belong to the current page.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>any[]</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="page"></a>
+                        <span class="name"><b>page</b><a href="#page"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>page()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">projects/ngx-list/src/lib/list.ts:87</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The current page number, zero-based. If there are records, this
+will be between <code>0</code> and <code><a href="../classes/NgxList.html#pageCount">pageCount</a> - 1</code>.
+If there are no records, it will be <code>-1</code>.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="recordsPerPage"></a>
+                        <span class="name"><b>recordsPerPage</b><a href="#recordsPerPage"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>recordsPerPage()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">projects/ngx-list/src/lib/list.ts:94</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The current recordsPerPage.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sort"></a>
+                        <span class="name"><b>sort</b><a href="#sort"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>sort()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/ngx-list/src/lib/list.ts:101</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The current sort column.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>literal type</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filterValues"></a>
+                        <span class="name"><b>filterValues</b><a href="#filterValues"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>filterValues()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">projects/ngx-list/src/lib/list.ts:108</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The current filter values.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>literal type</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="pageCount"></a>
+                        <span class="name"><b>pageCount</b><a href="#pageCount"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>pageCount()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">projects/ngx-list/src/lib/list.ts:115</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The current number of pages.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="recordCount"></a>
+                        <span class="name"><b>recordCount</b><a href="#recordCount"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>recordCount()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">projects/ngx-list/src/lib/list.ts:123</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The number of records after applying filters.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="unfilteredRecordCount"></a>
+                        <span class="name"><b>unfilteredRecordCount</b><a href="#unfilteredRecordCount"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>unfilteredRecordCount()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">projects/ngx-list/src/lib/list.ts:130</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The number of records before applying filters.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Observable, BehaviorSubject, Subscription, combineLatest } from &#x27;rxjs&#x27;;
+
+import chunk from &#x27;lodash/chunk&#x27;;
+import isFunction from &#x27;lodash/isFunction&#x27;;
+
+import {
+  NgxListFilterFn,
+  NgxListSortFn,
+  INgxListResult,
+  INgxListParams,
+  INgxListInit
+} from &#x27;./shared&#x27;;
+
+import { NgxListFnFactory } from &#x27;./fn-factory&#x27;;
+
+
+export class NgxList {
+
+  private _src$: Observable&lt;any[]&gt;;
+  private _idKey: string;
+  private _subscription: Subscription &#x3D; null;
+  private _params$: BehaviorSubject&lt;INgxListParams&gt;;
+  private _result$: BehaviorSubject&lt;INgxListResult&gt;;
+  private _filters: {[key: string]: NgxListFilterFn};
+  private _sortFn: NgxListSortFn;
+
+
+  /**
+   * Create a list.
+   */
+  constructor(options: INgxListInit) {
+    this._src$ &#x3D; options.src$;
+    this._idKey &#x3D; options.idKey;
+    const params: INgxListParams &#x3D; {page: null, recordsPerPage: null, sort: null,  filterValues: null};
+    params.page &#x3D; parseInt(options.page as any, 10);
+    if (isNaN(params.page) || params.page &lt; 0) {
+      params.page &#x3D; 0;
+    }
+    params.recordsPerPage &#x3D; parseInt(options.recordsPerPage as any, 10);
+    if (isNaN(params.recordsPerPage) || params.recordsPerPage &lt; 0) {
+      params.recordsPerPage &#x3D; 10;
+    }
+    params.sort &#x3D; Object.assign({key: this._idKey, reversed: false}, options.sort || {});
+    params.filterValues &#x3D; options.filterValues &amp;&amp; typeof options.filterValues &#x3D;&#x3D;&#x3D; &#x27;object&#x27; ?
+      options.filterValues : {};
+    this._filters &#x3D; options.filters || {};
+    this._params$ &#x3D; new BehaviorSubject(params);
+    const initialResult: INgxListResult &#x3D; Object.assign({}, params, {
+      records: [], pageCount: 0, recordCount: 0, unfilteredRecordCount: 0
+    });
+    this._sortFn &#x3D; isFunction(options.sortFn) ?
+      options.sortFn : NgxListFnFactory.sortFn({caseSensitive: true, fallbackSortColumn: this._idKey});
+    this._result$ &#x3D; new BehaviorSubject(initialResult) ;
+    this._subscription &#x3D; combineLatest(this._src$, this._params$)
+      .subscribe((results: [any[], INgxListParams]) &#x3D;&gt; {
+        this._update(...results);
+      });
+
+  }
+
+  /**
+   * An observable of {@link INgxListResult}.
+   */
+  get result$(): Observable&lt;INgxListResult&gt; {
+    return this._result$.asObservable();
+  }
+
+  /**
+   * The latest {@link INgxListResult}.
+   */
+  get result(): INgxListResult {
+    return this._result$.value;
+  }
+
+  /**
+   * The records that belong to the current page.
+   */
+  get records(): any[] {
+    return this.result.records;
+  }
+
+  /**
+   * The current page number, zero-based. If there are records, this
+   * will be between &#x60;0&#x60; and &#x60;[pageCount]{@link NgxList#pageCount} - 1&#x60;.
+   * If there are no records, it will be &#x60;-1&#x60;.
+   */
+  get page(): number {
+    return this.result.page;
+  }
+
+  /**
+   * The current recordsPerPage.
+   */
+  get recordsPerPage(): number {
+    return this.result.recordsPerPage;
+  }
+
+  /**
+   * The current sort column.
+   */
+  get sort(): {key: string, reversed: boolean} {
+    return Object.assign({}, this._params$.value.sort);
+  }
+
+  /**
+   * The current filter values.
+   */
+  get filterValues(): {[key: string]: any} {
+    return Object.assign({}, this._params$.value.filterValues);
+  }
+
+  /**
+   * The current number of pages.
+   */
+  get pageCount(): number {
+    return this.result.pageCount;
+  }
+
+
+  /**
+   * The number of records after applying filters.
+   */
+  get recordCount(): number {
+    return this.result.recordCount;
+  }
+
+  /**
+   * The number of records before applying filters.
+   */
+  get unfilteredRecordCount(): number {
+    return this.result.unfilteredRecordCount;
+  }
+
+
+  /**
+   * Unsubscribes from the list source and cleans up.
+   * Make sure to call this in your component&#x27;s &#x60;ngOnDestroy&#x60; method.
+   */
+  destroy(): void {
+    this._subscription.unsubscribe();
+    this._params$.complete();
+    this._result$.complete();
+
+  }
+
+
+  /**
+   * Set the page to be displayed. Zero-based.
+   */
+  setPage(page: number): void {
+    page &#x3D; Math.max(0, page);
+    this._params$.next(Object.assign({}, this._params$.value, {page}));
+  }
+
+  /**
+   * Set the recordsPerPage.
+   * Pass &#x60;0&#x60; for unpaged (all records appear one page.)
+   */
+  setRecordsPerPage(recordsPerPage: number): void {
+    recordsPerPage &#x3D; Math.max(0, recordsPerPage);
+    this._params$.next(Object.assign({}, this._params$.value, {recordsPerPage, page: 0}));
+  }
+
+  /**
+   * Set the sort key and whether the list should be reversed.
+   * Pass true for reversed if you want the list to be sorted in descending (z-a) order
+   */
+  setSort(sort: {key: string, reversed: boolean}): void {
+    this._params$.next(Object.assign({}, this._params$.value, {sort, page: 0}));
+  }
+
+  /**
+   * Set a filter value.
+   */
+  setFilterValue(key: string, value: any): void {
+    const params &#x3D; Object.assign({}, this._params$.value);
+    params.filterValues[key] &#x3D; value;
+    params.page &#x3D; 0;
+    this._params$.next(params);
+  }
+
+
+  /**
+   * Update the list when...
+   * (1) the source records have changed,
+   * (2) the list params have changed.
+   * @param  srcRecords The latest source records.
+   * @param  listParams The latest list params.
+   */
+  private _update(srcRecords: any[], listParams: INgxListParams) {
+
+    const unfilteredRecordCount &#x3D; srcRecords.length;
+    let results &#x3D; srcRecords.slice(0);
+    Object.keys(this._filters).forEach(key &#x3D;&gt; {
+      const fn &#x3D; this._filters[key];
+      results &#x3D; fn(results, listParams.filterValues[key]);
+    });
+    results &#x3D; this._sortFn(results, listParams.sort.key);
+    if (listParams.sort.reversed) {
+      results.reverse();
+    }
+    const recordsPerPage &#x3D; Math.max(0, listParams.recordsPerPage);
+    const recordCount &#x3D; results.length;
+    const pages &#x3D; recordsPerPage &gt; 0 ? chunk(results, recordsPerPage) : [results];
+    const pageCount &#x3D; pages.length;
+    const page &#x3D; Math.min(pageCount - 1, Math.max(0, listParams.page));
+    const records &#x3D; pageCount &gt; 0 ? pages[page] : [];
+    const result: INgxListResult &#x3D; Object.assign({}, listParams, {
+      records, recordCount, pageCount,  unfilteredRecordCount,
+      // add these in because they may have changed...
+      recordsPerPage, page
+    });
+    this._result$.next(result);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'NgxList.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
